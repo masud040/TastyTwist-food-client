@@ -1,0 +1,158 @@
+[
+  {
+    "id": 1,
+    "name": "Spice Paradise",
+    "cuisine": "Indian",
+    "rating": 4.5,
+    "delivery_time": 45,
+    "delivery_fee": 2.99,
+    "image_url": "https://i.ibb.co/zH8hL80/pexels-valeria-boltneva-1639557.jpg",
+    "menu": [
+      {
+        "id": 201,
+        "name": "Chicken Tikka Masala",
+        "price": 15.99,
+        "description": "Grilled chicken in a creamy tomato sauce",
+        "image_url": "https://example.com/chicken-tikka-masala.jpg"
+      },
+      {
+        "id": 202,
+        "name": "Vegetable Biryani",
+        "price": 12.99,
+        "description": "Mixed vegetables cooked with fragrant basmati rice",
+        "image_url": "https://example.com/vegetable-biryani.jpg"
+      },
+      {
+        "id": 203,
+        "name": "Paneer Butter Masala",
+        "price": 14.99,
+        "description": "Paneer cubes in a rich and creamy tomato gravy",
+        "image_url": "https://example.com/paneer-butter-masala.jpg"
+      },
+      {
+        "id": 204,
+        "name": "Garlic Naan",
+        "price": 3.99,
+        "description": "Soft bread with a garlic butter glaze",
+        "image_url": "https://example.com/garlic-naan.jpg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Sushi Delight",
+    "cuisine": "Japanese",
+    "rating": 4.8,
+    "delivery_time": 35,
+    "delivery_fee": 4.5,
+    "image_url": "https://i.ibb.co/4jWwYRD/pexels-pablo-macedo-845811.jpg",
+    "menu": [
+      {
+        "id": 301,
+        "name": "Dragon Roll",
+        "price": 18.99,
+        "description": "Eel, avocado, and cucumber wrapped in seaweed",
+        "image_url": "https://example.com/dragon-roll.jpg"
+      },
+      {
+        "id": 302,
+        "name": "Miso Soup",
+        "price": 4.99,
+        "description": "Soybean paste soup with tofu and seaweed",
+        "image_url": "https://example.com/miso-soup.jpg"
+      },
+      {
+        "id": 303,
+        "name": "Sashimi Platter",
+        "price": 22.99,
+        "description": "Assorted raw fish slices served with wasabi and soy sauce",
+        "image_url": "https://example.com/sashimi-platter.jpg"
+      },
+      {
+        "id": 304,
+        "name": "Tempura Udon",
+        "price": 14.99,
+        "description": "Udon noodles with tempura shrimp and vegetables",
+        "image_url": "https://example.com/tempura-udon.jpg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pizza Haven",
+    "cuisine": "Italian",
+    "rating": 4.2,
+    "delivery_time": 30,
+    "delivery_fee": 3.99,
+    "image_url": "https://i.ibb.co/CWyFtm1/pexels-chan-walrus-958545.jpg",
+    "menu": [
+      {
+        "id": 401,
+        "name": "Pepperoni Pizza",
+        "price": 14.99,
+        "description": "Classic pizza with pepperoni and mozzarella",
+        "image_url": "https://example.com/pepperoni-pizza.jpg"
+      },
+      {
+        "id": 402,
+        "name": "Caprese Salad",
+        "price": 8.99,
+        "description": "Fresh tomatoes, mozzarella, and basil with balsamic glaze",
+        "image_url": "https://example.com/caprese-salad.jpg"
+      },
+      {
+        "id": 403,
+        "name": "Pesto Chicken Pasta",
+        "price": 16.99,
+        "description": "Pasta with grilled chicken in a basil pesto sauce",
+        "image_url": "https://example.com/pesto-chicken-pasta.jpg"
+      },
+      {
+        "id": 404,
+        "name": "Garlic Knots",
+        "price": 5.99,
+        "description": "Baked dough knots with garlic butter",
+        "image_url": "https://example.com/garlic-knots.jpg"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Burger Junction",
+    "cuisine": "American",
+    "rating": 4.6,
+    "delivery_time": 25,
+    "delivery_fee": 5.99,
+    "image_url": "https://i.ibb.co/zmDyHbS/pexels-pixabay-262978.jpg",
+    "menu": [
+      {
+        "id": 501,
+        "name": "Classic Cheeseburger",
+        "price": 10.99,
+        "description": "Beef patty, cheddar cheese, lettuce, and tomato",
+        "image_url": "https://example.com/classic-cheeseburger.jpg"
+      },
+      {
+        "id": 502,
+        "name": "Sweet Potato Fries",
+        "price": 4.49,
+        "description": "Crispy sweet potato fries with a side of aioli",
+        "image_url": "https://example.com/sweet-potato-fries.jpg"
+      },
+      {
+        "id": 503,
+        "name": "BBQ Pulled Pork Sandwich",
+        "price": 12.99,
+        "description": "Shredded pork in barbecue sauce on a bun",
+        "image_url": "https://example.com/bbq-pulled-pork.jpg"
+      },
+      {
+        "id": 504,
+        "name": "Chocolate Shake",
+        "price": 6.99,
+        "description": "Creamy chocolate milkshake with whipped cream",
+        "image_url": "https://example.com/chocolate-shake.jpg"
+      }
+    ]
+  }
+]
