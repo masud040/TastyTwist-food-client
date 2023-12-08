@@ -24,6 +24,7 @@
     "react-parallax": "^3.5.1",
     "react-rating": "^2.0.5",
     "react-router-dom": "^6.20.1",
+    "react-spinners": "^0.13.8",
     "sort-by": "^1.2.0",
     "swiper": "^11.0.5"
   },

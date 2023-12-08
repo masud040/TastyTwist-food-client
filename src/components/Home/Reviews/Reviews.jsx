@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
 import ReviewCard from "../../Card/ReviewCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./review.css";
 import { Autoplay, Pagination } from "swiper/modules";
+import { useQuery } from "@tanstack/react-query";
+import { getAllReviews } from "../../../utils/getReviews";
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
-  useEffect(() => {
-    fetch("../../../../public/reviews.json")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+  const { data: reviews } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => await getAllReviews(),
+  });
 
   return (
     <div className="container my-12 w-full mx-auto p-4 py-6 rounded-xl ">
@@ -31,7 +30,7 @@ const Reviews = () => {
         className="mySwiper"
       >
         {reviews?.map((review) => (
-          <SwiperSlide key={review.id}>
+          <SwiperSlide key={review._id}>
             <ReviewCard userReview={review} />
           </SwiperSlide>
         ))}

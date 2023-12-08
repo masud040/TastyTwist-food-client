@@ -1,69 +1,59 @@
 [
   {
-    "id": 1,
     "buyer_name": "Alice",
     "buyer_image": "https://i.ibb.co/GJHw7VN/oguz-yagiz-kara-MZf0m-I14-RI0-unsplash.jpg",
     "rating": 4.5,
     "review": "Great food, fast delivery! Will order again."
   },
   {
-    "id": 2,
     "buyer_name": "Bob",
     "buyer_image": "https://i.ibb.co/6JSwcLL/alexander-hipp-i-EEBWg-Y-6l-A-unsplash.jpg",
     "rating": 5.0,
     "review": "Amazing sushi! Best I've had in a long time."
   },
   {
-    "id": 3,
     "buyer_name": "Charlie",
     "buyer_image": "https://i.ibb.co/b68bVgq/christian-buehner-DIt-Ylc26z-VI-unsplash.jpg",
     "rating": 3.8,
     "review": "Good pizza, arrived a bit late. Satisfactory overall experience."
   },
   {
-    "id": 4,
     "buyer_name": "David",
     "buyer_image": "https://i.ibb.co/GVyQ63T/freestocks-9-UVml-Ib0w-JU-unsplash.jpg",
     "rating": 4.2,
     "review": "Tasty burgers, fries were a bit cold. Overall a good experience."
   },
   {
-    "id": 5,
     "buyer_name": "Eva",
     "buyer_image": "https://i.ibb.co/dDpcgWZ/jake-nackos-IF9-TK5-Uy-KI-unsplash.jpg",
     "rating": 4.9,
     "review": "Excellent service! The curry was delicious. Will order again for sure."
   },
   {
-    "id": 6,
     "buyer_name": "Frank",
     "buyer_image": "https://i.ibb.co/PrZRmqj/michael-dam-m-EZ3-Po-FGs-k-unsplash.jpg",
     "rating": 3.5,
     "review": "Average experience, okay food. Expected better for the price."
   },
   {
-    "id": 7,
     "buyer_name": "Grace",
     "buyer_image": "https://i.ibb.co/mRJLVvB/sigmund-jzz-3j-WMz-HA-unsplash.jpg",
     "rating": 4.7,
     "review": "Fast delivery, quality meals. A reliable option for quick and tasty food."
   },
   {
-    "id": 8,
     "buyer_name": "Harry",
     "buyer_image": "https://i.ibb.co/zmy1s2J/pexels-pixabay-415829.jpg",
     "rating": 4.0,
     "review": "Satisfactory. Decent food, but not exceptional. Might try other options next time."
   },
   {
-    "id": 9,
     "buyer_name": "Ivy",
     "buyer_image": "https://i.ibb.co/GJHw7VN/oguz-yagiz-kara-MZf0m-I14-RI0-unsplash.jpg",
     "rating": 5.0,
     "review": "Perfect! Loved every bite. Flavors were amazing, and delivery was on time."
   },
   {
-    "id": 10,
     "buyer_name": "Jack",
     "buyer_image": "https://i.ibb.co/61FcLV9/leio-mclaren-L2d-Tmh-Qzx4-Q-unsplash.jpg",
     "rating": 4.2,
