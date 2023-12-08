@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 import { getOneRestaurant } from "../../utils/getOneRestaurant";
 import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
 import Categories from "../../components/RestaurantMenu/Categories/Categories";
