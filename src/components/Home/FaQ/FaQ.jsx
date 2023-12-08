@@ -3,18 +3,18 @@ import {
   AccordionBody,
   AccordionHeader,
 } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getAllFaqs } from "../../../utils/getAllFaqs";
 
 const FaQ = () => {
-  const [faqs, setFaq] = useState([]);
   const [open, setOpen] = useState(1);
 
-  useEffect(() => {
-    fetch("faqs.json")
-      .then((res) => res.json())
-      .then((data) => setFaq(data));
-  }, []);
+  const { data: faqs } = useQuery({
+    queryKey: ["faqs"],
+    queryFn: async () => await getAllFaqs(),
+  });
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (

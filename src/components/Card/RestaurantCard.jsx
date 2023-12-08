@@ -4,11 +4,11 @@ import Rating from "react-rating";
 import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }) => {
-  const { id, name, cuisine, rating, delivery_fee, image_url } =
+  const { name, email, cuisine, rating, delivery_fee, image_url } =
     restaurant || {};
 
   return (
-    <Link to={`/restaurant-menu/${id}`}>
+    <Link to={`/restaurant-menu/${email}`}>
       <div className="text-dark-gray rounded-t-2xl border shadow-md rounded-b-xl">
         <img
           src={image_url}

@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Carts />,
       },
       {
-        path: "restaurant-menu/:id",
+        path: "restaurant-menu/:email",
         element: <RestaurantMenu />,
       },
     ],

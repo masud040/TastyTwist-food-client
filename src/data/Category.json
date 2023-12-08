@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Popular",
+    "description": "Diverse and trending culinary delights."
+  },
+  {
+    "label": "Pizza",
+    "description": "Classic and flavorful pizza creations."
+  },
+  {
+    "label": "Burger",
+    "description": "Satisfying and juicy burger variations."
+  },
+  {
+    "label": "Briyani",
+    "description": "Aromatic and flavorful rice dish."
+  },
+  {
+    "label": "Soup",
+    "description": "Warm and comforting soup choices."
+  },
+  {
+    "label": "Drinks",
+    "description": "Refreshing beverages for every taste."
+  }
+]

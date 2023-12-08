@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
 import RestaurantCard from "../../Card/RestaurantCard";
 import { getRestaurants } from "../../../utils/getRestaurants";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../Spinner/Spinner";
 
 const Restaurant = () => {
-  // const [restaurants, setRestaurants] = useState([]);
-  // useEffect(() => {
-  //   fetch("restaurants.json")
-  //     .then((res) => res.json())
-  //     .then((data) => setRestaurants(data));
-  // }, []);
   const { data: restaurants, isLoading } = useQuery({
     queryKey: ["restaurants"],
     queryFn: async () => await getRestaurants(),
