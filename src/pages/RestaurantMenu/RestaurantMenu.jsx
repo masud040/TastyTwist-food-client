@@ -18,7 +18,11 @@ const RestaurantMenu = () => {
   return (
     <div>
       <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
-      <Categories email={email} currentCategory={category} />
+      <Categories
+        email={email}
+        currentCategory={category ? category : "popular"}
+      />
+
       <Menu email={email} />
     </div>
   );

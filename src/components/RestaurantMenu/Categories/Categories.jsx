@@ -16,7 +16,7 @@ const Categories = ({ email, currentCategory }) => {
       currentQuery = queryString.parse(params.toString());
     }
 
-    const updateQuery = { ...currentQuery, category: label };
+    const updateQuery = { ...currentQuery, category: label.toLowerCase() };
 
     const url = queryString.stringifyUrl({
       url: "/",
@@ -28,8 +28,8 @@ const Categories = ({ email, currentCategory }) => {
   return (
     <>
       <div
-        className="flex mt-8 bg-gray-50 rounded-xl
-     gap-5 justify-between items-center text-dark-gray px-4"
+        className="flex flex-wrap mt-8 bg-gray-50 rounded-xl
+     gap-3 justify-between items-center text-dark-gray px-4"
       >
         <button
           onClick={() => setIsOpen(true)}
@@ -41,7 +41,7 @@ const Categories = ({ email, currentCategory }) => {
           <p
             onClick={() => handleSetQuery(category.label)}
             className={`${
-              currentCategory === category?.label
+              currentCategory === category?.label.toLowerCase()
                 ? "text-lg hover:bg-pink-50 text-center py-3 px-2 transition-all  border-b-4 border-primary"
                 : "text-lg hover:bg-pink-50 text-center py-3 px-2 transition-all  border-b-4 border-gray-400"
             }`}
