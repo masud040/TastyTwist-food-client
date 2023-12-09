@@ -31,7 +31,7 @@ const SignIn = () => {
                   id="email"
                   required
                   placeholder="Enter Your Email Here"
-                  className="w-full px-3 py-2 border rounded-md  focus:outline-none bg-gray-200 text-gray-900"
+                  className="w-full px-3 py-2 border rounded-md  focus:outline-none focus:border-red-400  bg-gray-200 text-gray-900"
                   data-temp-mail-org="0"
                 />
               </div>
@@ -48,13 +48,13 @@ const SignIn = () => {
                   id="password"
                   required
                   placeholder="*******"
-                  className="w-full px-3 py-2 border rounded-md focus:outline-none bg-gray-200 text-gray-900"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-red-400 bg-gray-200 text-gray-900"
                 />
               </div>
             </div>
 
             <div className=" w-full rounded-md bg-gradient-to-r from-[#3a4cd8] my-3 via-indigo-500 to-[#9058e7] p-[1px] ">
-              <button className=" justify-center items-center space-x-2  bg-[#131237] text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back">
+              <button className=" justify-center items-center space-x-2  bg-[#131237] text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back hover:shadow-xl">
                 Continue
               </button>
             </div>
