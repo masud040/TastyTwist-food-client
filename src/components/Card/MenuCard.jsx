@@ -1,7 +1,10 @@
 import { IoMdAdd } from "react-icons/io";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 const MenuCard = ({ item }) => {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const { _id, name, price, description, image_url } = item || {};
   const addToCart = async () => {
     const orderInfo = {
@@ -10,7 +13,18 @@ const MenuCard = ({ item }) => {
       id: _id,
       price: price,
       image: image_url,
+      count: 1,
     };
+    const { data } = await axiosSecure.post("/carts", orderInfo);
+    if (data.insertedId) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `${name} is added`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (
