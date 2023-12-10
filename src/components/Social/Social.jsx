@@ -4,17 +4,18 @@ import useAuth from "../../hooks/useAuth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { saveUser } from "../../api/auth";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const googleProvider = new GoogleAuthProvider();
 const Social = () => {
   const { signInWithSocial } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const handleLogin = async () => {
     const { user } = await signInWithSocial(googleProvider);
     await saveUser(user);
     toast.success("Login successful");
-    navigate("/");
+    navigate(state ? state : "/");
   };
   return (
     <div

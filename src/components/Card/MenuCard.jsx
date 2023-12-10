@@ -1,6 +1,17 @@
 import { IoMdAdd } from "react-icons/io";
+import useAuth from "../../hooks/useAuth";
 const MenuCard = ({ item }) => {
+  const { user } = useAuth();
   const { _id, name, price, description, image_url } = item || {};
+  const addToCart = async () => {
+    const orderInfo = {
+      email: user?.email,
+      name: name,
+      id: _id,
+      price: price,
+      image: image_url,
+    };
+  };
 
   return (
     <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
@@ -18,7 +29,10 @@ const MenuCard = ({ item }) => {
           transition w-[120px]"
           alt=""
         />
-        <button className="absolute bottom-2 right-1 hover:bg-pink-100 transition-all delay-100  text-3xl bg-pink-50  rounded-full text-primary">
+        <button
+          onClick={addToCart}
+          className="absolute bottom-2 right-1 hover:bg-pink-100 transition-all delay-100  text-3xl bg-pink-50  rounded-full text-primary"
+        >
           <IoMdAdd />
         </button>
       </div>

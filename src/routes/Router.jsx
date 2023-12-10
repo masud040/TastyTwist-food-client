@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import NotFound from "../pages/NotFound/NotFound";
 import Home from "../pages/Home/Home";
 import RestaurantMenu from "../pages/RestaurantMenu/RestaurantMenu";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -24,11 +25,20 @@ const router = createBrowserRouter([
       },
       {
         path: "carts",
-        element: <Carts />,
+        element: (
+          <PrivateRoute>
+            <Carts />
+          </PrivateRoute>
+        ),
       },
       {
         path: "restaurant-menu/:email",
-        element: <RestaurantMenu />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <RestaurantMenu />
+          </PrivateRoute>
+        ),
       },
     ],
   },

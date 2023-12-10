@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Lottie from "lottie-react";
 import LoginAnimation from "../../animation/LoginAnimation.json";
@@ -11,13 +11,19 @@ import toast from "react-hot-toast";
 const SignIn = () => {
   const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const email = form.email?.value;
     const password = form.password?.value;
     await signIn(email, password);
     toast.success("Login Successfully");
+    setLoading(false);
+    navigate(state ? state : "/");
   };
   return (
     <Container>
@@ -66,7 +72,7 @@ const SignIn = () => {
                 </div>
               </div>
 
-              <div className=" w-full rounded-md bg-gradient-to-r from-[#3a4cd8] my-3 via-indigo-500 to-[#9058e7] p-[1px] ">
+              <div className="  w-full rounded-md bg-gradient-to-r from-[#3a4cd8] my-3 via-indigo-500 to-[#9058e7] p-[1px] ">
                 <button className=" justify-center items-center space-x-2  bg-[#131237] text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back hover:shadow-xl">
                   {loading ? (
                     <TbFidgetSpinner className="text-3xl text-primary animate-spin" />
