@@ -29,7 +29,7 @@ const CartSidebar = ({ showCart, email }) => {
           </div>
 
           <div className="flex flex-col justify-between flex-1 mt-6 px-1">
-            {orders ? (
+            {orders && orders?.length > 0 ? (
               orders?.map((order) => <CartCard key={order._id} order={order} />)
             ) : (
               <h2 className="text-center mt-6 font-bold text-xl text-gray-900">

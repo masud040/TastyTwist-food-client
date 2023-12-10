@@ -10,7 +10,7 @@ const MenuDropDown = ({ isOpen }) => {
   };
   return (
     isOpen && (
-      <div className="absolute  rounded-b-xl shadow-md w-[30vw] md:w-[20vw] lg:w-[15vw]  bg-white overflow-hidden right-0 top-[44px] text-sm">
+      <div className="absolute z-20 overflow-x-hidden rounded-b-xl shadow-md w-[30vw] md:w-[20vw] lg:w-[15vw] transition duration-200 bg-white  right-0 top-[59px] text-sm">
         {user ? (
           <div className="flex flex-col cursor-pointer">
             <Link

@@ -1,5 +1,5 @@
 const CartCard = ({ order }) => {
-  const { _id, email, name, id, price, image, count } = order || {};
+  const { name, price, image, count } = order || {};
   return (
     <div className="flex justify-between items-center">
       <img src={image} className="w-20 rounded-xl" alt="" />
