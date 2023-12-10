@@ -1,9 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import LoginAnimation from "../../animation/LoginAnimation.json";
 import Social from "../../components/Social/Social";
 import Container from "../../components/Container/Container";
+import useAuth from "../../hooks/useAuth";
+import { imageUpload, saveUser } from "../../api/auth";
+import { TbFidgetSpinner } from "react-icons/tb";
+
+import toast from "react-hot-toast";
+import { useState } from "react";
+
 const SignUp = () => {
+  const { createUser, updateUserProfile } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.files[0];
+    const email = form.email.value;
+    const password = form.password.value;
+    const { data } = await imageUpload(image);
+    const userImage = data?.display_url;
+    const { user } = await createUser(email, password);
+    await updateUserProfile(name, userImage);
+    if (user?.email) {
+      const data = await saveUser(user);
+      if (data.upsertedId) {
+        toast.success("Sign up successfully");
+      }
+      setLoading(false);
+      navigate("/");
+    }
+  };
+
   return (
     <Container>
       <div className="flex flex-col-reverse lg:flex-row justify-between items-center">
@@ -21,8 +53,7 @@ const SignUp = () => {
               </p>
             </div>
             <form
-              noValidate=""
-              action=""
+              onSubmit={handleSubmit}
               className="space-y-6 ng-untouched ng-pristine ng-valid"
             >
               <div className="space-y-4">
@@ -33,7 +64,6 @@ const SignUp = () => {
                   <input
                     type="text"
                     name="name"
-                    id="name"
                     placeholder="Enter Your Name Here"
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-red-400  bg-gray-200 text-gray-900"
                     data-temp-mail-org="0"
@@ -43,13 +73,7 @@ const SignUp = () => {
                   <label htmlFor="image" className="block mb-2 text-sm">
                     Select Image:
                   </label>
-                  <input
-                    required
-                    type="file"
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                  />
+                  <input required type="file" name="image" accept="image/*" />
                 </div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm">
@@ -58,7 +82,6 @@ const SignUp = () => {
                   <input
                     type="email"
                     name="email"
-                    id="email"
                     required
                     placeholder="Enter Your Email Here"
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-red-400 bg-gray-200 text-gray-900"
@@ -75,7 +98,6 @@ const SignUp = () => {
                     type="password"
                     name="password"
                     autoComplete="new-password"
-                    id="password"
                     required
                     placeholder="*******"
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-red-400 bg-gray-200 text-gray-900"
@@ -85,7 +107,11 @@ const SignUp = () => {
 
               <div className=" w-full rounded-md bg-gradient-to-r from-[#3a4cd8] my-3 via-indigo-500 to-[#9058e7] p-[1px] ">
                 <button className=" justify-center items-center space-x-2  bg-[#131237] text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back hover:shadow-xl">
-                  Continue
+                  {loading ? (
+                    <TbFidgetSpinner className="text-3xl text-primary animate-spin" />
+                  ) : (
+                    "Continue"
+                  )}
                 </button>
               </div>
             </form>

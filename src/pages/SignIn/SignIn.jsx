@@ -4,7 +4,21 @@ import Lottie from "lottie-react";
 import LoginAnimation from "../../animation/LoginAnimation.json";
 import Social from "../../components/Social/Social";
 import Container from "../../components/Container/Container";
+import useAuth from "../../hooks/useAuth";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { useState } from "react";
+import toast from "react-hot-toast";
 const SignIn = () => {
+  const { signIn } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email?.value;
+    const password = form.password?.value;
+    await signIn(email, password);
+    toast.success("Login Successfully");
+  };
   return (
     <Container>
       <div className="flex flex-col-reverse lg:flex-row justify-between items-center">
@@ -18,8 +32,7 @@ const SignIn = () => {
               <p className="text-sm ">Sign in to access your account</p>
             </div>
             <form
-              noValidate=""
-              action=""
+              onSubmit={handleSubmit}
               className="space-y-6 ng-untouched ng-pristine ng-valid"
             >
               <div className="space-y-4">
@@ -30,7 +43,6 @@ const SignIn = () => {
                   <input
                     type="email"
                     name="email"
-                    id="email"
                     required
                     placeholder="Enter Your Email Here"
                     className="w-full px-3 py-2 border rounded-md  focus:outline-none focus:border-red-400  bg-gray-200 text-gray-900"
@@ -47,7 +59,6 @@ const SignIn = () => {
                     type="password"
                     name="password"
                     autoComplete="current-password"
-                    id="password"
                     required
                     placeholder="*******"
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-red-400 bg-gray-200 text-gray-900"
@@ -57,7 +68,11 @@ const SignIn = () => {
 
               <div className=" w-full rounded-md bg-gradient-to-r from-[#3a4cd8] my-3 via-indigo-500 to-[#9058e7] p-[1px] ">
                 <button className=" justify-center items-center space-x-2  bg-[#131237] text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back hover:shadow-xl">
-                  Continue
+                  {loading ? (
+                    <TbFidgetSpinner className="text-3xl text-primary animate-spin" />
+                  ) : (
+                    "Continue"
+                  )}
                 </button>
               </div>
             </form>
