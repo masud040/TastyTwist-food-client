@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import CartCard from "../Card/CartCard";
 
-const CartSidebar = ({ showCart, email }) => {
+const FavoriteSidebar = ({ showFavorite, email }) => {
+  console.log(showFavorite);
   const axiosSecure = useAxiosSecure();
 
   const { data: orders } = useQuery({
@@ -18,13 +19,13 @@ const CartSidebar = ({ showCart, email }) => {
     <>
       <div
         className={`${
-          showCart ? "translate-x-full " : "ease-in-out"
+          showFavorite ? "translate-x-full " : "ease-in-out"
         }transform  transition duration-200  z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 fixed inset-y-20 right-0 top-[74px] rounded-lg`}
       >
         <div>
           <div>
             <div className="w-full px-4 py-2 shadow-xl rounded-lg justify-center items-center text-primary  text-center text-xl font-semibold bg-rose-100 mx-auto">
-              Cart Items
+              Favorite Items
             </div>
           </div>
 
@@ -38,17 +39,9 @@ const CartSidebar = ({ showCart, email }) => {
             )}
           </div>
         </div>
-
-        <div>
-          <hr />
-
-          <button className="w-full px-4 py-2 mt-5 text-white rounded-md font-bold  transition-colors duration-300 text-center transform bg-pink-300">
-            Check Out
-          </button>
-        </div>
       </div>
     </>
   );
 };
 
-export default CartSidebar;
+export default FavoriteSidebar;

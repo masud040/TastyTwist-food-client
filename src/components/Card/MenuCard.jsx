@@ -2,6 +2,8 @@ import { IoMdAdd } from "react-icons/io";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { FaHeart } from "react-icons/fa";
+
 const MenuCard = ({ item }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -43,12 +45,20 @@ const MenuCard = ({ item }) => {
           transition w-[120px]"
           alt=""
         />
-        <button
-          onClick={addToCart}
-          className="absolute bottom-2 right-1 hover:bg-pink-100 transition-all delay-100  text-3xl bg-pink-50  rounded-full text-primary"
-        >
-          <IoMdAdd />
-        </button>
+        <div className="absolute bottom-1 right-1 text-2xl flex gap-2">
+          <button
+            onClick={addToCart}
+            className="  transition-all delay-100    rounded-full text-pink-400"
+          >
+            <FaHeart />
+          </button>
+          <button
+            onClick={addToCart}
+            className=" hover:bg-pink-100 transition-all delay-100   bg-pink-50  rounded-full text-primary"
+          >
+            <IoMdAdd />
+          </button>
+        </div>
       </div>
     </div>
   );

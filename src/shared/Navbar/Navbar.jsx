@@ -5,6 +5,8 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaShoppingCart } from "react-icons/fa";
 import CartSidebar from "../../components/CartSidebar/CartSidebar";
+import { FaRegHeart } from "react-icons/fa";
+import FavoriteSidebar from "../../components/CartSidebar/FavoriteSidebar";
 
 const navLinks = [
   {
@@ -20,6 +22,7 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showCart, setShowCart] = useState(true);
+  const [showFavorite, setShowFavorite] = useState(true);
   const { user } = useAuth();
   return (
     <>
@@ -44,14 +47,20 @@ const Navbar = () => {
               <button className="px-2  text-primary">{link?.name}</button>
             </NavLink>
           ))}
-          {user && (
-            <button
-              onClick={() => setShowCart(!showCart)}
-              className="bg-rose-50 rounded-md text-primary text-2xl"
-            >
-              <FaShoppingCart />
-            </button>
-          )}
+          <button
+            onClick={() => setShowFavorite(!showFavorite)}
+            className="bg-rose-50 rounded-md text-primary text-2xl"
+          >
+            <FaRegHeart />
+          </button>
+
+          <button
+            onClick={() => setShowCart(!showCart)}
+            className="bg-rose-50 rounded-md text-primary text-2xl"
+          >
+            <FaShoppingCart />
+          </button>
+
           <div className="relative">
             <div className="border  rounded-full hover:border-gray-600 border-gray-400 p-1">
               <img
@@ -67,6 +76,7 @@ const Navbar = () => {
         </div>
       </div>
       <CartSidebar showCart={showCart} email={user?.email} />
+      <FavoriteSidebar showFavorite={showFavorite} email={user?.email} />
     </>
   );
 };
