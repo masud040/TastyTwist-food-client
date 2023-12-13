@@ -10,9 +10,9 @@ const Banner = () => {
       bgImageAlt="banner"
       strength={-500}
     >
-      <div className="h-[20vh] md:h-[30vh] lg:h-[70vh] flex flex-col justify-center items-center">
+      <div className="h-[35vh] md:h-[20vh] lg:h-[70vh] flex flex-col justify-center items-center">
         <h3 className="text-white mb-2 font-bold text-xl md:text-2xl text-center">
-          It's the food and groceries you love, delivered
+          It is the food and groceries you love, delivered
         </h3>
         <div className="w-full max-w-[600px] mx-auto px-10 space-y-4">
           <Input
