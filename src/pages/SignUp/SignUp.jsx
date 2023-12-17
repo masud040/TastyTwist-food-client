@@ -24,18 +24,17 @@ const SignUp = () => {
     const password = form.password.value;
     const data = await imageUpload(image);
 
-    const userImage = data?.display_url;
     console.log(data);
-    const { user } = await createUser(email, password);
-    await updateUserProfile(name, userImage);
-    if (user?.email) {
-      const data = await saveUser(user);
-      if (data.upsertedId) {
-        toast.success("Sign up successfully");
-      }
-      setLoading(false);
-      navigate("/");
-    }
+    // const { user } = await createUser(email, password);
+    // await updateUserProfile(name, userImage);
+    // if (user?.email) {
+    //   const data = await saveUser(user);
+    //   if (data.upsertedId) {
+    //     toast.success("Sign up successfully");
+    //   }
+    //   setLoading(false);
+    //   navigate("/");
+    // }
   };
 
   return (

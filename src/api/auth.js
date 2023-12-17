@@ -1,15 +1,19 @@
 import axios from "axios";
 
 export const imageUpload = async (image) => {
-  const formData = new FormData();
-  formData.append("image", image);
+  const formdata = new FormData();
+  formdata.append("file", image);
+  formdata.append("upload_preset", "djjen0hi");
+  formdata.append("cloud_name", "dtoojmthf");
 
   const { data } = await axios.post(
-    `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
-    formData
+    `https://api.cloudinary.com/v1_1/${
+      import.meta.env.VITE_cloudname
+    }/image/upload`,
+    formdata
   );
 
-  return data;
+  console.log(data);
 };
 
 export const saveUser = async (user) => {
