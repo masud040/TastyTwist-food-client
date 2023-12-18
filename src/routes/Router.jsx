@@ -10,6 +10,8 @@ import RestaurantMenu from "../pages/RestaurantMenu/RestaurantMenu";
 import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+import Orders from "../pages/User/Orders";
+import AddressBook from "../pages/User/AddressBook";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,24 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "my-orders",
+        element: (
+          <PrivateRoute>
+            <Orders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "address-book",
+        element: (
+          <PrivateRoute>
+            <AddressBook />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
     path: "/signIn",
