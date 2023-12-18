@@ -24,6 +24,7 @@ const Navbar = () => {
   const [showCart, setShowCart] = useState(true);
   const [showFavorite, setShowFavorite] = useState(true);
   const { user } = useAuth();
+
   return (
     <>
       <div className="md:flex justify-between py-4 drop-shadow-2xl px-3 items-center fixed z-10 w-full  bg-white bg-opacity-70 ">
@@ -65,7 +66,7 @@ const Navbar = () => {
             <div className="border  rounded-full hover:border-gray-600 border-gray-400 p-1">
               <img
                 onClick={() => setIsOpen(!isOpen)}
-                src={user ? user?.photoURL : placeholder}
+                src={user?.photoURL ? user?.photoURL : placeholder}
                 className="w-8 h-8  rounded-full "
                 alt=""
               />

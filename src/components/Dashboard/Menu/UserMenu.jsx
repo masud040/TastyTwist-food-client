@@ -7,6 +7,7 @@ import SellerRequestModal from "../../Modal/SellerRequestModal";
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const UserMenu = () => {
   const { user } = useAuth();
@@ -28,7 +29,19 @@ const UserMenu = () => {
       currentUser
     );
 
-    console.log(data);
+    if (data.modifiedCount > 0) {
+      const toastId = toast.loading(
+        "Success!, Please wait for admin approval🥰"
+      );
+      toast.success("Success!, Please wait for admin approval🥰", {
+        id: toastId,
+      });
+    } else {
+      const toastId = toast.loading("Please wait for admin approval🥰");
+      toast.success("Please wait for admin approval🥰", {
+        id: toastId,
+      });
+    }
   };
   return (
     <>
