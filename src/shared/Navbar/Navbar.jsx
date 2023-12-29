@@ -76,8 +76,8 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <CartSidebar showCart={showCart} email={user?.email} />
-      <FavoriteSidebar showFavorite={showFavorite} email={user?.email} />
+      <CartSidebar showCart={showCart} />
+      <FavoriteSidebar showFavorite={showFavorite} />
     </>
   );
 };

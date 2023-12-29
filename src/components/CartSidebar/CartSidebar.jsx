@@ -1,18 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetCartItem from "../../hooks/useGetCartItem";
 import CartCard from "../Card/CartCard";
 
-const CartSidebar = ({ showCart, email }) => {
-  const axiosSecure = useAxiosSecure();
-
-  const { data: orders } = useQuery({
-    enabled: !!email,
-    queryKey: ["orders", email],
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(`/orders/${email}`);
-      return data;
-    },
-  });
+const CartSidebar = ({ showCart }) => {
+  const [orders] = useGetCartItem();
 
   return (
     <>
@@ -28,12 +18,12 @@ const CartSidebar = ({ showCart, email }) => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between flex-1 mt-6 px-1">
+          <div className="flex flex-col justify-between flex-1 mt-5 px-1">
             {orders && orders?.length > 0 ? (
               orders?.map((order) => <CartCard key={order._id} order={order} />)
             ) : (
               <h2 className="text-center mt-6 font-bold text-xl text-gray-900">
-                No Item Added
+                No Favorite Item
               </h2>
             )}
           </div>

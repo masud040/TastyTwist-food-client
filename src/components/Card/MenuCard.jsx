@@ -3,9 +3,11 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaHeart } from "react-icons/fa";
+import useGetCartItem from "../../hooks/useGetCartItem";
 
 const MenuCard = ({ item }) => {
   const { user } = useAuth();
+  const [, refetch] = useGetCartItem();
   const axiosSecure = useAxiosSecure();
   const { _id, name, price, description, image_url } = item || {};
   const addToCart = async () => {
@@ -19,6 +21,7 @@ const MenuCard = ({ item }) => {
     };
     const { data } = await axiosSecure.post("/carts", orderInfo);
     if (data.insertedId) {
+      refetch();
       Swal.fire({
         position: "center",
         icon: "success",
