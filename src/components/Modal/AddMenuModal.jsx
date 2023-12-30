@@ -1,9 +1,29 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import useAuth from "../../hooks/useAuth";
+import { imageUpload } from "../../api/auth";
 
 const AddMenuModal = ({ isOpen, closeModal }) => {
-  const handleAddProduct = (e) => {
+  const { user } = useAuth();
+  const handleAddProduct = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.files[0];
+    const price = form.price.value;
+    const category = form.category.value;
+    const description = form.description.value;
+    const email = user?.email;
+    const { url } = await imageUpload(image);
+    const menuObj = {
+      name,
+      image_url: url,
+      price,
+      category,
+      description,
+      email,
+    };
+    console.log(menuObj);
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -47,6 +67,7 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                         </label>
                         <input
                           type="text"
+                          name="name"
                           className="block p-2  text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 w-full "
                           required
                         />
@@ -56,6 +77,7 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                           Select Image
                         </label>
                         <input
+                          name="image"
                           className="block w-full text-sm text-gray-900 border border-gray-300 p-1.5 rounded-md cursor-pointer bg-gray-50"
                           id="file_input"
                           type="file"
@@ -69,6 +91,7 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                           Price
                         </label>
                         <input
+                          name="price"
                           type="number"
                           className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 "
                           required
@@ -79,7 +102,9 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                           Select category
                         </label>
                         <select
+                          name="category"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:border-purple-500 block w-full p-[10px]"
+                          defaultValue="popular"
                           required
                         >
                           <option value="popular">Popular</option>
@@ -93,12 +118,13 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                     </div>
                     <div className="mt-2">
                       <label className="block mb-2 text-sm font-medium text-gray-900 ">
-                        Menu descriptions
+                        Menu description
                       </label>
                       <textarea
                         rows="4"
+                        name="description"
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:border-purple-500 "
-                        placeholder="Write menu descriptions here..."
+                        placeholder="Write menu description here..."
                         required
                       ></textarea>
                     </div>
