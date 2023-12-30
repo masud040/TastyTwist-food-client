@@ -7,7 +7,7 @@ import queryString from "query-string";
 
 const Categories = ({ email, currentCategory }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const navigate = useNavigate();
 
   const handleSetQuery = (label) => {
@@ -28,8 +28,8 @@ const Categories = ({ email, currentCategory }) => {
   return (
     <>
       <div
-        className="grid grid-cols-7  gap-4 overflow-x-scroll md:overflow-x-auto  mt-8 bg-gray-50 rounded-xl
-  justify-between items-center text-dark-gray px-4"
+        className="flex items-center mt-8 bg-gray-50 rounded-xl
+   text-dark-gray px-4 overflow-x-auto "
       >
         <button
           onClick={() => setIsOpen(true)}
@@ -37,19 +37,25 @@ const Categories = ({ email, currentCategory }) => {
         >
           <FaSearch />
         </button>
-        {categories?.map((category, index) => (
-          <p
-            onClick={() => handleSetQuery(category.label)}
-            className={`${
-              currentCategory === category?.label.toLowerCase()
-                ? "font-semibold text-sm lg:text-lg hover:bg-pink-50 rounded-lg text-center p-2 transition-all  border-b-4 border-primary"
-                : "font-semibold hover:bg-pink-50 text-center  p-2 rounded-lg transition-all  border-b-4 text-sm lg:text-lg border-gray-400"
-            }`}
-            key={index}
-          >
-            {category?.label}
-          </p>
-        ))}
+
+        <div
+          className="grid grid-cols-6  overflow-x-auto flex-1 gap-[70px] md:gap-4 bg-gray-50 rounded-xl
+   text-dark-gray px-4"
+        >
+          {categories?.map((category, index) => (
+            <button
+              onClick={() => handleSetQuery(category.label)}
+              className={`${
+                currentCategory === category?.label.toLowerCase()
+                  ? "font-semibold text-sm lg:text-lg hover:bg-pink-50 rounded-lg text-center w-16 md:w-full p-2 transition-all  border-b-4 border-primary"
+                  : "font-semibold hover:bg-pink-50 text-center  p-2 rounded-lg transition-all w-16 md:w-full  border-b-4 text-sm lg:text-lg border-gray-400"
+              }`}
+              key={index}
+            >
+              {category?.label}
+            </button>
+          ))}
+        </div>
       </div>
       <InputModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

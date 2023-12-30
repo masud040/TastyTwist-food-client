@@ -3,6 +3,7 @@ import { MdOutlineInventory } from "react-icons/md";
 import { IoMdAnalytics } from "react-icons/io";
 import { MdPayments } from "react-icons/md";
 import { RiCoupon2Fill } from "react-icons/ri";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
 import { MdFeedback } from "react-icons/md";
 import MenuItem from "../Sidebar/MenuItem";
 
@@ -10,7 +11,7 @@ const SellerMenu = () => {
   return (
     <>
       <MenuItem
-        icon={FaList}
+        icon={MdOutlineRestaurantMenu}
         label="Manage Menu"
         address="/dashboard/manage-menu"
       />

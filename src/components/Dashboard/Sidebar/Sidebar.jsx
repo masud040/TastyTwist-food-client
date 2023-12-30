@@ -46,7 +46,7 @@ const Sidebar = () => {
               </Link>
             </div>
           </div>
-          <div className="mt-10">
+          <div className="mt-12">
             {role?.role === "user" && <UserMenu />}
             {role?.role === "seller" && <SellerMenu />}
           </div>
