@@ -61,7 +61,7 @@ const UserMenu = () => {
       >
         <MdFoodBank className="w-5 h-5" />
 
-        <span className="mx-4 font-medium">Become A Seller</span>
+        <span className="mx-4 font-medium text-sm">Become A Seller</span>
       </div>
       <SellerRequestModal
         modalHandler={modalHandler}

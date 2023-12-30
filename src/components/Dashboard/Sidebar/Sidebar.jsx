@@ -6,9 +6,12 @@ import { FcSettings } from "react-icons/fc";
 import MenuItem from "./MenuItem";
 import UserMenu from "../Menu/UserMenu";
 import SellerMenu from "../Menu/SellerMenu";
+import useGetUserRole from "../../../hooks/useGetUserRole";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
+  const { role } = useGetUserRole();
+
   const handleToggle = () => {
     setActive(!isActive);
   };
@@ -37,17 +40,15 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto">
+            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-rose-100 mx-auto ">
               <Link to="/" className="text-xl font-bold text-primary">
                 TastyTwistOnline
               </Link>
             </div>
           </div>
-          <UserMenu />
-          <SellerMenu />
-          {/* Nav Items */}
-          <div className="flex flex-col justify-between flex-1 mt-6">
-            {/* If a user is host */}
+          <div className="mt-10">
+            {role?.role === "user" && <UserMenu />}
+            {role?.role === "seller" && <SellerMenu />}
           </div>
         </div>
 
@@ -62,7 +63,7 @@ const Sidebar = () => {
           <button className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
             <GrLogout className="w-5 h-5" />
 
-            <span className="mx-4 font-medium">Logout</span>
+            <span className="mx-4 font-medium text-sm">Logout</span>
           </button>
         </div>
       </div>

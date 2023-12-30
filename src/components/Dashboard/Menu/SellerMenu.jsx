@@ -11,7 +11,12 @@ const SellerMenu = () => {
     <>
       <MenuItem
         icon={FaList}
-        label="Order Management"
+        label="Manage Menu"
+        address="/dashboard/manage-menu"
+      />
+      <MenuItem
+        icon={FaList}
+        label="Manage Order"
         address="/dashboard/order-list"
       />
       <MenuItem
@@ -19,11 +24,7 @@ const SellerMenu = () => {
         label="Inventory Management"
         address="/dashboard/inventory-management"
       />
-      <MenuItem
-        icon={IoMdAnalytics}
-        label="Analytics and Report"
-        address="/dashboard/analytics-report"
-      />
+
       <MenuItem
         icon={MdPayments}
         label="Payment History"
@@ -38,6 +39,11 @@ const SellerMenu = () => {
         icon={MdFeedback}
         label="Customer Feedback"
         address="/dashboard/customer-feedback"
+      />
+      <MenuItem
+        icon={IoMdAnalytics}
+        label="Analytics and Report"
+        address="/dashboard/analytics-report"
       />
     </>
   );
