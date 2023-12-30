@@ -1,12 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { imageUpload } from "../../api/auth";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const AddMenuModal = ({ isOpen, closeModal }) => {
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const handleAddProduct = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const name = form.name.value;
     const image = form.image.files[0];
@@ -23,8 +26,9 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
       description,
       email,
     };
-    console.log(menuObj);
+    setLoading(false);
   };
+  console.log(loading);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -133,7 +137,11 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
                         type="submit"
                         className="bg-gradient-to-r from-[#CA43E1] to-[#7111EB] p-2 w-full mt-4 rounded-md text-lg text-white"
                       >
-                        Add
+                        {loading ? (
+                          <TbFidgetSpinner className="text-xl w-full animate-spin" />
+                        ) : (
+                          "Add"
+                        )}
                       </button>
                     </div>
                   </form>
