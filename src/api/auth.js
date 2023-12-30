@@ -1,16 +1,16 @@
 import axios from "axios";
 
 export const imageUpload = async (image) => {
-  const formdata = new FormData();
-  formdata.append("file", image);
-  formdata.append("upload_preset", import.meta.env.VITE_upload_preset);
-  formdata.append("cloud_name", import.meta.env.VITE_cloudName);
+  const formData = new FormData();
+  formData.append("file", image);
+  formData.append("upload_preset", import.meta.env.VITE_upload_preset);
+  formData.append("cloud_name", import.meta.env.VITE_cloudName);
 
   const { data } = await axios.post(
     `https://api.cloudinary.com/v1_1/${
       import.meta.env.VITE_cloudName
     }/image/upload`,
-    formdata
+    formData
   );
 
   return data;

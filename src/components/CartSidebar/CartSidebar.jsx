@@ -9,7 +9,7 @@ const CartSidebar = ({ showCart }) => {
       <div
         className={`${
           showCart ? "translate-x-full " : "ease-in-out"
-        }transform  transition duration-200  z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 fixed inset-y-20 right-0 top-[74px] rounded-lg`}
+        }transform  transition duration-200   z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 fixed inset-y-20 right-0 top-[74px] rounded-b-lg`}
       >
         <div>
           <div>

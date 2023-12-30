@@ -5,6 +5,7 @@ import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
 import MenuItem from "./MenuItem";
 import UserMenu from "../Menu/UserMenu";
+import SellerMenu from "../Menu/SellerMenu";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
@@ -43,6 +44,7 @@ const Sidebar = () => {
             </div>
           </div>
           <UserMenu />
+          <SellerMenu />
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             {/* If a user is host */}
