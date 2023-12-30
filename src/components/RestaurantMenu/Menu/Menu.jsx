@@ -12,7 +12,7 @@ const options = [
 
 const Menu = ({ email }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const category = params.get("category");
   const { data: menu } = useQuery({

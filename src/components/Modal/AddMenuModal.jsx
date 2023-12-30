@@ -3,17 +3,20 @@ import { Fragment, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { imageUpload } from "../../api/auth";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddMenuModal = ({ isOpen, closeModal }) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const handleAddProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
     const form = e.target;
     const name = form.name.value;
     const image = form.image.files[0];
-    const price = form.price.value;
+    const price = parseFloat(form.price.value);
     const category = form.category.value;
     const description = form.description.value;
     const email = user?.email;
@@ -26,9 +29,20 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
       description,
       email,
     };
-    setLoading(false);
+    const { data } = await axiosSecure.post("/menu", menuObj);
+    if (data?.insertedId) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your item is Added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      form.reset();
+      setLoading(false);
+    }
   };
-  console.log(loading);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
