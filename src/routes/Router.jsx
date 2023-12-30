@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Orders from "../pages/User/Orders";
 import AddressBook from "../pages/User/AddressBook";
+import ManageMenu from "../pages/Seller/ManageMenu";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddressBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-menu",
+        element: (
+          <PrivateRoute>
+            <ManageMenu />
           </PrivateRoute>
         ),
       },
