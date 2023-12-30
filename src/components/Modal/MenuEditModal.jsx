@@ -3,9 +3,11 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { Fragment, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useGetMenu from "../../hooks/useGetMenu";
 const MenuEditModal = ({ isOpen, closeModal, item }) => {
   const [loading, setLoading] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const { refetch } = useGetMenu();
   const { _id, name, price, description, image_url, category } = item || {};
   const handleEditProduct = async (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const MenuEditModal = ({ isOpen, closeModal, item }) => {
         showConfirmButton: false,
         timer: 1500,
       });
+      refetch();
       setLoading(false);
     }
   };

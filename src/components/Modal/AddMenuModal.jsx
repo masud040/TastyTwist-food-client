@@ -6,8 +6,9 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
-const AddMenuModal = ({ isOpen, closeModal }) => {
+const AddMenuModal = ({ isOpen, closeModal, refetch }) => {
   const [loading, setLoading] = useState(false);
+
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const handleAddProduct = async (e) => {
@@ -39,6 +40,7 @@ const AddMenuModal = ({ isOpen, closeModal }) => {
         timer: 1500,
       });
       form.reset();
+      refetch();
       setLoading(false);
     }
   };

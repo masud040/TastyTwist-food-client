@@ -5,7 +5,7 @@ import ManageMenuCard from "../../components/Card/ManageMenuCard";
 
 const ManageMenu = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const { menuItems, isLoading } = useGetMenu();
+  const { menuItems, isLoading, refetch } = useGetMenu();
 
   function closeModal() {
     setIsOpen(false);
@@ -39,7 +39,7 @@ const ManageMenu = () => {
           ))}
       </div>
 
-      <AddMenuModal isOpen={isOpen} closeModal={closeModal} />
+      <AddMenuModal isOpen={isOpen} closeModal={closeModal} refetch={refetch} />
     </>
   );
 };

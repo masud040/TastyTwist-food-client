@@ -5,7 +5,11 @@ import useAxiosSecure from "./useAxiosSecure";
 const useGetMenu = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: menuItems, isLoading } = useQuery({
+  const {
+    data: menuItems,
+    isLoading,
+    refetch,
+  } = useQuery({
     enabled: !loading && !!user?.email,
     queryKey: ["menuItem", user?.email],
     queryFn: async () => {
@@ -13,7 +17,7 @@ const useGetMenu = () => {
       return data;
     },
   });
-  return { menuItems, isLoading };
+  return { menuItems, isLoading, refetch };
 };
 
 export default useGetMenu;

@@ -2,9 +2,14 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import MenuEditModal from "../Modal/MenuEditModal";
 import { useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useGetMenu from "../../hooks/useGetMenu";
 const ManageMenuCard = ({ item }) => {
-  const { name, price, description, image_url } = item || {};
+  const { _id, name, price, description, image_url } = item || {};
   let [isOpen, setIsOpen] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const { refetch } = useGetMenu();
 
   function closeModal() {
     setIsOpen(false);
@@ -13,6 +18,29 @@ const ManageMenuCard = ({ item }) => {
   function openModal() {
     setIsOpen(true);
   }
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { data } = await axiosSecure.delete(`/menu/${id}`);
+        if (data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your item has been deleted.",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
   return (
     <>
       <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
@@ -38,7 +66,10 @@ const ManageMenuCard = ({ item }) => {
             >
               <FaEdit />
             </button>
-            <button className="  transition-all delay-100     rounded-full text-red-800">
+            <button
+              onClick={() => handleDelete(_id)}
+              className="  transition-all delay-100     rounded-full text-red-800"
+            >
               <MdDelete />
             </button>
           </div>
