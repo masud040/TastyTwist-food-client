@@ -59,8 +59,39 @@ const CartSidebar = ({ showCart }) => {
         </div>
 
         <div>
-          <hr />
+          <hr className="py-1" />
 
+          <div className="px-2 space-y-1">
+            <h2 className="text-lg">Order Summary</h2>
+
+            <div className="text-sm flex items-center justify-between">
+              <p className=" text-gray-700">Subtotal ({orders.length} items)</p>
+              <p className="text-base">$ {0}</p>
+            </div>
+            <div className="text-sm flex items-center justify-between">
+              <p className=" text-gray-700">Shipping Fee</p>
+              <p className="text-base">$ {0}</p>
+            </div>
+            <div className="text-sm flex items-center justify-between">
+              <p className=" text-gray-700">Discount</p>
+              <p className="text-base">$ {0}</p>
+            </div>
+            <div className="flex items-center justify-between gap-1">
+              <input
+                type="text"
+                className="w-52 md:w-44 p-2 rounded-md border border-pink-200 focus:outline-none bg-gray-100"
+                placeholder="Enter Voucher Code"
+              />
+
+              <button className="p-2 bg-deep-purple-300 rounded-md">
+                APPLY
+              </button>
+            </div>
+            <div className=" flex items-center justify-between">
+              <p className=" text-gray-700">Subtotal</p>
+              <p className="text-base">$ {0}</p>
+            </div>
+          </div>
           <Link to="/check-out">
             <button className="w-full px-4 py-2 mt-5 text-white rounded-md font-bold  transition-colors duration-300 text-center transform bg-pink-300">
               Check Out
