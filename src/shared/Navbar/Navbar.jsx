@@ -76,7 +76,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <CartSidebar showCart={showCart} />
+      <CartSidebar showCart={showCart} setShowCart={setShowCart} />
       <FavoriteSidebar showFavorite={showFavorite} />
     </>
   );

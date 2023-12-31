@@ -2,15 +2,22 @@ import { Link } from "react-router-dom";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import CartCard from "../Card/CartCard";
 import { useState } from "react";
+import OrderSummary from "../OrderSummary/OrderSummary";
 
-const CartSidebar = ({ showCart }) => {
+const CartSidebar = ({ showCart, setShowCart }) => {
   const [orders] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
+  const subTotal =
+    selectedItems?.length > 0 &&
+    selectedItems.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.price,
+      0
+    );
+
   const handleChange = (selectedOrder) => {
     const existingIndex = selectedItems.findIndex(
       (order) => order._id === selectedOrder._id
     );
-    console.log(existingIndex);
 
     if (existingIndex !== -1) {
       setSelectedItems((prevSelectedItems) =>
@@ -29,7 +36,7 @@ const CartSidebar = ({ showCart }) => {
       <div
         className={`${
           showCart ? "translate-x-full " : "ease-in-out"
-        }transform  transition duration-200   z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-80 md:w-72 space-y-6 px-2 py-4 fixed inset-y-20 right-0 top-[74px] rounded-b-lg`}
+        }transform  transition duration-200   z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-80 md:w-72 space-y-6 px-2 py-4 fixed inset-y-0 right-0 top-[74px] rounded-b-lg`}
       >
         <div>
           <div>
@@ -52,7 +59,7 @@ const CartSidebar = ({ showCart }) => {
               ))
             ) : (
               <h2 className="text-center mt-6 font-bold text-xl text-gray-900">
-                No Favorite Item
+                No Cart Item
               </h2>
             )}
           </div>
@@ -61,40 +68,13 @@ const CartSidebar = ({ showCart }) => {
         <div>
           <hr className="py-1" />
 
-          <div className="px-2 space-y-1">
-            <h2 className="text-lg">Order Summary</h2>
-
-            <div className="text-sm flex items-center justify-between">
-              <p className=" text-gray-700">Subtotal ({orders.length} items)</p>
-              <p className="text-base">$ {0}</p>
-            </div>
-            <div className="text-sm flex items-center justify-between">
-              <p className=" text-gray-700">Shipping Fee</p>
-              <p className="text-base">$ {0}</p>
-            </div>
-            <div className="text-sm flex items-center justify-between">
-              <p className=" text-gray-700">Discount</p>
-              <p className="text-base">$ {0}</p>
-            </div>
-            <div className="flex items-center justify-between gap-1">
-              <input
-                type="text"
-                className="w-52 md:w-44 p-2 rounded-md border border-pink-200 focus:outline-none bg-gray-100"
-                placeholder="Enter Voucher Code"
-              />
-
-              <button className="p-2 bg-deep-purple-300 rounded-md">
-                APPLY
-              </button>
-            </div>
-            <div className=" flex items-center justify-between">
-              <p className=" text-gray-700">Subtotal</p>
-              <p className="text-base">$ {0}</p>
-            </div>
-          </div>
+          <OrderSummary selectedItems={selectedItems} subTotal={subTotal} />
           <Link to="/check-out">
-            <button className="w-full px-4 py-2 mt-5 text-white rounded-md font-bold  transition-colors duration-300 text-center transform bg-pink-300">
-              Check Out
+            <button
+              onClick={() => setShowCart(!showCart)}
+              className="w-full px-4 py-2 mt-5 text-white rounded-md font-medium uppercase  transition-colors duration-300 text-center transform bg-pink-300"
+            >
+              proceed to checkout ({selectedItems?.length})
             </button>
           </Link>
         </div>
