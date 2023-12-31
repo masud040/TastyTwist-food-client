@@ -13,6 +13,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Orders from "../pages/User/Orders";
 import AddressBook from "../pages/User/AddressBook";
 import ManageMenu from "../pages/Seller/ManageMenu";
+import ManageOrder from "../pages/Seller/ManageOrder";
+import Checkout from "../pages/Checkout/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <RestaurantMenu />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "check-out",
+        element: (
+          <PrivateRoute>
+            <Checkout />
           </PrivateRoute>
         ),
       },
@@ -70,6 +80,10 @@ const router = createBrowserRouter([
             <ManageMenu />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "manage-order",
+        element: <ManageOrder />,
       },
     ],
   },

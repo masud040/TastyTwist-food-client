@@ -9,12 +9,11 @@ const MenuCard = ({ item }) => {
   const { user } = useAuth();
   const [, refetch] = useGetCartItem();
   const axiosSecure = useAxiosSecure();
-  const { _id, name, price, description, image_url } = item || {};
+  const { name, price, description, image_url } = item || {};
   const addToCart = async () => {
     const orderInfo = {
       email: user?.email,
       name: name,
-      id: _id,
       price: price,
       image: image_url,
       count: 1,
@@ -31,6 +30,7 @@ const MenuCard = ({ item }) => {
       });
     }
   };
+  const addToFavorite = async () => {};
 
   return (
     <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
@@ -50,12 +50,14 @@ const MenuCard = ({ item }) => {
         />
         <div className="absolute bottom-1 right-1 text-2xl flex gap-2">
           <button
-            onClick={addToCart}
+            title="Add to favorite"
+            onClick={addToFavorite}
             className="  transition-all delay-100    rounded-full text-pink-400"
           >
             <FaHeart />
           </button>
           <button
+            title="Add to cart"
             onClick={addToCart}
             className=" hover:bg-pink-100 transition-all delay-100   bg-pink-50  rounded-full text-primary"
           >

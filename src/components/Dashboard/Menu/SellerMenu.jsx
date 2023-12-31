@@ -18,7 +18,7 @@ const SellerMenu = () => {
       <MenuItem
         icon={FaList}
         label="Manage Order"
-        address="/dashboard/order-list"
+        address="/dashboard/manage-order"
       />
       <MenuItem
         icon={MdOutlineInventory}
