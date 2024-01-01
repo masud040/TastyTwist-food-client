@@ -33,7 +33,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
     }
   };
 
-  const ordersItemId = selectedItems?.map((item) => item._id);
+  const ordersItemId = selectedItems?.map((item) => item._id)?.join(",");
 
   return (
     <>
@@ -73,7 +73,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           <hr className="py-1" />
 
           <OrderSummary selectedItems={selectedItems} subTotal={subTotal} />
-          <Link to="/check-out">
+          <Link to={`/check-out?ids=${ordersItemId}&price=${subTotal}`}>
             <button
               disabled={selectedItems?.length > 0 ? false : true}
               onClick={() => setShowCart(!showCart)}
