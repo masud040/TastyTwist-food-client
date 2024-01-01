@@ -7,10 +7,12 @@ import OrderSummary from "../OrderSummary/OrderSummary";
 const CartSidebar = ({ showCart, setShowCart }) => {
   const [orders] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
+  console.log(selectedItems);
   const subTotal =
     selectedItems?.length > 0 &&
     selectedItems.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.price,
+      (accumulator, currentValue) =>
+        accumulator + currentValue.price * currentValue.count,
       0
     );
 

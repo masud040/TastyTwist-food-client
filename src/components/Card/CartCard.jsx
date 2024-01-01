@@ -2,18 +2,27 @@ import { FaRegHeart } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosRemove, IoMdAdd } from "react-icons/io";
 import { useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetCartItem from "../../hooks/useGetCartItem";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
-  const { name, price, image, count } = order || {};
+  const { _id, name, price, image, count } = order || {};
   const [totalCount, setTotalCount] = useState(count);
-  const handleDecrement = () => {
+  const axiosSecure = useAxiosSecure();
+  const [, refetch] = useGetCartItem();
+  const handleDecrement = async (id) => {
     if (totalCount > 1) {
       setTotalCount(totalCount - 1);
+      const itemCount = totalCount + 1;
+      const { data } = await axiosSecure.patch(`/orders/${id}`, { itemCount });
+      console.log(data);
+      refetch();
     }
   };
-  const handleIncrement = () => {
+  const handleIncrement = (id) => {
     if (totalCount < 5) {
       setTotalCount(totalCount + 1);
+      console.log(totalCount + 1);
     }
   };
   return (
@@ -39,7 +48,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
           </button>
           <div className="flex items-center">
             <button
-              onClick={handleDecrement}
+              onClick={() => handleDecrement(_id)}
               className="bg-primary p-1 rounded-l-sm"
             >
               <IoIosRemove />
@@ -52,7 +61,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
               className="w-8  border text-center rounded-sm bg-gray-200 focus:outline-none focus:border-pink-300 "
             />
             <button
-              onClick={handleIncrement}
+              onClick={() => handleIncrement(_id)}
               className="bg-primary p-1 rounded-r-sm"
             >
               <IoMdAdd />
