@@ -7,7 +7,7 @@ import OrderSummary from "../OrderSummary/OrderSummary";
 const CartSidebar = ({ showCart, setShowCart }) => {
   const [orders] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
-  console.log(selectedItems);
+
   const subTotal =
     selectedItems?.length > 0 &&
     selectedItems.reduce(
@@ -32,6 +32,8 @@ const CartSidebar = ({ showCart, setShowCart }) => {
       ]);
     }
   };
+
+  const ordersItemId = selectedItems?.map((item) => item._id);
 
   return (
     <>
@@ -73,8 +75,9 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           <OrderSummary selectedItems={selectedItems} subTotal={subTotal} />
           <Link to="/check-out">
             <button
+              disabled={selectedItems?.length > 0 ? false : true}
               onClick={() => setShowCart(!showCart)}
-              className="w-full px-4 py-2 mt-5 text-white rounded-md font-medium uppercase  transition-colors duration-300 text-center transform bg-pink-300"
+              className="w-full px-4 py-2 mt-5 text-white rounded-md font-medium uppercase  transition-colors duration-300 text-center transform bg-primary  disabled:bg-gray-400"
             >
               proceed to checkout ({selectedItems?.length})
             </button>

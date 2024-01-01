@@ -3,26 +3,24 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosRemove, IoMdAdd } from "react-icons/io";
 import { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useGetCartItem from "../../hooks/useGetCartItem";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
   const { _id, name, price, image, count } = order || {};
   const [totalCount, setTotalCount] = useState(count);
   const axiosSecure = useAxiosSecure();
-  const [, refetch] = useGetCartItem();
+
   const handleDecrement = async (id) => {
     if (totalCount > 1) {
       setTotalCount(totalCount - 1);
-      const itemCount = totalCount + 1;
-      const { data } = await axiosSecure.patch(`/orders/${id}`, { itemCount });
-      console.log(data);
-      refetch();
+      const itemCount = totalCount - 1;
+      await axiosSecure.patch(`/orders/${id}`, { itemCount });
     }
   };
-  const handleIncrement = (id) => {
+  const handleIncrement = async (id) => {
     if (totalCount < 5) {
       setTotalCount(totalCount + 1);
-      console.log(totalCount + 1);
+      const itemCount = totalCount + 1;
+      await axiosSecure.patch(`/orders/${id}`, { itemCount });
     }
   };
   return (
@@ -58,7 +56,8 @@ const CartCard = ({ order, isSelected, handleChange }) => {
               max="5"
               min="0"
               value={totalCount}
-              className="w-8  border text-center rounded-sm bg-gray-200 focus:outline-none focus:border-pink-300 "
+              className="w-8  border text-center rounded-sm bg-gray-200 focus:outline-none ps-1 focus:border-pink-300 "
+              readOnly
             />
             <button
               onClick={() => handleIncrement(_id)}
