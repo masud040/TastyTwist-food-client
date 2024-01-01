@@ -1,3 +1,7 @@
+import { FaRegHeart } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoIosRemove } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 const CartCard = ({ order, isSelected, handleChange }) => {
   const { name, price, image, count } = order || {};
 
@@ -15,6 +19,11 @@ const CartCard = ({ order, isSelected, handleChange }) => {
       <div>
         <h3 className=" font-semibold">{name}</h3>
         <h4>{price}</h4>
+        <div className="flex items-center">
+          <FaRegHeart />
+          <RiDeleteBin6Line />
+          <div></div>
+        </div>
       </div>
     </div>
   );

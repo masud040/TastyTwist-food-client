@@ -11,14 +11,18 @@ const OrderSummary = ({ selectedItems, subTotal }) => {
         </p>
         <p className="text-base">TK {subTotal}</p>
       </div>
-      <div className="text-sm flex items-center justify-between">
-        <p className=" text-gray-700 ">Shipping Fee</p>
-        <p className="text-base text-start ">TK {shippingCost}</p>
-      </div>
-      <div className="text-sm flex items-center justify-between">
-        <p className=" text-gray-700">Discount</p>
-        <p className="text-base">TK {0}</p>
-      </div>
+      {subTotal > 0 && (
+        <>
+          <div className="text-sm flex items-center justify-between">
+            <p className=" text-gray-700 ">Shipping Fee</p>
+            <p className="text-base text-start ">TK {shippingCost}</p>
+          </div>
+          <div className="text-sm flex items-center justify-between">
+            <p className=" text-gray-700">Discount</p>
+            <p className="text-base">TK {0}</p>
+          </div>
+        </>
+      )}
       <div className="flex items-center justify-between gap-1">
         <input
           type="text"
