@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const useGetAllDivision = () => {
-  const { data: divisions, refetch } = useQuery({
+  const { data: divisions } = useQuery({
     queryKey: ["divisions"],
     queryFn: async () => {
       const { data } = await axios.get(
@@ -11,7 +11,7 @@ const useGetAllDivision = () => {
       return data?.data;
     },
   });
-  return [divisions, refetch];
+  return [divisions];
 };
 
 export default useGetAllDivision;

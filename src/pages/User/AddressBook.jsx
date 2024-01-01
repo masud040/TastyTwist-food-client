@@ -1,29 +1,48 @@
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import useGetAllDivision from "../../hooks/useGetAllDivision";
 import ToggleBtn from "../../components/Button/ToggleBtn";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const AddressBook = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-  const [place, setPlace] = useState("");
-  const [division, setDivision] = useState("");
-  const [divisions, refetch] = useGetAllDivision();
-  // const {data:city} =
-  const toggleHandler = (e) => {
-    if (e.target.checked) {
-      setPlace("Office");
-    } else {
-      setPlace("Home");
-    }
-  };
+  const [divisionName, setDivisionName] = useState("");
+  const [cityName, setCityName] = useState("");
+  const place = useMemo(() => false, []);
+  const [divisions] = useGetAllDivision();
+  const { loading } = useAuth();
+  const { data: city } = useQuery({
+    enabled: !loading && !!divisionName,
+    queryKey: ["city", divisionName],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_bd_url}/division/${divisionName}`
+      );
+      return data?.data;
+    },
+  });
+
+  const area = city?.find((data) => data.district === cityName)?.upazilla;
+
   const handleDivision = (e) => {
-    setDivision(e.target.value);
+    setDivisionName(e.target.value);
   };
-  const handleAddAddress = (data) => console.log(data);
+  const handleAddCity = (e) => {
+    setCityName(e.target.value);
+  };
+  const handleAddAddress = (data) => {
+    console.log(data);
+    setDivisionName("default");
+
+    reset();
+  };
   return (
     <div className=" w-[95%] mx-auto">
       <p className="text-sm mb-6 ">Add New Delivery Address</p>
@@ -113,58 +132,50 @@ const AddressBook = () => {
             <label className="text-xs mb-1 block">
               Select a label for effective delivery
             </label>
-            <ToggleBtn toggleHandler={toggleHandler} />
+            <ToggleBtn place={place} register={register} />
           </div>
         </div>
         <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Please choose our city</label>
             <select
-              disabled={!division && true}
+              disabled={!divisionName && true}
               {...register("city")}
               className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
-                !division && "cursor-not-allowed"
+                !divisionName && "cursor-not-allowed"
               }`}
-              defaultValue="default"
+              value={cityName || "default"}
+              onChange={handleAddCity}
             >
               <option disabled className="hidden" value="default">
                 Please choose your city
               </option>
-              {divisions?.map((division) => (
-                <option key={division._id} value={division.division}>
-                  {division.division}
+              {city?.map((item) => (
+                <option key={item._id} value={item.district}>
+                  {item.district}
                 </option>
               ))}
             </select>
-
-            {errors.city && (
-              <p className="text-primary text-xs absolute">
-                You can not leave this empty.
-              </p>
-            )}
           </div>
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Area</label>
             <select
+              disabled={!cityName && true}
               {...register("city")}
-              className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200"
-              defaultValue="default"
+              className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
+                !cityName && "cursor-not-allowed"
+              }`}
+              defaultValue={"default"}
             >
               <option disabled className="hidden" value="default">
                 Please choose your area
               </option>
-              {divisions?.map((division) => (
-                <option key={division._id} value={division.division}>
-                  {division.division}
+              {area?.map((data) => (
+                <option key={data} value={data}>
+                  {data}
                 </option>
               ))}
             </select>
-
-            {errors.area && (
-              <p className="text-primary text-xs absolute">
-                You can not leave this empty.
-              </p>
-            )}
           </div>
         </div>
 
