@@ -5,6 +5,7 @@ import ToggleBtn from "../../components/Button/ToggleBtn";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { useRef } from "react";
 
 const AddressBook = () => {
   const {
@@ -15,6 +16,7 @@ const AddressBook = () => {
   } = useForm();
   const [divisionName, setDivisionName] = useState("");
   const [cityName, setCityName] = useState("");
+  const [areaName, setAreaName] = useState("");
   const place = useMemo(() => false, []);
   const [divisions] = useGetAllDivision();
   const { loading } = useAuth();
@@ -37,6 +39,10 @@ const AddressBook = () => {
   const handleAddCity = (e) => {
     setCityName(e.target.value);
   };
+  const handleAddArea = (e) => {
+    setAreaName(e.target.value);
+  };
+
   const handleAddAddress = (data) => {
     console.log(data);
     setDivisionName("default");
@@ -139,7 +145,7 @@ const AddressBook = () => {
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Please choose our city</label>
             <select
-              disabled={!divisionName && true}
+              disabled={!divisionName}
               {...register("city")}
               className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
                 !divisionName && "cursor-not-allowed"
@@ -160,12 +166,13 @@ const AddressBook = () => {
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Area</label>
             <select
-              disabled={!cityName && true}
+              disabled={!cityName}
               {...register("city")}
               className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
                 !cityName && "cursor-not-allowed"
               }`}
               defaultValue={"default"}
+              onChange={handleAddArea}
             >
               <option disabled className="hidden" value="default">
                 Please choose your area
@@ -179,7 +186,12 @@ const AddressBook = () => {
           </div>
         </div>
 
-        <input type="submit" />
+        <input
+          type="submit"
+          value="Save"
+          disabled={!areaName}
+          className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400"
+        />
       </form>
     </div>
   );
