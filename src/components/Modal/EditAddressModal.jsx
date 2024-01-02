@@ -15,7 +15,6 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
   const [userAddress, refetch] = useGetAddress();
   const [divisions] = useGetAllDivision();
@@ -85,7 +84,6 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
       address
     );
     refetch();
-    console.log(details);
     if (details.modifiedCount > 0) {
       toast.success("Address updated successfully");
       closeEditModal(false);

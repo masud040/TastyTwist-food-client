@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
-const AddressModal = ({ isOpen, closeModal }) => {
+const AddressModal = ({ isOpen, closeModal, refetch }) => {
   const {
     register,
     handleSubmit,
@@ -67,6 +67,8 @@ const AddressModal = ({ isOpen, closeModal }) => {
       toast.success("Address added successfully", {
         id: toastId,
       });
+      closeModal(false);
+      refetch();
     }
     setDivisionName("default");
     setCityName("default");
