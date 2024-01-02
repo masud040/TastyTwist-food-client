@@ -1,20 +1,15 @@
-import { memo } from "react";
-
-// eslint-disable-next-line react/display-name
-const ToggleBtn = memo(({ register, place }) => {
+const ToggleBtn = ({ placeRef }) => {
   return (
     <>
       <label
         htmlFor="Toggle3"
         className="inline-flex w-full j items-center  rounded-md cursor-pointer gap-4 text-gray-800"
-        defaultChecked={place}
       >
         <input
-          {...register("place")}
           id="Toggle3"
           type="checkbox"
           className="hidden peer"
-          defaultChecked={place}
+          ref={placeRef}
         />
         <span className="px-4 text-center flex-1 text-sm py-2.5 rounded-md bg-indigo-200 shadow-lg peer-checked:bg-gray-300">
           Home
@@ -25,6 +20,6 @@ const ToggleBtn = memo(({ register, place }) => {
       </label>
     </>
   );
-});
+};
 
 export default ToggleBtn;

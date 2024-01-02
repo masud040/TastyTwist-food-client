@@ -1,11 +1,12 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import useGetAllDivision from "../../hooks/useGetAllDivision";
 import ToggleBtn from "../../components/Button/ToggleBtn";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import { useRef } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AddressBook = () => {
   const {
@@ -14,12 +15,13 @@ const AddressBook = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const [divisions] = useGetAllDivision();
   const [divisionName, setDivisionName] = useState("");
+  const placeRef = useRef();
   const [cityName, setCityName] = useState("");
   const [areaName, setAreaName] = useState("");
-  const place = useMemo(() => false, []);
-  const [divisions] = useGetAllDivision();
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
     queryKey: ["city", divisionName],
@@ -30,25 +32,48 @@ const AddressBook = () => {
       return data?.data;
     },
   });
-
   const area = city?.find((data) => data.district === cityName)?.upazilla;
 
   const handleDivision = (e) => {
     setDivisionName(e.target.value);
+    setCityName("default");
+    setAreaName("default");
   };
+
   const handleAddCity = (e) => {
     setCityName(e.target.value);
+    setAreaName("default");
   };
   const handleAddArea = (e) => {
     setAreaName(e.target.value);
   };
 
-  const handleAddAddress = (data) => {
-    console.log(data);
+  const handleAddAddress = async (data) => {
+    const toastId = toast.loading("Address Adding...");
+    const address = {
+      name: data.fullName,
+      email: user?.email,
+      address: data.address,
+      mobile: data.mobile,
+      landmark: data?.landmark || "N/A",
+      division: data.division,
+      place: placeRef.current?.checked ? "Office" : "Home",
+      city: data.city,
+      area: data.area,
+    };
+    const { data: details } = await axiosSecure.post("/address", address);
+    if (details.insertedId) {
+      toast.success("Address added successfully", {
+        id: toastId,
+      });
+    }
     setDivisionName("default");
+    setCityName("default");
+    setAreaName("default");
 
     reset();
   };
+
   return (
     <div className=" w-[95%] mx-auto">
       <p className="text-sm mb-6 ">Add New Delivery Address</p>
@@ -59,7 +84,7 @@ const AddressBook = () => {
             <label className="text-xs mb-1 block">Full Name</label>
             <input
               placeholder="Input full Name"
-              {...register("firstName", { required: true })}
+              {...register("fullName", { required: true })}
               className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
             />
 
@@ -90,7 +115,7 @@ const AddressBook = () => {
             <input
               placeholder="Input mobile number"
               type="number"
-              {...register("mobileNumber", { required: true })}
+              {...register("mobile", { required: true })}
               className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
             />
 
@@ -104,7 +129,7 @@ const AddressBook = () => {
             <label className="text-xs mb-1 block">Landmark(Optional)</label>
             <input
               placeholder="E.g. beside train station"
-              {...register("landmark", { required: true })}
+              {...register("landmark")}
               className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
             />
           </div>
@@ -138,18 +163,16 @@ const AddressBook = () => {
             <label className="text-xs mb-1 block">
               Select a label for effective delivery
             </label>
-            <ToggleBtn place={place} register={register} />
+            <ToggleBtn placeRef={placeRef} />
           </div>
         </div>
         <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Please choose our city</label>
             <select
-              disabled={!divisionName}
+              disabled={!divisionName || divisionName === "default"}
               {...register("city")}
-              className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
-                !divisionName && "cursor-not-allowed"
-              }`}
+              className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
               value={cityName || "default"}
               onChange={handleAddCity}
             >
@@ -166,12 +189,10 @@ const AddressBook = () => {
           <div className="flex-1 relative">
             <label className="text-xs mb-1 block">Area</label>
             <select
-              disabled={!cityName}
-              {...register("city")}
-              className={`border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 ${
-                !cityName && "cursor-not-allowed"
-              }`}
-              defaultValue={"default"}
+              disabled={!cityName || cityName === "default"}
+              {...register("area")}
+              className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
+              value={areaName || "default"}
               onChange={handleAddArea}
             >
               <option disabled className="hidden" value="default">
@@ -189,8 +210,8 @@ const AddressBook = () => {
         <input
           type="submit"
           value="Save"
-          disabled={!areaName}
-          className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400"
+          disabled={!areaName || areaName === "default"}
+          className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
         />
       </form>
     </div>
