@@ -8,6 +8,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { IoClose } from "react-icons/io5";
 const AddressModal = ({ isOpen, closeModal }) => {
   const {
     register,
@@ -99,7 +100,12 @@ const AddressModal = ({ isOpen, closeModal }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
+                <div className="absolute top-3 right-3">
+                  <span onClick={() => closeModal(false)}>
+                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
+                  </span>
+                </div>
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"

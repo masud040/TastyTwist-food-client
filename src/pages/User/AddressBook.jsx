@@ -26,6 +26,9 @@ const AddressBook = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const closeEditModal = () => {
+    setIsEditOpen(false);
+  };
   const handleEditModalOpen = () => {
     setIsEditOpen(true);
   };
@@ -66,7 +69,7 @@ const AddressBook = () => {
         </p>
       </div>
       <AddressModal isOpen={isOpen} closeModal={closeModal} />
-      <EditAddressModal isOpen={isEditOpen} closeModal={closeModal} />
+      <EditAddressModal isOpen={isEditOpen} closeEditModal={closeEditModal} />
     </>
   );
 };

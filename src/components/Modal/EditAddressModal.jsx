@@ -9,7 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import useGetAddress from "../../hooks/useGetAddress";
-const EditAddressModal = ({ isOpen, closeModal }) => {
+import { IoClose } from "react-icons/io5";
+const EditAddressModal = ({ isOpen, closeEditModal }) => {
   const {
     register,
     handleSubmit,
@@ -51,7 +52,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
     setDivisionName(division);
     setCityName(district);
     setAreaName(upazilla);
-  }, []);
+  }, [district, division, upazilla]);
 
   const handleDivision = (e) => {
     setDivisionName(e.target.value);
@@ -68,7 +69,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
   };
 
   const handleAddAddress = async (data) => {
-    const toastId = toast.loading("Address Adding...");
+    // const toastId = toast.loading("Address Adding...");
     const address = {
       name: data.fullName,
       email: user?.email,
@@ -80,21 +81,20 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
       city: data.city,
       area: data.area,
     };
-    const { data: details } = await axiosSecure.post("/address", address);
-    if (details.insertedId) {
-      toast.success("Address added successfully", {
-        id: toastId,
-      });
-    }
+    console.log(address);
+    // const { data: details } = await axiosSecure.post("/address", address);
+    // if (details.insertedId) {
+    //   toast.success("Address added successfully", {
+    //     id: toastId,
+    //   });
+    // }
     setDivisionName("default");
     setCityName("default");
     setAreaName("default");
-
-    reset();
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-10" onClose={closeEditModal}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -108,7 +108,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4 text-center ">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -118,13 +118,19 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative  ">
+                <div className="absolute top-3 right-3">
+                  <span onClick={() => closeEditModal(false)}>
+                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
+                  </span>
+                </div>
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
                   Edit Existing Address
                 </Dialog.Title>
+
                 <div className="mt-2">
                   <form
                     onSubmit={handleSubmit(handleAddAddress)}
@@ -199,7 +205,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
                         <select
                           {...register("division")}
                           className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200"
-                          defaultValue={division}
+                          value={divisionName}
                           onChange={handleDivision}
                         >
                           <option disabled className="hidden" value="default">
@@ -240,7 +246,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
                           disabled={!divisionName || divisionName === "default"}
                           {...register("city")}
                           className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
-                          value={district}
+                          value={cityName || "default"}
                           onChange={handleAddCity}
                         >
                           <option disabled className="hidden" value="default">
@@ -276,7 +282,7 @@ const EditAddressModal = ({ isOpen, closeModal }) => {
 
                     <input
                       type="submit"
-                      value="Save"
+                      value="Update"
                       disabled={!areaName || areaName === "default"}
                       className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
                     />
