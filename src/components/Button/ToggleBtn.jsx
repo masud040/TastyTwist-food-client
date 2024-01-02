@@ -1,4 +1,4 @@
-const ToggleBtn = ({ placeRef }) => {
+const ToggleBtn = ({ placeRef, selectedPlace }) => {
   return (
     <>
       <label
@@ -10,6 +10,7 @@ const ToggleBtn = ({ placeRef }) => {
           type="checkbox"
           className="hidden peer"
           ref={placeRef}
+          defaultChecked={selectedPlace}
         />
         <span className="px-4 text-center flex-1 text-sm py-2.5 rounded-md bg-indigo-200 shadow-lg peer-checked:bg-gray-300">
           Home

@@ -3,14 +3,14 @@ import { useState } from "react";
 import AddressModal from "../../components/Modal/AddressModal";
 import { IoMdAdd } from "react-icons/io";
 import useGetAddress from "../../hooks/useGetAddress";
+import EditAddressModal from "../../components/Modal/EditAddressModal";
 const AddressBook = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
-  const [userAddress, refetch] = useGetAddress();
+  const [userAddress] = useGetAddress();
   const {
-    _id,
     name,
-
     address,
     mobile,
 
@@ -25,6 +25,9 @@ const AddressBook = () => {
   };
   const closeModal = () => {
     setIsOpen(false);
+  };
+  const handleEditModalOpen = () => {
+    setIsEditOpen(true);
   };
 
   return (
@@ -44,10 +47,15 @@ const AddressBook = () => {
           </div>
         </>
       )}
-      <div className="text-sm text-gray-800 space-y-1 w-96 bg-white border p-4 rounded-md hover:drop-shadow-xl transition-all duration-500">
+      <div className="text-sm text-gray-800 space-y-1 w-96 bg-white border p-4 rounded-md hover:drop-shadow-xl transition-all duration-200">
         <div className="flex items-center justify-between ">
           <p>{name}</p>
-          <button className="text-xs text-indigo-500">EDIT</button>
+          <button
+            onClick={handleEditModalOpen}
+            className="text-xs text-indigo-500"
+          >
+            EDIT
+          </button>
         </div>
         <p>{mobile}</p>
         <p>
@@ -58,6 +66,7 @@ const AddressBook = () => {
         </p>
       </div>
       <AddressModal isOpen={isOpen} closeModal={closeModal} />
+      <EditAddressModal isOpen={isEditOpen} closeModal={closeModal} />
     </>
   );
 };
