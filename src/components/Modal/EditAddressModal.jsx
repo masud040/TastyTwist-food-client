@@ -17,7 +17,7 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
     formState: { errors },
     reset,
   } = useForm();
-  const [userAddress] = useGetAddress();
+  const [userAddress, refetch] = useGetAddress();
   const [divisions] = useGetAllDivision();
   const [divisionName, setDivisionName] = useState("");
   const placeRef = useRef();
@@ -69,7 +69,6 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
   };
 
   const handleAddAddress = async (data) => {
-    // const toastId = toast.loading("Address Adding...");
     const address = {
       name: data.fullName,
       email: user?.email,
@@ -81,13 +80,16 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
       city: data.city,
       area: data.area,
     };
-    console.log(address);
-    // const { data: details } = await axiosSecure.post("/address", address);
-    // if (details.insertedId) {
-    //   toast.success("Address added successfully", {
-    //     id: toastId,
-    //   });
-    // }
+    const { data: details } = await axiosSecure.put(
+      `/address/${user?.email}`,
+      address
+    );
+    refetch();
+    console.log(details);
+    if (details.modifiedCount > 0) {
+      toast.success("Address updated successfully");
+      closeEditModal(false);
+    }
     setDivisionName("default");
     setCityName("default");
     setAreaName("default");

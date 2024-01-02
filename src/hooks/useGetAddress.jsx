@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useGetAddress = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: userAddress } = useQuery({
+  const { data: userAddress, refetch } = useQuery({
     enabled: !loading && !!user?.email,
     queryKey: ["address", user?.email],
     queryFn: async () => {
@@ -13,7 +13,7 @@ const useGetAddress = () => {
       return data;
     },
   });
-  return [userAddress];
+  return [userAddress, refetch];
 };
 
 export default useGetAddress;
