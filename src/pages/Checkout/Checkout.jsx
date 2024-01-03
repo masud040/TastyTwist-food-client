@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import BillingAddress from "../../components/Checkout/BillingAddress";
 import ProductsDetails from "../../components/Checkout/ProductsDetails";
-import PlaceOrder from "../../components/Checkout/PlaceOrder";
+import OrderSummary from "../../components/Checkout/OrderSummary";
 
 const Checkout = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const Checkout = () => {
         </div>
       </div>
       <div className=" md:col-span-1 ">
-        <PlaceOrder
+        <OrderSummary
           subTotal={subTotal}
           discount={discount}
           shippingCost={shippingCost}
