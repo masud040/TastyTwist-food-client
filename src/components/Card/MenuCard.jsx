@@ -9,13 +9,15 @@ const MenuCard = ({ item }) => {
   const { user } = useAuth();
   const [, refetch] = useGetCartItem();
   const axiosSecure = useAxiosSecure();
-  const { name, price, description, image_url } = item || {};
+  const { _id, name, price, description, image_url } = item || {};
   const addToCart = async () => {
     const orderInfo = {
+      menuId: _id,
       email: user?.email,
       name: name,
       price: price,
       image: image_url,
+
       count: 1,
     };
     const { data } = await axiosSecure.post("/carts", orderInfo);

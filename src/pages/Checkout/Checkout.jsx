@@ -11,6 +11,7 @@ const Checkout = () => {
   const subTotal = params.get("subtotal");
   const discount = params.get("discount");
   const shippingCost = params.get("shippingCost");
+  const menusId = params.get("menusId");
 
   return (
     <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
@@ -26,6 +27,8 @@ const Checkout = () => {
           discount={discount}
           shippingCost={shippingCost}
           total={total}
+          menusId={menusId}
+          ids={ids}
         />
       </div>
     </div>

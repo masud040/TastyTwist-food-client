@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { menu } from "@material-tailwind/react";
 
-const PlaceOrder = ({ total }) => {
+const PlaceOrder = ({ total, ids, menusId }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -12,6 +13,7 @@ const PlaceOrder = ({ total }) => {
   const elements = useElements();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+
   useEffect(() => {
     user &&
       axiosSecure
@@ -56,7 +58,16 @@ const PlaceOrder = ({ total }) => {
       if (paymentIntent.status === "succeeded") {
         toast.success("payment success");
         setTransactionId(paymentIntent.id);
-        console.log(paymentIntent.id);
+        const payment = {
+          email: user.email,
+          total,
+          transactionId: transactionId,
+          date: Date(),
+          cartId: ids.split(","),
+          menuItemId: menusId.split(","),
+          status: "pending",
+        };
+        console.log(payment);
       }
     }
   };

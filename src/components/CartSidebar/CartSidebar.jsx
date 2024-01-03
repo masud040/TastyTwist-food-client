@@ -37,6 +37,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
   };
 
   const ordersItemId = selectedItems?.map((item) => item._id)?.join(",");
+  const menusItemId = selectedItems?.map((item) => item.menuId)?.join(",");
 
   return (
     <>
@@ -84,7 +85,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
             setDiscount={setDiscount}
           />
           <Link
-            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}`}
+            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`}
           >
             <button
               disabled={selectedItems?.length > 0 ? false : true}
