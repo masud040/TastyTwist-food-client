@@ -7,6 +7,7 @@ import OrderSummary from "../OrderSummary/OrderSummary";
 const CartSidebar = ({ showCart, setShowCart }) => {
   const [orders] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
+  const [discount, setDiscount] = useState(0);
 
   const subTotal =
     selectedItems?.length > 0 &&
@@ -15,6 +16,8 @@ const CartSidebar = ({ showCart, setShowCart }) => {
         accumulator + currentValue.price * currentValue.count,
       0
     );
+  const shippingCost = 40;
+  const total = subTotal > 0 ? subTotal + shippingCost : 0;
 
   const handleChange = (selectedOrder) => {
     const existingIndex = selectedItems.findIndex(
@@ -72,8 +75,14 @@ const CartSidebar = ({ showCart, setShowCart }) => {
         <div>
           <hr className="py-1" />
 
-          <OrderSummary selectedItems={selectedItems} subTotal={subTotal} />
-          <Link to={`/check-out?ids=${ordersItemId}&price=${subTotal}`}>
+          <OrderSummary
+            selectedItems={selectedItems}
+            subTotal={subTotal}
+            shippingCost={shippingCost}
+            discount={discount}
+            setDiscount={setDiscount}
+          />
+          <Link to={`/check-out?ids=${ordersItemId}&price=${total}`}>
             <button
               disabled={selectedItems?.length > 0 ? false : true}
               onClick={() => setShowCart(!showCart)}

@@ -1,5 +1,11 @@
-const OrderSummary = ({ selectedItems, subTotal }) => {
-  const shippingCost = 40;
+const OrderSummary = ({
+  selectedItems,
+  subTotal,
+  shippingCost,
+  discount,
+  setDiscount,
+}) => {
+  console.log(discount);
   const total = subTotal > 0 ? subTotal + shippingCost : 0;
   return (
     <div className="px-2 space-y-1">
@@ -19,7 +25,7 @@ const OrderSummary = ({ selectedItems, subTotal }) => {
           </div>
           <div className="text-sm flex items-center justify-between">
             <p className=" text-gray-700">Discount</p>
-            <p className="text-base">TK {0}</p>
+            <p className="text-base">TK {discount}</p>
           </div>
         </>
       )}
