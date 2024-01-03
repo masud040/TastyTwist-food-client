@@ -26,14 +26,22 @@ const OrderItemCart = ({ item }) => {
 
         <p>TK {price}</p>
       </div>
-      <div>
-        <div className="p-1 border w-[155px] text-center rounded-md">
+      <div className="flex justify-between items-center">
+        <div className="p-1  border border-indigo-600 w-[160px] text-center rounded-md">
           <p className="text-indigo-400">Standard Delivery | TK 40</p>
           <p>
             Receive by {possibilityDStart.getDate()}{" "}
             {possibilityMStart.slice(0, 3)} - {possibilityDEnd.getDate()}{" "}
             {possibilityMEnd.slice(0, 3)}
           </p>
+        </div>
+        <div>
+          <div>
+            {count} Item(s).Subtotal:{" "}
+            <span className="text-deep-orange-600 font-semibold">
+              TK {price * count + 40}
+            </span>
+          </div>
         </div>
       </div>
     </div>

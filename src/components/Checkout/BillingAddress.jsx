@@ -16,8 +16,7 @@ const BillingAddress = () => {
       <p>Deliver to: {name}</p>
       <div className="flex gap-1.5 items-center">
         <p className="bg-indigo-50 text-indigo-400 px-1 rounded-sm">{place}</p>
-        <p>{mobile}</p>
-        <p> | </p>
+        <p>{mobile} | </p>
         <p>
           {address}, {division}
         </p>

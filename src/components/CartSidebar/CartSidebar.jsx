@@ -84,7 +84,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
             setDiscount={setDiscount}
           />
           <Link
-            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}`}
+            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}`}
           >
             <button
               disabled={selectedItems?.length > 0 ? false : true}

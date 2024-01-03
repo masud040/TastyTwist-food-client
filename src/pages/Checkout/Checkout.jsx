@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import useGetAddress from "../../hooks/useGetAddress";
 import BillingAddress from "../../components/Checkout/BillingAddress";
 import ProductsDetails from "../../components/Checkout/ProductsDetails";
+import PlaceOrder from "../../components/Checkout/PlaceOrder";
 
 const Checkout = () => {
   const location = useLocation();
@@ -10,6 +10,7 @@ const Checkout = () => {
   const total = params.get("total");
   const subTotal = params.get("subtotal");
   const discount = params.get("discount");
+  const shippingCost = params.get("shippingCost");
 
   return (
     <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
@@ -19,7 +20,14 @@ const Checkout = () => {
           <ProductsDetails ids={ids} />
         </div>
       </div>
-      <div className="border min-h-[200px] rounded-lg md:col-span-1 drop-shadow-xl bg-white border-gray-300"></div>
+      <div className=" md:col-span-1 ">
+        <PlaceOrder
+          subTotal={subTotal}
+          discount={discount}
+          shippingCost={shippingCost}
+          total={total}
+        />
+      </div>
     </div>
   );
 };
