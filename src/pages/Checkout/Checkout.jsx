@@ -10,7 +10,6 @@ const Checkout = () => {
   const discount = params.get("discount");
   const [userAddress, refetch] = useGetAddress();
   const {
-    _id,
     name,
     email,
     address,
@@ -22,7 +21,15 @@ const Checkout = () => {
     area,
   } = userAddress || {};
 
-  return <div className="mt-6"></div>;
+  return (
+    <div className="mt-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
+      <div className="border min-h-[200px] md:col-span-2">
+        <div></div>
+        <div></div>
+      </div>
+      <div className="border min-h-[200px] rounded-lg md:col-span-1"></div>
+    </div>
+  );
 };
 
 export default Checkout;
