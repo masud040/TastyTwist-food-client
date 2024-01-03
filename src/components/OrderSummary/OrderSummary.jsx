@@ -1,12 +1,19 @@
 const OrderSummary = ({
   selectedItems,
   subTotal,
+  total,
   shippingCost,
   discount,
   setDiscount,
 }) => {
-  console.log(discount);
-  const total = subTotal > 0 ? subTotal + shippingCost : 0;
+  const handleDiscount = (e) => {
+    e.preventDefault();
+    const coupon = e.target.coupon.value;
+    if (coupon === "SELL24") {
+      const productDiscount = subTotal * (10 / 100);
+      setDiscount(productDiscount);
+    }
+  };
   return (
     <div className="px-2 space-y-1">
       <h2 className="text-lg">Order Summary</h2>
@@ -29,20 +36,23 @@ const OrderSummary = ({
           </div>
         </>
       )}
-      <div className="flex items-center justify-between gap-1">
-        <input
-          type="text"
-          className="w-52 md:w-44 p-2 rounded-md border border-pink-200 focus:outline-none bg-gray-100"
-          placeholder="Enter Voucher Code"
-        />
+      <form onSubmit={handleDiscount}>
+        <div className="flex items-center justify-between gap-1">
+          <input
+            type="text"
+            name="coupon"
+            className="w-52 md:w-44 p-2 rounded-md border border-pink-200 focus:outline-none bg-gray-100"
+            placeholder="Enter Voucher Code"
+          />
 
-        <button className="p-2 bg-deep-purple-300 rounded-md">APPLY</button>
-      </div>
+          <button className="p-2 bg-deep-purple-300 rounded-md" type="submit">
+            APPLY
+          </button>
+        </div>
+      </form>
       <div className=" flex items-center justify-between">
         <p className=" text-gray-700">Total</p>
-        <p className="text-base text-red-300 font-semibold">
-          TK {total && total?.toFixed(1)}
-        </p>
+        <p className="text-base text-red-300 font-semibold">TK {total}</p>
       </div>
     </div>
   );

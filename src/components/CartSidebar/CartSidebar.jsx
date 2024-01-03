@@ -17,7 +17,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
       0
     );
   const shippingCost = 40;
-  const total = subTotal > 0 ? subTotal + shippingCost : 0;
+  const total = subTotal ? subTotal + shippingCost - discount : 0;
 
   const handleChange = (selectedOrder) => {
     const existingIndex = selectedItems.findIndex(
@@ -78,6 +78,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           <OrderSummary
             selectedItems={selectedItems}
             subTotal={subTotal}
+            total={total}
             shippingCost={shippingCost}
             discount={discount}
             setDiscount={setDiscount}
