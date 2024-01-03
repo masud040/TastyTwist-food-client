@@ -27,10 +27,12 @@ const Navbar = () => {
   const handleCartShow = () => {
     setShowCart(!showCart);
     setShowFavorite(true);
+    setIsOpen(false);
   };
   const handleFavoriteShow = () => {
     setShowFavorite(!showFavorite);
     setShowCart(true);
+    setIsOpen(false);
   };
   const handleShowMenu = () => {
     setIsOpen(!isOpen);

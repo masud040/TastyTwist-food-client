@@ -43,7 +43,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
       <div
         className={`${
           showCart ? "translate-x-full " : "ease-in-out"
-        }transform  transition duration-200   z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-80 md:w-72 space-y-6 px-2 py-4 fixed inset-y-0 right-0 top-[74px] rounded-b-lg`}
+        }transform  transition duration-200   z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-80 space-y-6 px-2 py-4 fixed inset-y-0 right-0 top-[74px] rounded-b-lg`}
       >
         <div>
           <div>
@@ -52,7 +52,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between flex-1 mt-5 px-1">
+          <div className="flex flex-col justify-between flex-1 mt-5 gap-2 px-1">
             {orders && orders?.length > 0 ? (
               orders?.map((order) => (
                 <CartCard
@@ -83,7 +83,9 @@ const CartSidebar = ({ showCart, setShowCart }) => {
             discount={discount}
             setDiscount={setDiscount}
           />
-          <Link to={`/check-out?ids=${ordersItemId}&price=${total}`}>
+          <Link
+            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}`}
+          >
             <button
               disabled={selectedItems?.length > 0 ? false : true}
               onClick={() => setShowCart(!showCart)}
