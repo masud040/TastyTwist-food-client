@@ -20,7 +20,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
     if (totalCount < 5) {
       setTotalCount(totalCount + 1);
       const itemCount = totalCount + 1;
-      await axiosSecure.patch(`/orders/${id}`, { itemCount });
+      await axiosSecure.patch(`/carts/${id}`, { itemCount });
     }
   };
   return (

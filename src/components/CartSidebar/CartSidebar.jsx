@@ -5,7 +5,7 @@ import { useState } from "react";
 import OrderSummary from "../OrderSummary/OrderSummary";
 
 const CartSidebar = ({ showCart, setShowCart }) => {
-  const [orders] = useGetCartItem();
+  const [carts] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
   const [discount, setDiscount] = useState(0);
 
@@ -53,8 +53,8 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           </div>
 
           <div className="flex flex-col justify-between flex-1 mt-5 gap-2 px-1">
-            {orders && orders?.length > 0 ? (
-              orders?.map((order) => (
+            {carts && carts?.length > 0 ? (
+              carts?.map((order) => (
                 <CartCard
                   key={order._id}
                   order={order}

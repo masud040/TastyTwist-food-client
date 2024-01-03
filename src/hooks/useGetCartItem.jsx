@@ -6,15 +6,15 @@ const useGetCartItem = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  const { data: orders, refetch } = useQuery({
+  const { data: carts, refetch } = useQuery({
     enabled: !!user?.email,
-    queryKey: ["orders", user?.email],
+    queryKey: ["carts", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/orders/${user?.email}`);
+      const { data } = await axiosSecure.get(`/carts/${user?.email}`);
       return data;
     },
   });
-  return [orders, refetch];
+  return [carts, refetch];
 };
 
 export default useGetCartItem;
