@@ -24,6 +24,19 @@ const Navbar = () => {
   const [showCart, setShowCart] = useState(true);
   const [showFavorite, setShowFavorite] = useState(true);
   const { user } = useAuth();
+  const handleCartShow = () => {
+    setShowCart(!showCart);
+    setShowFavorite(true);
+  };
+  const handleFavoriteShow = () => {
+    setShowFavorite(!showFavorite);
+    setShowCart(true);
+  };
+  const handleShowMenu = () => {
+    setIsOpen(!isOpen);
+    setShowFavorite(true);
+    setShowCart(true);
+  };
 
   return (
     <>
@@ -49,14 +62,14 @@ const Navbar = () => {
             </NavLink>
           ))}
           <button
-            onClick={() => setShowFavorite(!showFavorite)}
+            onClick={handleFavoriteShow}
             className="bg-rose-50 rounded-md text-primary text-2xl"
           >
             <FaRegHeart />
           </button>
 
           <button
-            onClick={() => setShowCart(!showCart)}
+            onClick={handleCartShow}
             className="bg-rose-50 rounded-md text-primary text-2xl"
           >
             <FaShoppingCart />
@@ -65,7 +78,7 @@ const Navbar = () => {
           <div className="relative">
             <div className="border  rounded-full hover:border-gray-600 border-gray-400 p-1">
               <img
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={handleShowMenu}
                 src={user?.photoURL ? user?.photoURL : placeholder}
                 className="w-8 h-8  rounded-full "
                 alt=""

@@ -19,7 +19,7 @@ const FavoriteSidebar = ({ showFavorite, email }) => {
       <div
         className={`${
           showFavorite ? "translate-x-full " : "ease-in-out"
-        }transform  transition duration-200  z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 fixed inset-y-20 right-0 top-[74px] rounded-lg`}
+        }transform  transition duration-200  z-10 flex  flex-col justify-between overflow-x-hidden bg-gray-100 w-80 md:w-72 space-y-6 px-2 py-4 fixed inset-y-0 right-0 top-[74px] rounded-lg`}
       >
         <div>
           <div>
