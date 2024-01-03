@@ -16,7 +16,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
         accumulator + currentValue.price * currentValue.count,
       0
     );
-  const shippingCost = 40;
+  const shippingCost = selectedItems?.length * 40;
   const total = subTotal ? subTotal + shippingCost - discount : 0;
 
   const handleChange = (selectedOrder) => {

@@ -12,7 +12,7 @@ const BillingAddress = () => {
     place,
   } = userAddress || {};
   return (
-    <div className="border  rounded-lg drop-shadow-xl bg-white border-gray-300 px-4 py-6 text-xs  space-y-2">
+    <div className="border  rounded-lg drop-shadow-xl bg-white border-gray-300 px-4 h-[150px] my-auto py-6 text-xs  space-y-2">
       <p>Deliver to: {name}</p>
       <div className="flex gap-1.5 items-center">
         <p className="bg-indigo-50 text-indigo-400 px-1 rounded-sm">{place}</p>

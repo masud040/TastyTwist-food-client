@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import OrderItemCart from "../Card/OrderItemCart";
 
 const ProductsDetails = ({ ids }) => {
   const axiosSecure = useAxiosSecure();
@@ -14,8 +15,15 @@ const ProductsDetails = ({ ids }) => {
       return data;
     },
   });
-  console.log(orderItems);
-  return <div></div>;
+  return (
+    <div>
+      <div className="space-y-4">
+        {orderItems?.map((item) => (
+          <OrderItemCart key={item._id} item={item} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default ProductsDetails;
