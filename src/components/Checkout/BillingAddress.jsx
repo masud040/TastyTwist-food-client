@@ -2,11 +2,13 @@ import { useState } from "react";
 import useGetAddress from "../../hooks/useGetAddress";
 import AddressBookModal from "../Modal/CheckoutRelated/AddressBookModal";
 import BillingAddressModal from "../Modal/CheckoutRelated/BillingAddressModal";
+import EditEmailModal from "../Modal/CheckoutRelated/EditEmailModal";
 
 const BillingAddress = () => {
   const [userAddress] = useGetAddress();
   const [isOpen, setIsOpen] = useState(false);
   const [isBillingOpen, setIsBillingOpen] = useState(false);
+  const [isEmailOpen, setIsEmailOpen] = useState(false);
   const openModal = () => {
     setIsOpen(true);
   };
@@ -18,6 +20,12 @@ const BillingAddress = () => {
   };
   const closeBillingModal = () => {
     setIsBillingOpen(false);
+  };
+  const openEmailModal = () => {
+    setIsEmailOpen(true);
+  };
+  const closeEmailModal = () => {
+    setIsEmailOpen(false);
   };
   const {
     name,
@@ -52,7 +60,9 @@ const BillingAddress = () => {
         </div>
         <div className="flex items-center gap-2">
           <p>Email to {email}</p>
-          <button className="text-indigo-500">Edit</button>
+          <button onClick={openEmailModal} className="text-indigo-500">
+            Edit
+          </button>
         </div>
       </div>
       <AddressBookModal isOpen={isOpen} closeModal={closeModal} />
@@ -60,6 +70,7 @@ const BillingAddress = () => {
         isBillingOpen={isBillingOpen}
         closeModal={closeBillingModal}
       />
+      <EditEmailModal isEmailOpen={isEmailOpen} closeModal={closeEmailModal} />
     </>
   );
 };
