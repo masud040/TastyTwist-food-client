@@ -72,7 +72,7 @@ const PlaceOrder = ({ total, cartItems }) => {
           menuId,
           cartItems,
           sellerEmail,
-          status: "pending",
+          status: "processing",
         };
         const { data } = await axiosSecure.post("/orders", payment);
         if (data.insertedId) {

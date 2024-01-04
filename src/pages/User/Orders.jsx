@@ -1,5 +1,4 @@
 import AllOrders from "../../components/AllOrders/AllOrders";
-import OrderCard from "../../components/Card/OrderCard";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const Orders = () => {
