@@ -38,9 +38,9 @@ const AddressBookModal = ({ isOpen, closeModal }) => {
                 </div>
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium text-center leading-6 text-gray-900"
+                  className="text-sm mb-5 font-normal leading-6 text-gray-900"
                 >
-                  Add Address
+                  My Delivery Address
                 </Dialog.Title>
                 <div className="mt-2">
                   <AddressBook />
