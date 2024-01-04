@@ -5,7 +5,7 @@ import BillingAddressModal from "../Modal/CheckoutRelated/BillingAddressModal";
 import EditEmailModal from "../Modal/CheckoutRelated/EditEmailModal";
 
 const BillingAddress = () => {
-  const [userAddress] = useGetAddress();
+  const [userAddress, refetch] = useGetAddress();
   const [isOpen, setIsOpen] = useState(false);
   const [isBillingOpen, setIsBillingOpen] = useState(false);
   const [isEmailOpen, setIsEmailOpen] = useState(false);
@@ -27,15 +27,8 @@ const BillingAddress = () => {
   const closeEmailModal = () => {
     setIsEmailOpen(false);
   };
-  const {
-    name,
-    email,
-    address,
-    mobile,
-
-    division,
-    place,
-  } = userAddress || {};
+  const { name, email, address, mobile, newEmail, division, place } =
+    userAddress || {};
   return (
     <>
       <div className="border  rounded-lg drop-shadow-xl bg-white border-gray-300 px-4 h-[150px] my-auto py-6 text-xs  space-y-2">
@@ -59,7 +52,7 @@ const BillingAddress = () => {
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <p>Email to {email}</p>
+          <p>Email to {newEmail || email}</p>
           <button onClick={openEmailModal} className="text-indigo-500">
             Edit
           </button>
@@ -70,7 +63,12 @@ const BillingAddress = () => {
         isBillingOpen={isBillingOpen}
         closeModal={closeBillingModal}
       />
-      <EditEmailModal isEmailOpen={isEmailOpen} closeModal={closeEmailModal} />
+      <EditEmailModal
+        isEmailOpen={isEmailOpen}
+        closeModal={closeEmailModal}
+        email={email}
+        refetch={refetch}
+      />
     </>
   );
 };
