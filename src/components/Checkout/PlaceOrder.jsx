@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import { menu } from "@material-tailwind/react";
 
 const PlaceOrder = ({ total, ids, menusId }) => {
   const [error, setError] = useState("");
