@@ -10,9 +10,13 @@ const Orders = () => {
         <h1 className="text-xl">My Orders</h1>
       </div>
       <div>
-        {orderItems?.map((orderItem) => (
-          <OrderCard key={orderItem._id} />
-        ))}
+        {orderItems?.length > 0 ? (
+          orderItems?.cartItems?.map((item) => (
+            <OrderCard key={item._id} item={item} />
+          ))
+        ) : (
+          <h1>There are no order it</h1>
+        )}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-const OrderCard = ({ orderItem }) => {
+const OrderCard = ({ item }) => {
   return <div></div>;
 };
 
