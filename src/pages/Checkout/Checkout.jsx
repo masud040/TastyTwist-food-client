@@ -2,6 +2,9 @@ import { useLocation } from "react-router-dom";
 import BillingAddress from "../../components/Checkout/BillingAddress";
 import ProductsDetails from "../../components/Checkout/ProductsDetails";
 import OrderSummary from "../../components/Checkout/OrderSummary";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const Checkout = () => {
   const location = useLocation();
@@ -11,7 +14,17 @@ const Checkout = () => {
   const subTotal = params.get("subtotal");
   const discount = params.get("discount");
   const shippingCost = params.get("shippingCost");
-  const menusId = params.get("menusId");
+  const axiosSecure = useAxiosSecure();
+  const { loading } = useAuth();
+
+  const { data: orderItems } = useQuery({
+    enabled: !loading && !!ids,
+    queryKey: [ids],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/orders/${ids}`);
+      return data;
+    },
+  });
 
   return (
     <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
@@ -19,17 +32,16 @@ const Checkout = () => {
         <BillingAddress />
 
         <div>
-          <ProductsDetails ids={ids} />
+          <ProductsDetails orderItems={orderItems} />
         </div>
       </div>
-      <div className=" md:col-span-1 ">
+      <div className=" md:col-span-1">
         <OrderSummary
           subTotal={subTotal}
           discount={discount}
           shippingCost={shippingCost}
           total={total}
-          menusId={menusId}
-          ids={ids}
+          orderItems={orderItems}
         />
       </div>
     </div>

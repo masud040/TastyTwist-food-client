@@ -39,7 +39,6 @@ const CartSidebar = ({ showCart, setShowCart }) => {
   };
 
   const ordersItemId = selectedItems?.map((item) => item._id)?.join(",");
-  const menusItemId = selectedItems?.map((item) => item.menuId)?.join(",");
 
   return (
     <>
@@ -89,10 +88,10 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           <Link
             to={
               userAddress
-                ? `/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`
+                ? `/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}`
                 : "/dashboard/address-book"
             }
-            state={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`}
+            state={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}`}
           >
             <button
               disabled={selectedItems?.length > 0 ? false : true}

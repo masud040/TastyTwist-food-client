@@ -9,7 +9,7 @@ const MenuCard = ({ item }) => {
   const { user } = useAuth();
   const [, refetch] = useGetCartItem();
   const axiosSecure = useAxiosSecure();
-  const { _id, name, price, description, image_url } = item || {};
+  const { _id, name, email, price, description, image_url } = item || {};
   const addToCart = async () => {
     const orderInfo = {
       menuId: _id,
@@ -17,6 +17,7 @@ const MenuCard = ({ item }) => {
       name: name,
       price: price,
       image: image_url,
+      sellerEmail: email,
 
       count: 1,
     };

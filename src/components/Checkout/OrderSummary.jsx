@@ -7,8 +7,7 @@ const OrderSummary = ({
   shippingCost,
   discount,
   total,
-  ids,
-  menusId,
+  orderItems,
 }) => {
   return (
     <div className="border min-h-[150px] md:h-[280px] rounded-lg drop-shadow-xl bg-white border-gray-300 text-xs px-4 py-6 space-y-1">
@@ -37,7 +36,7 @@ const OrderSummary = ({
       <hr className="border" />
       <div className="pt-2">
         <Elements stripe={stripePromise}>
-          <PlaceOrder total={total} ids={ids} menusId={menusId} />
+          <PlaceOrder total={total} orderItems={orderItems} />
         </Elements>
       </div>
     </div>

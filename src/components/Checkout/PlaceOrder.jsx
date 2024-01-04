@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-const PlaceOrder = ({ total, ids, menusId }) => {
+const PlaceOrder = ({ total, orderItems }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -12,7 +12,9 @@ const PlaceOrder = ({ total, ids, menusId }) => {
   const elements = useElements();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
+  const cartId = orderItems?.map((item) => item._id);
+  const menuId = orderItems?.map((item) => item.menuId);
+  const sellerEmail = orderItems?.map((item) => item.sellerEmail)[0];
   useEffect(() => {
     user &&
       axiosSecure
@@ -31,6 +33,7 @@ const PlaceOrder = ({ total, ids, menusId }) => {
     if (card == null) {
       return;
     }
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -56,14 +59,15 @@ const PlaceOrder = ({ total, ids, menusId }) => {
     } else {
       if (paymentIntent.status === "succeeded") {
         toast.success("payment success");
-        setTransactionId(paymentIntent.id);
+        await setTransactionId(paymentIntent.id);
         const payment = {
           email: user.email,
           total,
-          transactionId: transactionId,
+          transactionId,
           date: Date(),
-          cartId: ids.split(","),
-          menuItemId: menusId.split(","),
+          cartId,
+          menuId,
+          sellerEmail,
           status: "pending",
         };
         console.log(payment);
