@@ -21,7 +21,7 @@ const Checkout = () => {
     enabled: !loading && !!ids,
     queryKey: [ids],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/orders/${ids}`);
+      const { data } = await axiosSecure.get(`/select-carts/${ids}`);
       return data;
     },
   });

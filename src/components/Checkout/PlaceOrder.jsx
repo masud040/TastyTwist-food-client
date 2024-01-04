@@ -2,8 +2,9 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
-
+import Swal from "sweetalert2";
+import useGetCartItem from "../../hooks/useGetCartItem";
+import { useNavigate } from "react-router-dom";
 const PlaceOrder = ({ total, orderItems }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -12,6 +13,8 @@ const PlaceOrder = ({ total, orderItems }) => {
   const elements = useElements();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [, refetch] = useGetCartItem();
+  const navigate = useNavigate();
   const cartId = orderItems?.map((item) => item._id);
   const menuId = orderItems?.map((item) => item.menuId);
   const sellerEmail = orderItems?.map((item) => item.sellerEmail)[0];
@@ -58,7 +61,6 @@ const PlaceOrder = ({ total, orderItems }) => {
       console.log("confirm error", confirmError);
     } else {
       if (paymentIntent.status === "succeeded") {
-        toast.success("payment success");
         await setTransactionId(paymentIntent.id);
         const payment = {
           email: user.email,
@@ -70,7 +72,18 @@ const PlaceOrder = ({ total, orderItems }) => {
           sellerEmail,
           status: "pending",
         };
-        console.log(payment);
+        const { data } = await axiosSecure.post("/orders", payment);
+        if (data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your payment is successfully & order has been placed",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+          navigate("/dashboard/my-orders");
+        }
       }
     }
   };
