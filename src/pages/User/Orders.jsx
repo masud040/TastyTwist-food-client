@@ -1,9 +1,9 @@
+import AllOrders from "../../components/AllOrders/AllOrders";
 import OrderCard from "../../components/Card/OrderCard";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const Orders = () => {
   const [orderItems] = useGetOrderItem();
-  console.log(orderItems);
   return (
     <>
       <div>
@@ -11,8 +11,8 @@ const Orders = () => {
       </div>
       <div>
         {orderItems?.length > 0 ? (
-          orderItems?.cartItems?.map((item) => (
-            <OrderCard key={item._id} item={item} />
+          orderItems?.map((orderItem) => (
+            <AllOrders key={orderItem._id} orderItem={orderItem} />
           ))
         ) : (
           <h1>There are no order it</h1>
