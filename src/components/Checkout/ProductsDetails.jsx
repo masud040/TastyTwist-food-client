@@ -1,10 +1,10 @@
 import OrderItemCart from "../Card/OrderItemCart";
 
-const ProductsDetails = ({ orderItems }) => {
+const ProductsDetails = ({ cartItems }) => {
   return (
     <div>
       <div className="space-y-4">
-        {orderItems?.map((item) => (
+        {cartItems?.map((item) => (
           <OrderItemCart key={item._id} item={item} />
         ))}
       </div>

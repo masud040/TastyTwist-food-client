@@ -17,7 +17,7 @@ const Checkout = () => {
   const axiosSecure = useAxiosSecure();
   const { loading } = useAuth();
 
-  const { data: orderItems } = useQuery({
+  const { data: cartItems } = useQuery({
     enabled: !loading && !!ids,
     queryKey: [ids],
     queryFn: async () => {
@@ -32,7 +32,7 @@ const Checkout = () => {
         <BillingAddress />
 
         <div>
-          <ProductsDetails orderItems={orderItems} />
+          <ProductsDetails cartItems={cartItems} />
         </div>
       </div>
       <div className=" md:col-span-1">
@@ -41,7 +41,7 @@ const Checkout = () => {
           discount={discount}
           shippingCost={shippingCost}
           total={total}
-          orderItems={orderItems}
+          cartItems={cartItems}
         />
       </div>
     </div>

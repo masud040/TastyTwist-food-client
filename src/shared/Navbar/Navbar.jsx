@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="md:flex justify-between py-4 drop-shadow-2xl px-3 items-center fixed z-10 w-full  bg-white bg-opacity-70 ">
+      <div className="md:flex justify-between py-2 drop-shadow-2xl px-3 items-center fixed z-10 w-full  bg-white bg-opacity-70 ">
         <Link to="/" className="hidden md:block text-xl font-bold text-primary">
           TastyTwistOnline
         </Link>

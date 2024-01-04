@@ -29,3 +29,22 @@ export const saveUser = async (user) => {
   );
   return data;
 };
+
+export const possibleDateGenerator = () => {
+  const possibilityDStart = new Date();
+  possibilityDStart.setDate(possibilityDStart.getDate() + 5);
+  const possibilityMStart = possibilityDStart.toLocaleString("default", {
+    month: "long",
+  });
+  const possibilityDEnd = new Date();
+  possibilityDEnd.setDate(possibilityDEnd.getDate() + 10);
+  const possibilityMEnd = possibilityDEnd.toLocaleString("default", {
+    month: "long",
+  });
+
+  const estimatedDate = `${possibilityDStart.getDate()} ${possibilityMStart.slice(
+    0,
+    3
+  )} - ${possibilityDEnd.getDate()} ${possibilityMEnd.slice(0, 3)}`;
+  return estimatedDate;
+};

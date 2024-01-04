@@ -5,19 +5,20 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import { useNavigate } from "react-router-dom";
-const PlaceOrder = ({ total, orderItems }) => {
+import { possibleDateGenerator } from "../../api/auth";
+const PlaceOrder = ({ total, cartItems }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [, refetch] = useGetCartItem();
   const navigate = useNavigate();
-  const cartId = orderItems?.map((item) => item._id);
-  const menuId = orderItems?.map((item) => item.menuId);
-  const sellerEmail = orderItems?.map((item) => item.sellerEmail)[0];
+  const cartId = cartItems?.map((item) => item._id);
+  const menuId = cartItems?.map((item) => item.menuId);
+  const sellerEmail = cartItems?.map((item) => item.sellerEmail)[0];
+
   useEffect(() => {
     user &&
       axiosSecure
@@ -37,7 +38,7 @@ const PlaceOrder = ({ total, orderItems }) => {
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -61,14 +62,15 @@ const PlaceOrder = ({ total, orderItems }) => {
       console.log("confirm error", confirmError);
     } else {
       if (paymentIntent.status === "succeeded") {
-        await setTransactionId(paymentIntent.id);
         const payment = {
           email: user.email,
           total,
-          transactionId,
+          transactionId: paymentIntent.id,
           date: Date(),
+          estimatedDate: possibleDateGenerator(),
           cartId,
           menuId,
+          cartItems,
           sellerEmail,
           status: "pending",
         };
@@ -87,6 +89,7 @@ const PlaceOrder = ({ total, orderItems }) => {
       }
     }
   };
+
   return (
     <div className="mt-4">
       <form onSubmit={handleSubmit}>
