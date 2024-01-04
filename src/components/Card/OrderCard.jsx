@@ -10,7 +10,7 @@ const OrderCard = ({ item, estimatedDate, status }) => {
       <p className="text-xs bg-gray-300 p-1 w-20 text-center rounded-xl px-2">
         {status}
       </p>
-      <p className="text-green-500 text-xs ">
+      <p className="text-green-500 text-xs">
         Estimated Date <br />
         {estimatedDate}
       </p>

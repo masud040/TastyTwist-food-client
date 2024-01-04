@@ -7,7 +7,7 @@ const AllOrders = ({ orderItem }) => {
   return (
     <>
       <div className="mt-6 mb-2">
-        <h1 className="text-sm">Orders</h1>
+        <h1 className="text-sm text-indigo-500">Orders</h1>
         <p className="text-[11px] text-gray-700">{formatDate}</p>
         <hr />
       </div>
