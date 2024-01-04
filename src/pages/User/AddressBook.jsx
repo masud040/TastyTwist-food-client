@@ -71,7 +71,11 @@ const AddressBook = () => {
         </div>
       )}
       <AddressModal isOpen={isOpen} closeModal={closeModal} refetch={refetch} />
-      <EditAddressModal isOpen={isEditOpen} closeEditModal={closeEditModal} />
+      <EditAddressModal
+        isOpen={isEditOpen}
+        closeEditModal={closeEditModal}
+        closeModal={closeModal}
+      />
     </>
   );
 };

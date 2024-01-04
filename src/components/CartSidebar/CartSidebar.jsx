@@ -3,11 +3,13 @@ import useGetCartItem from "../../hooks/useGetCartItem";
 import CartCard from "../Card/CartCard";
 import { useState } from "react";
 import OrderSummary from "../OrderSummary/OrderSummary";
+import useGetAddress from "../../hooks/useGetAddress";
 
 const CartSidebar = ({ showCart, setShowCart }) => {
   const [carts] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
   const [discount, setDiscount] = useState(0);
+  const [userAddress] = useGetAddress();
 
   const subTotal =
     selectedItems?.length > 0 &&
@@ -85,7 +87,12 @@ const CartSidebar = ({ showCart, setShowCart }) => {
             setDiscount={setDiscount}
           />
           <Link
-            to={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`}
+            to={
+              userAddress
+                ? `/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`
+                : "/dashboard/address-book"
+            }
+            state={`/check-out?ids=${ordersItemId}&total=${total}&discount=${discount}&subtotal=${subTotal}&shippingCost=${shippingCost}&menusId=${menusItemId}`}
           >
             <button
               disabled={selectedItems?.length > 0 ? false : true}

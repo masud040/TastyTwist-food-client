@@ -10,7 +10,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import useGetAddress from "../../hooks/useGetAddress";
 import { IoClose } from "react-icons/io5";
-const EditAddressModal = ({ isOpen, closeEditModal }) => {
+const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const {
     register,
     handleSubmit,
@@ -87,6 +87,7 @@ const EditAddressModal = ({ isOpen, closeEditModal }) => {
     if (details.modifiedCount > 0) {
       toast.success("Address updated successfully");
       closeEditModal(false);
+      closeModal(false);
     }
     setDivisionName("default");
     setCityName("default");

@@ -9,7 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
+import { useLocation, useNavigate } from "react-router-dom";
 const AddressModal = ({ isOpen, closeModal, refetch }) => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -69,6 +72,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
       });
       closeModal(false);
       refetch();
+      navigate(state ? state : "/");
     }
     setDivisionName("default");
     setCityName("default");

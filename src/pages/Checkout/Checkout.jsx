@@ -17,6 +17,7 @@ const Checkout = () => {
     <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
       <div className=" md:col-span-2 text-gray-700">
         <BillingAddress />
+
         <div>
           <ProductsDetails ids={ids} />
         </div>
