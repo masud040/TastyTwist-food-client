@@ -2,7 +2,11 @@ const OrderCard = ({ item, estimatedDate, status }) => {
   const { name, image, count } = item || {};
   return (
     <div className="text-sm text-gray-800 flex gap-6 justify-between overflow-x-auto items-center bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg ">
-      <img src={image} className="w-[72px] md:w-24 h-10 md:h-14 " alt="" />
+      <img
+        src={image}
+        className="w-[72px] md:w-28 h-12 rounded-sm md:h-14 "
+        alt=""
+      />
       <p>{name}</p>
       <p className="flex items-center gap-2">
         Qty: <span>{count}</span>

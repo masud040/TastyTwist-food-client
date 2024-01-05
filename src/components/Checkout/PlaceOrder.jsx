@@ -87,7 +87,9 @@ const PlaceOrder = ({ total, cartItems }) => {
             timer: 1500,
           });
           refetch();
-          navigate(`/confirm-order/${orderId}`);
+          navigate(
+            `/confirm-order/${orderId}?email=${user?.email}&price=${total}`
+          );
         }
       }
     }

@@ -1,11 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineMailOutline } from "react-icons/md";
 const ConfirmOrder = () => {
   const { orderId } = useParams();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const email = params.get("email");
+  const price = params.get("price");
 
   return (
-    <div className="flex justify-center items-center h-[400px]">
+    <div className="flex justify-center items-center h-screen">
       <div className="text-center space-y-3">
         <h1 className="text-3xl text-light-green-700">
           Thank You Purchase This Food
@@ -31,9 +35,13 @@ const ConfirmOrder = () => {
         <div className="flex items-center gap-4 border p-2 rounded-md border-gray-400">
           <MdOutlineMailOutline className="text-3xl" />
           <p className="text-sm">
-            We've sent you a confirmation email to masudinfo040@gmail.com with
-            the details of your order.{" "}
+            We've sent you a confirmation email to {email} with the details of
+            your order.{" "}
           </p>
+        </div>
+        <div className="flex justify-center items-center text-xl gap-1">
+          <p className="text-primary font-semibold">Total Price: </p>
+          <p>TK {price}</p>
         </div>
       </div>
     </div>

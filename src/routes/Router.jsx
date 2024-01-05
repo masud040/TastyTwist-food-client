@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/confirm-order/:orderId",
+        path: "confirm-order/:orderId",
         element: (
           <PrivateRoute>
             <ConfirmOrder />
