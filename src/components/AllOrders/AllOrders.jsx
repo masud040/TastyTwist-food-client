@@ -1,15 +1,8 @@
 import OrderCard from "../Card/OrderCard";
 
 const AllOrders = ({ orderItem }) => {
-  const {
-    total,
-    orderId,
-    transactionId,
-    date,
-    estimatedDate,
-    cartItems,
-    status,
-  } = orderItem || {};
+  const { _id, total, orderId, date, estimatedDate, cartItems, status } =
+    orderItem || {};
   const formatDate = date.split(":")[0];
   return (
     <>
@@ -23,6 +16,7 @@ const AllOrders = ({ orderItem }) => {
           <p>TK {total}</p>
         </div>
       </div>
+
       <div className="flex flex-col gap-5">
         {cartItems?.map((item) => (
           <OrderCard
@@ -30,6 +24,7 @@ const AllOrders = ({ orderItem }) => {
             item={item}
             status={status}
             estimatedDate={estimatedDate}
+            id={_id}
           />
         ))}
       </div>
