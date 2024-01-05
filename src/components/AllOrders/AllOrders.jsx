@@ -20,7 +20,7 @@ const AllOrders = ({ orderItem }) => {
       <div className="flex flex-col gap-5">
         {cartItems?.map((item) => (
           <OrderCard
-            key={item._id}
+            key={item.price}
             item={item}
             status={status}
             estimatedDate={estimatedDate}

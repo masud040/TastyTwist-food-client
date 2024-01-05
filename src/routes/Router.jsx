@@ -16,6 +16,7 @@ import ManageMenu from "../pages/Seller/ManageMenu";
 import ManageOrder from "../pages/Seller/ManageOrder";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
+import Profile from "../pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: "/dashboard/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "my-orders",
         element: (
           <PrivateRoute>
@@ -82,6 +91,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "manage-menu",
         element: (
@@ -92,7 +102,11 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-order",
-        element: <ManageOrder />,
+        element: (
+          <PrivateRoute>
+            <ManageOrder />
+          </PrivateRoute>
+        ),
       },
     ],
   },

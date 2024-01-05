@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 
-const MenuItem = ({ label, address, icon: Icon }) => {
+const MenuItem = ({ label, address, icon: Icon, handleToggle }) => {
   return (
     <NavLink
       to={address}
-      end
+      onClick={handleToggle}
       className={({ isActive }) =>
         `flex items-center px-4 py-1 my-5  transition-colors duration-300 transform text-sm hover:bg-gray-300   hover:text-gray-700 ${
           isActive

@@ -9,7 +9,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-const UserMenu = () => {
+const UserMenu = ({ handleToggle }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +18,7 @@ const UserMenu = () => {
   };
   const openModal = () => {
     setIsOpen(true);
+    handleToggle();
   };
   const modalHandler = async () => {
     const currentUser = {
@@ -49,11 +50,13 @@ const UserMenu = () => {
         icon={RiListOrdered}
         label="My Orders"
         address="/dashboard/my-orders"
+        handleToggle={handleToggle}
       />
       <MenuItem
         icon={FaAddressBook}
         label="Address Book"
         address="/dashboard/address-book"
+        handleToggle={handleToggle}
       />
       <div
         onClick={openModal}
