@@ -15,6 +15,7 @@ import AddressBook from "../pages/User/AddressBook";
 import ManageMenu from "../pages/Seller/ManageMenu";
 import ManageOrder from "../pages/Seller/ManageOrder";
 import Checkout from "../pages/Checkout/Checkout";
+import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Checkout />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/confirm-order/:orderId",
+        element: (
+          <PrivateRoute>
+            <ConfirmOrder />
           </PrivateRoute>
         ),
       },

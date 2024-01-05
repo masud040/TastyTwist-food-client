@@ -13,10 +13,10 @@ const AllOrders = ({ orderItem }) => {
   const formatDate = date.split(":")[0];
   return (
     <>
-      <div className="mt-6 mb-2 flex justify-between items-center bg-gray-50 p-2 rounded-sm drop-shadow-lg">
+      <div className="mt-6 mb-2 flex justify-between items-center bg-gray-50 p-2 rounded-md drop-shadow-xl border ">
         <div>
           <h4 className="text-sm text-indigo-500">Orders #{orderId}</h4>
-          <p className="text-[11px] text-gray-700">{formatDate}</p>
+          <p className="text-[11px] text-gray-600">Placed on{formatDate}</p>
         </div>
         <div className="text- flex items-center gap-1">
           <p className="text-gray-600">Total:</p>

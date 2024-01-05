@@ -19,7 +19,7 @@ const PlaceOrder = ({ total, cartItems }) => {
   const cartId = cartItems?.map((item) => item._id);
   const menuId = cartItems?.map((item) => item.menuId);
   const sellerEmail = cartItems?.map((item) => item.sellerEmail)[0];
-  const orderId = uuidv4();
+  const orderId = uuidv4().slice(0, 8);
 
   useEffect(() => {
     user &&
@@ -67,7 +67,7 @@ const PlaceOrder = ({ total, cartItems }) => {
         const payment = {
           email: user.email,
           total,
-          orderId: orderId.slice(0, 8),
+          orderId,
           transactionId: paymentIntent.id,
           date: Date(),
           estimatedDate: possibleDateGenerator(),
@@ -87,7 +87,7 @@ const PlaceOrder = ({ total, cartItems }) => {
             timer: 1500,
           });
           refetch();
-          navigate("/dashboard/my-orders");
+          navigate(`/confirm-order/${orderId}`);
         }
       }
     }
