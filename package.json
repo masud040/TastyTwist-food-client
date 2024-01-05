@@ -37,7 +37,8 @@
     "react-spinners": "^0.13.8",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.10.2",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

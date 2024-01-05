@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import { useNavigate } from "react-router-dom";
 import { possibleDateGenerator } from "../../api/auth";
+import { v4 as uuidv4 } from "uuid";
 const PlaceOrder = ({ total, cartItems }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -18,6 +19,7 @@ const PlaceOrder = ({ total, cartItems }) => {
   const cartId = cartItems?.map((item) => item._id);
   const menuId = cartItems?.map((item) => item.menuId);
   const sellerEmail = cartItems?.map((item) => item.sellerEmail)[0];
+  const orderId = uuidv4();
 
   useEffect(() => {
     user &&
@@ -65,6 +67,7 @@ const PlaceOrder = ({ total, cartItems }) => {
         const payment = {
           email: user.email,
           total,
+          orderId: orderId.slice(0, 8),
           transactionId: paymentIntent.id,
           date: Date(),
           estimatedDate: possibleDateGenerator(),
