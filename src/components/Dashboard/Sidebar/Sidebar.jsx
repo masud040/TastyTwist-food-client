@@ -17,9 +17,9 @@ const Sidebar = () => {
   };
   return (
     <>
-      <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
+      <div className=" fixed w-full bg-gray-400 bg-opacity-30 text-gray-800 flex justify-between md:hidden z-10">
         <div>
-          <div className="block cursor-pointer p-4 font-bold">
+          <div className="block cursor-pointer ps-4 py-[14px] font-bold">
             <Link to="/" className=" text-xl font-bold text-primary">
               TastyTwistOnline
             </Link>
@@ -28,7 +28,7 @@ const Sidebar = () => {
 
         <button
           onClick={handleToggle}
-          className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-200"
+          className="mobile-menu-button p-4 py-[14px] focus:outline-none focus:bg-gray-400 focus:bg-opacity-30"
         >
           <AiOutlineBars className="h-5 w-5" />
         </button>
