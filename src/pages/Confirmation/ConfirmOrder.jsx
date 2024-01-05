@@ -1,15 +1,40 @@
-import { useParams } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
+import { MdOutlineMailOutline } from "react-icons/md";
 const ConfirmOrder = () => {
   const { orderId } = useParams();
 
   return (
     <div className="flex justify-center items-center h-[400px]">
-      <div className="text-center">
+      <div className="text-center space-y-3">
         <h1 className="text-3xl text-light-green-700">
           Thank You Purchase This Food
         </h1>
-        <p>Your Order Id #{orderId}</p>
+        <p className="text-lg text-gray-700">Your Order Id #{orderId}</p>
+
+        <div className="md:flex justify-center gap-4 space-y-3 md:space-y-0">
+          <div className="md:flex items-center gap-1 justify-center space-y-3 md:space-y-0 ">
+            <p>To track the delivery of your order, go to</p>
+            <div className="flex items-center font-semibold justify-center">
+              <p>Dashboard</p>
+              <IoIosArrowForward />
+              <p>My Orders</p>
+            </div>
+          </div>
+
+          <Link to="/dashboard/my-orders">
+            <button className="bg-primary p-2 rounded-md text-white text-xs mt-3 md:mt-0">
+              View Order
+            </button>
+          </Link>
+        </div>
+        <div className="flex items-center gap-4 border p-2 rounded-md border-gray-400">
+          <MdOutlineMailOutline className="text-3xl" />
+          <p className="text-sm">
+            We've sent you a confirmation email to masudinfo040@gmail.com with
+            the details of your order.{" "}
+          </p>
+        </div>
       </div>
     </div>
   );
