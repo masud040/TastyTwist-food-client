@@ -1,0 +1,45 @@
+import { useState } from "react";
+import useAuth from "../../../../hooks/useAuth";
+import useGetAddress from "../../../../hooks/useGetAddress";
+import ProfileEditModal from "../../../Modal/Profile/ProfileEditModal";
+
+const PersonalProfile = () => {
+  const [userAddress, refetch] = useGetAddress();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { user } = useAuth();
+  const { name, email, address, mobile, division, place, city, area } =
+    userAddress || {};
+  const openProfileModal = () => {
+    setIsProfileOpen(true);
+  };
+  const closeModal = () => {
+    setIsProfileOpen(false);
+  };
+  return (
+    <>
+      <div>
+        <div className=" flex items-center gap-1">
+          <h4>Personal Profile |</h4>
+          <button
+            onClick={openProfileModal}
+            className="text-xs text-indigo-500"
+          >
+            EDIT
+          </button>
+        </div>
+        <div className="flex flex-col items-center text-gray-700 text-sm">
+          <img
+            src={user?.photoURL}
+            className="w-32 h-32 mb-2 rounded-full ring-2 ring-primary"
+            alt=""
+          />
+          <p>Name: {name}</p>
+          <p>Email: {email}</p>
+        </div>
+      </div>
+      <ProfileEditModal isProfileOpen={isProfileOpen} closeModal={closeModal} />
+    </>
+  );
+};
+
+export default PersonalProfile;
