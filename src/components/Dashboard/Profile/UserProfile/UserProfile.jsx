@@ -1,5 +1,5 @@
-import AddressBook from "../../../../pages/User/AddressBook";
 import PersonalProfile from "./PersonalProfile";
+import UserAddress from "./UserAddress";
 
 const UserProfile = () => {
   return (
@@ -11,7 +11,7 @@ const UserProfile = () => {
         </div>
 
         <div className="border min-h-[100px] rounded-md  border-gray-300 drop-shadow-xl bg-gray-50">
-          <AddressBook />
+          <UserAddress />
         </div>
       </div>
       ;
