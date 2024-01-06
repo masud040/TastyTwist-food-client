@@ -39,7 +39,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
           <h3 className="text-sm font-semibold">{name}</h3>
           <h4>{price}</h4>
           <div className="flex justify-between gap-1 items-center">
-            <button className="p-1 text-lg text-primary">
+            <button className="p-1 text-lg text-gray-600">
               <FaRegHeart />
             </button>
             <button className="p-1 text-lg text-gray-600">
