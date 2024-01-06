@@ -3,7 +3,6 @@ import FavoriteCard from "../Card/FavoriteCard";
 
 const FavoriteSidebar = ({ showFavorite }) => {
   const [favorites] = useGetFavoriteItem();
-
   return (
     <>
       <div
@@ -18,10 +17,10 @@ const FavoriteSidebar = ({ showFavorite }) => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between flex-1 mt-6 px-1">
+          <div className="flex flex-col justify-between flex-1 mt-5 gap-2 px-1">
             {favorites && favorites.length > 0 ? (
               favorites?.map((favorite) => (
-                <FavoriteCard key={favorite._id} order={favorite} />
+                <FavoriteCard key={favorite._id} favorite={favorite} />
               ))
             ) : (
               <h2 className="text-center mt-6 font-bold text-xl text-gray-900">

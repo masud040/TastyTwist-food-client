@@ -42,7 +42,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
             <button className="p-1 text-lg text-primary">
               <FaRegHeart />
             </button>
-            <button className="p-1 text-lg text-red-700">
+            <button className="p-1 text-lg text-gray-600">
               <RiDeleteBin6Line />
             </button>
             <div className="flex items-center">
