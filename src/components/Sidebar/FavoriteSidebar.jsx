@@ -1,21 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import CartCard from "../Card/CartCard";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
+import FavoriteCard from "../Card/FavoriteCard";
 
-const FavoriteSidebar = ({ showFavorite, email }) => {
-  const [favorites, refetch] = useGetFavoriteItem();
-  console.log(favorites);
-  const axiosSecure = useAxiosSecure();
-
-  const { data: orders } = useQuery({
-    enabled: !!email,
-    queryKey: ["orders", email],
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(`/orders/${email}`);
-      return data;
-    },
-  });
+const FavoriteSidebar = ({ showFavorite }) => {
+  const [favorites] = useGetFavoriteItem();
 
   return (
     <>
@@ -32,8 +19,10 @@ const FavoriteSidebar = ({ showFavorite, email }) => {
           </div>
 
           <div className="flex flex-col justify-between flex-1 mt-6 px-1">
-            {orders && orders.length > 0 ? (
-              orders?.map((order) => <CartCard key={order._id} order={order} />)
+            {favorites && favorites.length > 0 ? (
+              favorites?.map((favorite) => (
+                <FavoriteCard key={favorite._id} order={favorite} />
+              ))
             ) : (
               <h2 className="text-center mt-6 font-bold text-xl text-gray-900">
                 No Favorite Item
