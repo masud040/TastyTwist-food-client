@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AllOrders from "../../components/AllOrders/AllOrders";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 
@@ -15,7 +16,18 @@ const Orders = () => {
             <AllOrders key={orderItem._id} orderItem={orderItem} />
           ))
         ) : (
-          <h1>There are no order it</h1>
+          <div className="flex justify-center text-center h-[500px] items-center ">
+            <div>
+              <h1 className="text-4xl text-primary mb-2">
+                There are no order it
+              </h1>
+              <Link to="/restaurants">
+                <button className="bg-primary p-2 rounded-lg text-white">
+                  Please Order
+                </button>
+              </Link>
+            </div>
+          </div>
         )}
       </div>
     </>
