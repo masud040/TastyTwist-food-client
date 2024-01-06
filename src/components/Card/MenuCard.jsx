@@ -21,7 +21,10 @@ const MenuCard = ({ item }) => {
 
       count: 1,
     };
-    const { data } = await axiosSecure.post("/carts?place=cart", orderInfo);
+    const { data } = await axiosSecure.post(
+      "/carts-favorite?items=carts",
+      orderInfo
+    );
     if (data.insertedId) {
       refetch();
       Swal.fire({
@@ -43,7 +46,7 @@ const MenuCard = ({ item }) => {
       sellerEmail: email,
       count: 1,
     };
-    const { data } = await axiosSecure.post("/carts", orderInfo);
+    const { data } = await axiosSecure.post("/carts-favorite", orderInfo);
     if (data.insertedId) {
       refetch();
       Swal.fire({

@@ -4,11 +4,11 @@ import useGetAddress from "../../../../hooks/useGetAddress";
 import ProfileEditModal from "../../../Modal/Profile/ProfileEditModal";
 
 const PersonalProfile = () => {
-  const [userAddress, refetch] = useGetAddress();
+  const [userAddress] = useGetAddress();
+
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { user } = useAuth();
-  const { name, email, address, mobile, division, place, city, area } =
-    userAddress || {};
+  const { name, email } = userAddress || {};
   const openProfileModal = () => {
     setIsProfileOpen(true);
   };

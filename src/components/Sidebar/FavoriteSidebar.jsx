@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import CartCard from "../Card/CartCard";
+import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 
 const FavoriteSidebar = ({ showFavorite, email }) => {
+  const [favorites, refetch] = useGetFavoriteItem();
+  console.log(favorites);
   const axiosSecure = useAxiosSecure();
 
   const { data: orders } = useQuery({

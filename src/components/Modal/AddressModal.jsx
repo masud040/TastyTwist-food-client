@@ -72,7 +72,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
       });
       closeModal(false);
       refetch();
-      navigate(state ? state : "/");
+      navigate(state && state);
     }
     setDivisionName("default");
     setCityName("default");

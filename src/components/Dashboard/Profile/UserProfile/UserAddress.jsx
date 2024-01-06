@@ -3,13 +3,10 @@ import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import useGetAddress from "../../../../hooks/useGetAddress";
 import AddressModal from "../../../Modal/AddressModal";
-import EditAddressModal from "../../../Modal/EditAddressModal";
 import { Link } from "react-router-dom";
 
 const UserAddress = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-
   const [userAddress, refetch] = useGetAddress();
   const {
     name,
@@ -17,7 +14,7 @@ const UserAddress = () => {
     mobile,
 
     division,
-    place,
+
     city,
     area,
   } = userAddress || {};

@@ -10,7 +10,9 @@ const useGetCartItem = () => {
     enabled: !!user?.email,
     queryKey: ["carts", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/carts/${user?.email}`);
+      const { data } = await axiosSecure.get(
+        `/carts-favorite/${user?.email}?items=carts`
+      );
       return data;
     },
   });
