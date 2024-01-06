@@ -47,14 +47,16 @@ const UserAddress = () => {
         </>
       )}
       {userAddress && (
-        <div className="text-sm text-gray-800 space-y-1 bg-white border p-4 rounded-md hover:drop-shadow-xl transition-all duration-200">
+        <div className="text-sm text-gray-800 space-y-1 bg-white  p-4 ">
           <div className="flex items-center text-lg text-gray-800 justify-between ">
             <p>Address Book</p>
             <Link to="/dashboard/address-book">
               <button className="text-xs text-indigo-500">EDIT</button>
             </Link>
           </div>
-          <p className="uppercase text-gray-600">Default Delivery Address</p>
+          <p className="uppercase text-gray-600 text-xs ">
+            Default Delivery Address
+          </p>
           <p className="text-lg font-semibold">{name}</p>
 
           <p>{address}</p>

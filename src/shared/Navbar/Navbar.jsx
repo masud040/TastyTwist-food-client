@@ -4,9 +4,10 @@ import MenuDropDown from "../../components/MenuDropDown/MenuDropDown";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaShoppingCart } from "react-icons/fa";
-import CartSidebar from "../../components/CartSidebar/CartSidebar";
+
 import { FaRegHeart } from "react-icons/fa";
-import FavoriteSidebar from "../../components/CartSidebar/FavoriteSidebar";
+import FavoriteSidebar from "../../components/Sidebar/FavoriteSidebar";
+import CartSidebar from "../../components/Sidebar/CartSidebar";
 
 const navLinks = [
   {

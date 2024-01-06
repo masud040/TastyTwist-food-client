@@ -21,6 +21,28 @@ const MenuCard = ({ item }) => {
 
       count: 1,
     };
+    const { data } = await axiosSecure.post("/carts?place=cart", orderInfo);
+    if (data.insertedId) {
+      refetch();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `${name} is added`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+  const addToFavorite = async () => {
+    const orderInfo = {
+      menuId: _id,
+      email: user?.email,
+      name: name,
+      price: price,
+      image: image_url,
+      sellerEmail: email,
+      count: 1,
+    };
     const { data } = await axiosSecure.post("/carts", orderInfo);
     if (data.insertedId) {
       refetch();
@@ -33,7 +55,6 @@ const MenuCard = ({ item }) => {
       });
     }
   };
-  const addToFavorite = async () => {};
 
   return (
     <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
