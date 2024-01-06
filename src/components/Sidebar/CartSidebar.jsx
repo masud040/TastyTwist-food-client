@@ -6,7 +6,7 @@ import OrderSummary from "../OrderSummary/OrderSummary";
 import useGetAddress from "../../hooks/useGetAddress";
 
 const CartSidebar = ({ showCart, setShowCart }) => {
-  const [carts] = useGetCartItem();
+  const [carts, refetch] = useGetCartItem();
   const [selectedItems, setSelectedItems] = useState([]);
   const [discount, setDiscount] = useState(0);
   const [userAddress] = useGetAddress();
