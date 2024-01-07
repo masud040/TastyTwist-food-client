@@ -6,9 +6,11 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import Swal from "sweetalert2";
+import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
   const [, refetch] = useGetCartItem();
+  const [, wishListRefetch] = useGetFavoriteItem();
   const { _id, name, price, image, count } = order || {};
   const [totalCount, setTotalCount] = useState(count);
   const axiosSecure = useAxiosSecure();
@@ -26,6 +28,17 @@ const CartCard = ({ order, isSelected, handleChange }) => {
       const itemCount = totalCount + 1;
       await axiosSecure.patch(`/carts/${id}`, { itemCount });
     }
+  };
+  const moveToWishList = async (id) => {
+    const { data } = await axiosSecure.post(
+      `/move-carts-favorite/${id}`,
+      order
+    );
+    if (data.insertedId) {
+      toast.success("successfully added to Favorite");
+    }
+    refetch();
+    wishListRefetch();
   };
   const deleteFromFavorite = async (id) => {
     Swal.fire({
@@ -67,7 +80,10 @@ const CartCard = ({ order, isSelected, handleChange }) => {
           <h3 className="text-sm font-semibold">{name}</h3>
           <h4>{price}</h4>
           <div className="flex justify-between gap-1 items-center">
-            <button className="p-1 text-lg text-gray-600">
+            <button
+              onClick={() => moveToWishList(_id)}
+              className="p-1 text-lg text-gray-600"
+            >
               <FaRegHeart />
             </button>
             <button
