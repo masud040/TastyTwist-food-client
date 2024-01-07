@@ -2,7 +2,7 @@ import RestaurantCard from "../../components/Card/RestaurantCard";
 import useGetAllRestaurant from "../../hooks/useGetAllRestaurant";
 
 const Restaurants = () => {
-  const [restaurants, isLoading, refetch] = useGetAllRestaurant();
+  const [restaurants] = useGetAllRestaurant();
   return (
     <>
       <div className="text-xl text-center font-semibold mt-4">

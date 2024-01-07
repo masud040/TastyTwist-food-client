@@ -4,13 +4,25 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import useGetCartItem from "../../hooks/useGetCartItem";
 
 const FavoriteCard = ({ favorite }) => {
   const { _id, name, price, image } = favorite || {};
   const [, refetch] = useGetFavoriteItem();
+  const [, cartRefetch] = useGetCartItem();
 
   const axiosSecure = useAxiosSecure();
-  const addToCart = () => {};
+  const addToCart = async (id) => {
+    const { data } = await axiosSecure.post(
+      `/move-carts-favorite/${id}?item=favorite`,
+      favorite
+    );
+    if (data.insertedId) {
+      toast.success("successfully added to cart");
+    }
+    refetch();
+    cartRefetch();
+  };
   const deleteFromFavorite = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -46,7 +58,7 @@ const FavoriteCard = ({ favorite }) => {
         </div>
         <div className="flex-1 flex flex-col justify-between  gap-1 items-end">
           <button
-            onClick={addToCart}
+            onClick={() => addToCart(_id)}
             className="p-1 text-lg bg-primary px-2 rounded-sm text-white"
           >
             <FaCartPlus />
