@@ -1,15 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRestaurants } from "../utils/getRestaurants";
+
+import useAxiosSecure from "./useAxiosSecure";
 
 const useGetAllRestaurant = () => {
-  const { data: restaurants, refetch } = useQuery({
+  const axiosSecure = useAxiosSecure();
+  const {
+    data: restaurants,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["restaurants"],
     queryFn: async () => {
-      const { data } = await getRestaurants();
+      const { data } = await axiosSecure.get("/restaurants");
       return data;
     },
   });
-  return [restaurants, refetch];
+
+  return [restaurants, isLoading, refetch];
 };
 
 export default useGetAllRestaurant;

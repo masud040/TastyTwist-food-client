@@ -1,13 +1,10 @@
 import RestaurantCard from "../../Card/RestaurantCard";
-import { getRestaurants } from "../../../utils/getRestaurants";
-import { useQuery } from "@tanstack/react-query";
+
 import Spinner from "../../Spinner/Spinner";
+import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
 
 const Restaurant = () => {
-  const { data: restaurants, isLoading } = useQuery({
-    queryKey: ["restaurants"],
-    queryFn: async () => await getRestaurants(),
-  });
+  const [restaurants, isLoading] = useGetAllRestaurant();
 
   return isLoading ? (
     <Spinner />
