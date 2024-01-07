@@ -13,6 +13,7 @@ const FavoriteCard = ({ favorite }) => {
 
   const axiosSecure = useAxiosSecure();
   const addToCart = async (id) => {
+    delete favorite._id;
     const { data } = await axiosSecure.post(
       `/move-carts-favorite/${id}?item=favorite`,
       favorite

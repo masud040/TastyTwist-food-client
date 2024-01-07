@@ -30,6 +30,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
     }
   };
   const moveToWishList = async (id) => {
+    delete order._id;
     const { data } = await axiosSecure.post(
       `/move-carts-favorite/${id}`,
       order
