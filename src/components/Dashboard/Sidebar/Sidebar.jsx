@@ -1,19 +1,26 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineBars } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import MenuItem from "./MenuItem";
-import UserMenu from "../Menu/UserMenu";
-import SellerMenu from "../Menu/SellerMenu";
+import { GrLogout } from "react-icons/gr";
+import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import useGetUserRole from "../../../hooks/useGetUserRole";
+import SellerMenu from "../Menu/SellerMenu";
+import UserMenu from "../Menu/UserMenu";
+import MenuItem from "./MenuItem";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
+  const { logOut } = useAuth();
   const { role } = useGetUserRole();
 
   const handleToggle = () => {
     setActive(!isActive);
+  };
+  const handleLogout = async () => {
+    await logOut();
+    toast.success("Log out successfully");
   };
   return (
     <>
@@ -63,7 +70,10 @@ const Sidebar = () => {
             address="/dashboard/profile"
             handleToggle={handleToggle}
           />
-          <button className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform">
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
+          >
             <GrLogout className="w-5 h-5" />
 
             <span className="mx-4 font-medium text-sm">Logout</span>

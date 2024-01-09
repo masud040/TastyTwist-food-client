@@ -1,12 +1,12 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
+import { possibleDateGenerator } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import Swal from "sweetalert2";
 import useGetCartItem from "../../hooks/useGetCartItem";
-import { useNavigate } from "react-router-dom";
-import { possibleDateGenerator } from "../../api/auth";
-import { v4 as uuidv4 } from "uuid";
 const PlaceOrder = ({ total, cartItems }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -19,6 +19,7 @@ const PlaceOrder = ({ total, cartItems }) => {
   const cartId = cartItems?.map((item) => item._id);
   const menuId = cartItems?.map((item) => item.menuId);
   const sellerEmail = cartItems?.map((item) => item.sellerEmail)[0];
+
   const orderId = uuidv4().slice(0, 8);
 
   useEffect(() => {

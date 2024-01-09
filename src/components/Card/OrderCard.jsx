@@ -38,7 +38,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
         </button>
       </div>
       <p className="text-green-500">
-        Estimated Date
+        Estimated Deliver Date
         {estimatedDate}
       </p>
     </div>
