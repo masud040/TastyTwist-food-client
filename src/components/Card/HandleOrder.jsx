@@ -17,9 +17,13 @@ const HandleOrder = ({ item, estimatedDate, status, id }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(id);
+        const { data } = await axiosSecure.patch(`/orders/${id}`);
+        if (data.modifiedCount > 0) {
+          toast.success("Order cancelled");
+          refetch();
+        }
       }
     });
   };
