@@ -1,4 +1,4 @@
-import OrderCard from "../Card/OrderCard";
+import HandleOrder from "../Card/HandleOrder";
 
 const TotalOrder = ({ order }) => {
   const {
@@ -27,7 +27,7 @@ const TotalOrder = ({ order }) => {
 
       <div className="flex flex-col gap-5">
         {cartItems?.map((item) => (
-          <OrderCard
+          <HandleOrder
             key={item.price}
             item={item}
             status={status}

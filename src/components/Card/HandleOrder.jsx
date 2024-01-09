@@ -1,7 +1,12 @@
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetSellerOrderItem from "../../hooks/useGetSellerOrder";
 
-const OrderCard = ({ item, estimatedDate, status, id }) => {
+const HandleOrder = ({ item, estimatedDate, status, id }) => {
   const { name, image, count } = item || {};
+  const [, refetch] = useGetSellerOrderItem();
+  const axiosSecure = useAxiosSecure();
 
   const handleCancel = async (id) => {
     Swal.fire({
@@ -18,6 +23,13 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       }
     });
   };
+  const handleStatus = async (id) => {
+    const { data } = await axiosSecure.patch(`/orders/${id}?status=${status}`);
+    if (data.modifiedCount > 0) {
+      toast.success("Status is updated successfully");
+      refetch();
+    }
+  };
   return (
     <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
       <div className=" flex gap-6 justify-between  items-center  text-sm">
@@ -30,9 +42,12 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
         <p className="flex items-center gap-2">
           Qty: <span>{count}</span>
         </p>
-        <p className="text-xs bg-gray-300 p-1 w-20 text-center rounded-xl px-2">
+        <button
+          onClick={() => handleStatus(id)}
+          className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2"
+        >
           {status}
-        </p>
+        </button>
         <button onClick={() => handleCancel(id)} className="text-primary">
           Cancel
         </button>
@@ -45,4 +60,4 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
   );
 };
 
-export default OrderCard;
+export default HandleOrder;
