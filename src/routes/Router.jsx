@@ -2,21 +2,22 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Restaurants from "../pages/Restaurants/Restaurants";
 
+import Home from "../pages/Home/Home";
+import NotFound from "../pages/NotFound/NotFound";
+import RestaurantMenu from "../pages/RestaurantMenu/RestaurantMenu";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
-import NotFound from "../pages/NotFound/NotFound";
-import Home from "../pages/Home/Home";
-import RestaurantMenu from "../pages/RestaurantMenu/RestaurantMenu";
 import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-import Orders from "../pages/User/Orders";
-import AddressBook from "../pages/User/AddressBook";
-import ManageMenu from "../pages/Seller/ManageMenu";
-import ManageOrder from "../pages/Seller/ManageOrder";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 import Profile from "../pages/Profile/Profile";
+import ManageMenu from "../pages/Seller/ManageMenu";
+import ManageOrder from "../pages/Seller/ManageOrder";
+import AddressBook from "../pages/User/AddressBook";
+import Orders from "../pages/User/Orders";
+import PaymentHistory from "../pages/User/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddressBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <PrivateRoute>
+            <PaymentHistory />
           </PrivateRoute>
         ),
       },

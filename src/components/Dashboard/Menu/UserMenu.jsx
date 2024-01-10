@@ -1,13 +1,13 @@
+import { FaAddressBook } from "react-icons/fa";
 import { RiListOrdered } from "react-icons/ri";
 import MenuItem from "../Sidebar/MenuItem";
-import { FaAddressBook } from "react-icons/fa";
 
-import { MdFoodBank } from "react-icons/md";
-import SellerRequestModal from "../../Modal/SellerRequestModal";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { MdFoodBank, MdPayments } from "react-icons/md";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
+import SellerRequestModal from "../../Modal/SellerRequestModal";
 
 const UserMenu = ({ handleToggle }) => {
   const { user } = useAuth();
@@ -58,9 +58,15 @@ const UserMenu = ({ handleToggle }) => {
         address="/dashboard/address-book"
         handleToggle={handleToggle}
       />
+      <MenuItem
+        icon={MdPayments}
+        label="Payment History"
+        address="/dashboard/payment-history"
+        handleToggle={handleToggle}
+      />
       <div
         onClick={openModal}
-        className="flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300   hover:text-gray-700 cursor-pointer"
+        className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300   hover:text-gray-700 cursor-pointer"
       >
         <MdFoodBank className="w-5 h-5" />
 
