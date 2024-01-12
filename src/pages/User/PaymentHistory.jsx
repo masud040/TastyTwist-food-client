@@ -10,21 +10,11 @@ const PaymentHistory = () => {
       <table className="w-full text-sm text-left ">
         <thead className=" text-gray-700  uppercase">
           <tr>
-            <th scope="col" className="px-6 py-3">
-              Order Id
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Transaction Id
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Date
-            </th>
+            <th className="px-6 py-3">Order Id</th>
+            <th className="px-6 py-3">Name</th>
+            <th className="px-6 py-3">Price</th>
+            <th className="px-6 py-3">Transaction Id</th>
+            <th className="px-6 py-3">Date</th>
           </tr>
         </thead>
         <tbody>
