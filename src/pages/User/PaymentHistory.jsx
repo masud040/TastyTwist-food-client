@@ -3,7 +3,6 @@ import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const PaymentHistory = () => {
   const [orderItems] = useGetOrderItem();
-  console.log(orderItems);
 
   return (
     <div className="relative overflow-x-auto">
