@@ -9,6 +9,7 @@ export default function useGetCoupons() {
     queryKey: [user.email, "coupons"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/coupons/${user.email}`);
+      return data;
     },
   });
   return [coupons, refetch];
