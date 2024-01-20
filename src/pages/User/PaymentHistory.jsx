@@ -16,7 +16,7 @@ const PaymentHistory = () => {
           <thead className=" text-gray-700 ">
             <tr>
               <th className="px-3">Order Id</th>
-              <th className="px-3">Name</th>
+              <th className="px-3">Items Name</th>
               <th className="px-3">Price</th>
               <th className="px-3">Transaction Id</th>
               <th className="px-3">Date</th>

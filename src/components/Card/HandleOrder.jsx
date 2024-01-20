@@ -28,6 +28,9 @@ const HandleOrder = ({ item, estimatedDate, status, id }) => {
     });
   };
   const handleStatus = async (id) => {
+    if (status === "delivered") {
+      return toast.error("Your order has been delivered");
+    }
     const { data } = await axiosSecure.patch(`/orders/${id}?status=${status}`);
     if (data.modifiedCount > 0) {
       toast.success("Status is updated successfully");

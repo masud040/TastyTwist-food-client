@@ -1,13 +1,13 @@
+import { useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import placeholder from "../../assets/placeholder.jpg";
 import MenuDropDown from "../../components/MenuDropDown/MenuDropDown";
-import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { FaShoppingCart } from "react-icons/fa";
 
 import { FaRegHeart } from "react-icons/fa";
-import FavoriteSidebar from "../../components/Sidebar/FavoriteSidebar";
 import CartSidebar from "../../components/Sidebar/CartSidebar";
+import FavoriteSidebar from "../../components/Sidebar/FavoriteSidebar";
 
 const navLinks = [
   {
@@ -82,7 +82,7 @@ const Navbar = () => {
             <div className="border  rounded-full hover:border-gray-600 border-gray-400 p-1">
               <img
                 onClick={handleShowMenu}
-                src={user?.photoURL ? user?.photoURL : placeholder}
+                src={user?.photoURL ? user.photoURL : placeholder}
                 className="w-8 h-8  rounded-full "
                 alt=""
               />
