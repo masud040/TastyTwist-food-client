@@ -1,8 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { TbFidgetSpinner } from "react-icons/tb";
 import { Fragment, useState } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { IoClose } from "react-icons/io5";
+import { TbFidgetSpinner } from "react-icons/tb";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetMenu from "../../hooks/useGetMenu";
 const MenuEditModal = ({ isOpen, closeModal, item }) => {
   const [loading, setLoading] = useState(false);
@@ -66,6 +67,11 @@ const MenuEditModal = ({ isOpen, closeModal, item }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all">
+                <div className="absolute top-3 right-3">
+                  <span onClick={() => closeModal()}>
+                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
+                  </span>
+                </div>
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"

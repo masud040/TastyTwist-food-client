@@ -1,6 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { TbFidgetSpinner } from "react-icons/tb";
+import { Fragment } from "react";
+import toast from "react-hot-toast";
+import { IoClose } from "react-icons/io5";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function EditCouponModal({
   isOpen,
@@ -10,10 +12,23 @@ export default function EditCouponModal({
 }) {
   const { _id, code, discountPercentage, expirationDate, description } =
     coupon || {};
+  const axiosSecure = useAxiosSecure();
 
-  const [loading, setLoading] = useState(false);
-  const handleEditCoupon = () => {
-    console.log("eello");
+  const handleEditCoupon = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const newCoupon = {
+      code: form.code.value,
+      discountPercentage: form.percentage.value,
+      expirationDate: form.expiration.value,
+      description: form.description.value,
+    };
+    const { data } = await axiosSecure.patch(`/coupons/${_id}`, newCoupon);
+    if (data.modifiedCount > 0) {
+      toast.success("Coupons updated successfully");
+      refetch();
+      closeModal();
+    }
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -41,7 +56,12 @@ export default function EditCouponModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all relative">
+                <div className="absolute top-3 right-3">
+                  <span onClick={() => closeModal()}>
+                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
+                  </span>
+                </div>
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
@@ -57,7 +77,7 @@ export default function EditCouponModal({
                         </label>
                         <input
                           type="text"
-                          name="name"
+                          name="code"
                           className="block p-2  text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 w-full "
                           defaultValue={code}
                           required
@@ -91,10 +111,10 @@ export default function EditCouponModal({
                       </div>
                       <div className="flex-1 w-full">
                         <label className="block mb-2 text-sm font-medium text-gray-900">
-                          Descriptions
+                          Description
                         </label>
                         <input
-                          name="descriptions"
+                          name="description"
                           type="text"
                           className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500"
                           defaultValue={description}
@@ -108,11 +128,7 @@ export default function EditCouponModal({
                         type="submit"
                         className="bg-gradient-to-r from-[#CA43E1] to-[#7111EB] p-2 w-full mt-4 rounded-md text-lg text-white"
                       >
-                        {loading ? (
-                          <TbFidgetSpinner className="text-xl w-full animate-spin" />
-                        ) : (
-                          "Save"
-                        )}
+                        Save
                       </button>
                     </div>
                   </form>
