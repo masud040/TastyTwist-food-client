@@ -19,7 +19,14 @@ const HandleOrder = ({ item, estimatedDate, status, id }) => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosSecure.patch(`/orders/${id}`);
+        if (status === "delivered") {
+          return toast.error(
+            "Your order has been delivered. so you can not cancel this order🙂"
+          );
+        }
+        const { data } = await axiosSecure.patch(
+          `/orders/${id}?status=cancelled`
+        );
         if (data.modifiedCount > 0) {
           toast.success("Order cancelled");
           refetch();
@@ -28,9 +35,6 @@ const HandleOrder = ({ item, estimatedDate, status, id }) => {
     });
   };
   const handleStatus = async (id) => {
-    if (status === "delivered") {
-      return toast.error("Your order has been delivered");
-    }
     const { data } = await axiosSecure.patch(`/orders/${id}?status=${status}`);
     if (data.modifiedCount > 0) {
       toast.success("Status is updated successfully");
@@ -39,23 +43,30 @@ const HandleOrder = ({ item, estimatedDate, status, id }) => {
   };
   return (
     <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
-      <div className=" flex gap-6 justify-between  items-center  text-sm">
+      <div className=" grid grid-cols-5 items-center  text-sm">
         <img
           src={image}
           className="w-[72px] md:w-28 h-12 rounded-sm md:h-14 "
           alt=""
         />
-        <p>{name}</p>
-        <p className="flex items-center gap-2">
+        <p className="text-center">{name}</p>
+        <p className="flex justify-center items-center gap-2 ">
           Qty: <span>{count}</span>
         </p>
+        <div className="flex justify-center">
+          <button
+            onClick={() => handleStatus(id)}
+            className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2 disabled:bg-gray-400"
+            disabled={status === "delivered" || status === "cancelled"}
+          >
+            {status}
+          </button>
+        </div>
         <button
-          onClick={() => handleStatus(id)}
-          className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2"
+          onClick={() => handleCancel(id)}
+          className="text-primary text-end disabled:hidden"
+          disabled={status === "delivered" || status === "cancelled"}
         >
-          {status}
-        </button>
-        <button onClick={() => handleCancel(id)} className="text-primary">
           Cancel
         </button>
       </div>
