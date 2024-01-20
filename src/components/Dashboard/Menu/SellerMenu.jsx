@@ -1,10 +1,11 @@
 import { FaList } from "react-icons/fa";
-import { MdOutlineInventory } from "react-icons/md";
 import { IoMdAnalytics } from "react-icons/io";
-import { MdPayments } from "react-icons/md";
+import {
+  MdFeedback,
+  MdOutlineRestaurantMenu,
+  MdPayments,
+} from "react-icons/md";
 import { RiCoupon2Fill } from "react-icons/ri";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
-import { MdFeedback } from "react-icons/md";
 import MenuItem from "../Sidebar/MenuItem";
 
 const SellerMenu = ({ handleToggle }) => {
@@ -22,16 +23,10 @@ const SellerMenu = ({ handleToggle }) => {
         address="/dashboard/manage-order"
         handleToggle={handleToggle}
       />
-      <MenuItem
-        icon={MdOutlineInventory}
-        label="Inventory Management"
-        address="/dashboard/inventory-management"
-        handleToggle={handleToggle}
-      />
 
       <MenuItem
         icon={MdPayments}
-        label="Payment History"
+        label="All Payment History"
         address="/dashboard/payment-history"
         handleToggle={handleToggle}
       />

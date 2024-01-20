@@ -23,9 +23,17 @@ const PaymentHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {orderItems?.map((order) => (
-              <HistoryTableRow key={order._id} order={order} />
-            ))}
+            {orderItems?.length > 0 ? (
+              orderItems?.map((order) => (
+                <HistoryTableRow key={order._id} order={order} />
+              ))
+            ) : (
+              <div className="flex justify-center items-center h-[500px]">
+                <h1 className="text-2xl text-secondary">
+                  No payment history on your shop.
+                </h1>
+              </div>
+            )}
           </tbody>
         </table>
       </div>

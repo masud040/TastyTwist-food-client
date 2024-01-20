@@ -13,6 +13,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 import Profile from "../pages/Profile/Profile";
+import ManageCoupon from "../pages/Seller/ManageCoupon";
 import ManageMenu from "../pages/Seller/ManageMenu";
 import ManageOrder from "../pages/Seller/ManageOrder";
 import AddressBook from "../pages/User/AddressBook";
@@ -114,6 +115,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageOrder />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-coupons",
+        element: (
+          <PrivateRoute>
+            <ManageCoupon />
           </PrivateRoute>
         ),
       },
