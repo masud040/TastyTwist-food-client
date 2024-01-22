@@ -79,16 +79,20 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
           <p className="flex justify-center items-center gap-2 ">
             Qty: <span>{count}</span>
           </p>
-          <button
-            onClick={() => setIsOpen(true)}
-            className="text-xs bg-primary  text-white p-1 w-20 text-center rounded-xl px-2"
-          >
-            Details
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setIsOpen(true)}
+              title="Show customer information"
+              className="text-xs bg-primary  text-white p-1 w-20 text-center rounded-xl px-2 hover:outline outline-purple-800 transition-color outline-2"
+            >
+              Details
+            </button>
+          </div>
           <div className="flex justify-center ">
             <button
               onClick={() => handleStatus(id)}
-              className="text-xs bg-primary  text-white p-1 w-20 text-center rounded-xl px-2 disabled:bg-gray-400"
+              title="Change Order Status"
+              className="text-xs bg-primary hover:outline outline-purple-800 transition-color text-white p-1 w-20 text-center rounded-xl px-2 disabled:bg-gray-400"
               disabled={status === "delivered" || status === "cancelled"}
             >
               {status}
@@ -96,6 +100,10 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
           </div>
           <button
             onClick={() => handleCancel(id)}
+            title={
+              (status !== "delivered" || status === "cancelled") &&
+              "Cancel Order"
+            }
             className="text-primary text-end text-xs"
             disabled={status === "delivered" || status === "cancelled"}
           >

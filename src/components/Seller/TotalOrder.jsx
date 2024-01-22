@@ -21,7 +21,7 @@ const TotalOrder = ({ order }) => {
         <h2 className="text-center">Name</h2>
         <h2>Qty</h2>
         <h2 className="">Details</h2>
-        <h2>Action</h2>
+        <h2>Status</h2>
         <h2 className=" mr-3 text-end">Action</h2>
       </div>
       <div className="flex flex-col gap-5">
