@@ -57,9 +57,9 @@ const AuthProvider = ({ children }) => {
           withCredentials: true,
         });
       } else {
-        axios
-          .post("http://localhost:3000/logout", { withCredentials: true })
-          .then((res) => console.log(res.data));
+        axios.post("http://localhost:3000/logout", loggedUser, {
+          withCredentials: true,
+        });
       }
     });
     return () => unSubscribe();

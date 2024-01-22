@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 const useAxiosSecure = () => {
-  const { logout } = useAuth();
+  const { logOut } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     axiosInstance.interceptors.response.use(
@@ -17,12 +17,12 @@ const useAxiosSecure = () => {
       },
       function (err) {
         if (err.response?.status === 401 || err.response?.status === 403) {
-          logout();
-          navigate("/login");
+          logOut();
+          navigate("/signIn");
         }
       }
     );
-  }, []);
+  }, [logOut, navigate]);
   return axiosInstance;
 };
 
