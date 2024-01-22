@@ -6,13 +6,6 @@ const ManageOrder = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-5 font-semibold text-center">
-        <h2 className="text-start ms-3">Photo</h2>
-        <h2 className="text-center">Name</h2>
-        <h2>Qty</h2>
-        <h2>Action</h2>
-        <h2 className=" mr-3 text-end">Action</h2>
-      </div>
       {orderItems?.length > 0 ? (
         orderItems?.map((order) => <TotalOrder key={order._id} order={order} />)
       ) : (

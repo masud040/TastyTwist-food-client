@@ -1,15 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import ToggleBtn from "../Button/ToggleBtn";
-import useGetAllDivision from "../../hooks/useGetAllDivision";
-import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useGetAddress from "../../hooks/useGetAddress";
+import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetAddress from "../../hooks/useGetAddress";
+import useGetAllDivision from "../../hooks/useGetAllDivision";
+import ToggleBtn from "../Button/ToggleBtn";
 const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const {
     register,
@@ -35,7 +35,6 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
     },
   });
   const {
-    _id,
     name,
     address,
     mobile,
