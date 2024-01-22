@@ -2,7 +2,22 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { IoClose } from "react-icons/io5";
 
-export default function ShowAddressModal({ isOpen, closeModal }) {
+export default function ShowAddressModal({
+  isOpen,
+  closeModal,
+  customerDetails,
+}) {
+  const {
+    name,
+    email,
+    address,
+    mobile,
+    landmark,
+    division,
+    place,
+    city,
+    area,
+  } = customerDetails || {};
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -48,46 +63,91 @@ export default function ShowAddressModal({ isOpen, closeModal }) {
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Full Name</label>
                         <input
-                          placeholder="Input full Name"
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
-                          defaultValue={name}
+                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          value={name}
+                          readOnly
                         />
                       </div>
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Address</label>
                         <input
-                          placeholder="House no. / building / street / area"
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          value={address}
+                          readOnly
                         />
                       </div>
                     </div>
                     <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">Email</label>
+                        <input
+                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          value={email}
+                          readOnly
+                        />
+                      </div>
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">
                           Mobile Number
                         </label>
                         <input
-                          placeholder="Input mobile number"
+                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
                           type="number"
-                        />
-                      </div>
-                      <div className="flex-1 ">
-                        <label className="text-xs mb-1 block">
-                          Landmark(Optional)
-                        </label>
-                        <input
-                          placeholder="E.g. beside train station"
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          value={mobile}
+                          readOnly
                         />
                       </div>
                     </div>
                     <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
                       <div className="flex-1 relative">
-                        <button>place</button>
+                        <label className="text-xs mb-1 block">Province</label>
+                        <input
+                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          type="text"
+                          value={division}
+                          readOnly
+                        />
+                      </div>
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">
+                          Delivery Place
+                        </label>
+                        <input
+                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          value={place}
+                          readOnly
+                        />
                       </div>
                     </div>
                     <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
-                      <div className="flex-1 relative"></div>
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">City</label>
+                        <input
+                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          type="text"
+                          value={city}
+                          readOnly
+                        />
+                      </div>
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">Area</label>
+                        <input
+                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          type="text"
+                          value={area}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-1 relative">
+                      <label className="text-xs mb-1 block">
+                        Landmark(Optional)
+                      </label>
+                      <input
+                        className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                        value={landmark}
+                        readOnly
+                      />
                     </div>
                   </form>
                 </div>

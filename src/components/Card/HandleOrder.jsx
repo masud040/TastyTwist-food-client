@@ -58,6 +58,14 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  let buttonStatus;
+  if (status === "delivered") {
+    buttonStatus = "Already Delivered";
+  } else if (status === "cancelled") {
+    buttonStatus = "Already Cancelled";
+  } else {
+    buttonStatus = "Cancel";
+  }
   return (
     <>
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 ">
@@ -91,9 +99,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
             className="text-primary text-end text-xs"
             disabled={status === "delivered" || status === "cancelled"}
           >
-            {status === "delivered" || status === "cancelled"
-              ? "Already delivered"
-              : "Cancel"}
+            {buttonStatus}
           </button>
         </div>
         <p className="text-green-500">
@@ -101,7 +107,11 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
           {estimatedDate}
         </p>
       </div>
-      <ShowAddressModal isOpen={isOpen} closeModal={closeModal} />
+      <ShowAddressModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        customerDetails={customerDetails}
+      />
     </>
   );
 };
