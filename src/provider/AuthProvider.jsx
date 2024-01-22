@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -14,6 +15,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -47,12 +49,21 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const loggedUser = { email: currentUser?.email || user?.email };
       setUser(currentUser);
       setLoading(false);
-      console.log("current User", currentUser);
+      if (currentUser) {
+        axios.post("http://localhost:3000/jwt", loggedUser, {
+          withCredentials: true,
+        });
+      } else {
+        axios
+          .post("http://localhost:3000/logout", { withCredentials: true })
+          .then((res) => console.log(res.data));
+      }
     });
     return () => unSubscribe();
-  }, []);
+  }, [user?.email]);
 
   const authInfo = {
     user,

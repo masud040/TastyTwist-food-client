@@ -101,8 +101,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
           <button
             onClick={() => handleCancel(id)}
             title={
-              (status !== "delivered" || status === "cancelled") &&
-              "Cancel Order"
+              status !== "delivered" && status !== "cancelled" && "Cancel Order"
             }
             className="text-primary text-end text-xs"
             disabled={status === "delivered" || status === "cancelled"}
