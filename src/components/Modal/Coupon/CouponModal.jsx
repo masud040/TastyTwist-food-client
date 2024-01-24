@@ -1,38 +1,62 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CloseModal from "../../Button/CloseModal";
 
-export default function EditCouponModal({
+export default function CouponModal({
   isOpen,
-  closeModal,
+  onClose,
   refetch,
-  coupon,
+  couponToUpdate,
 }) {
+  const axiosSecure = useAxiosSecure();
+  const [coupon, setCoupon] = useState(
+    couponToUpdate || {
+      code: "",
+      discountPercentage: 0,
+      expirationDate: "",
+      description: "",
+    }
+  );
+
   const { _id, code, discountPercentage, expirationDate, description } =
     coupon || {};
-  const axiosSecure = useAxiosSecure();
-
-  const handleEditCoupon = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const newCoupon = {
-      code: form.code.value,
-      discountPercentage: form.percentage.value,
-      expirationDate: form.expiration.value,
-      description: form.description.value,
-    };
-    const { data } = await axiosSecure.patch(`/coupons/${_id}`, newCoupon);
-    if (data.modifiedCount > 0) {
-      toast.success("Coupons updated successfully");
-      refetch();
-      closeModal();
+  const [isAdd, setIsAdd] = useState(Object.is(couponToUpdate, null));
+  const handleCoupon = async (event, isAdd) => {
+    event.preventDefault();
+    if (isAdd) {
+      const { data } = await axiosSecure.post(`/coupons`, coupon);
+      if (data.insertedId) {
+        toast.success("Coupon added successfully");
+        refetch();
+        onClose();
+      }
+    } else {
+      delete coupon?._id;
+      const { data } = await axiosSecure.patch(`/coupons/${_id}`, coupon);
+      if (data.modifiedCount > 0) {
+        toast.success("Coupon updated successfully");
+        refetch();
+        onClose();
+      }
     }
   };
+  const handleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+    if (name === "discountPercentage") {
+      value = parseFloat(value);
+    }
+    setCoupon({
+      ...coupon,
+      [name]: value,
+    });
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,15 +81,18 @@ export default function EditCouponModal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all relative">
-                <CloseModal onClose={closeModal} />
+                <CloseModal onClose={onClose} />
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Edit Coupon
+                  {isAdd ? "Add Coupon" : "Edit Coupon"}
                 </Dialog.Title>
                 <div className="mt-2">
-                  <form onSubmit={handleEditCoupon} className="space-y-2">
+                  <form
+                    onSubmit={() => handleCoupon(event, isAdd)}
+                    className="space-y-2"
+                  >
                     <div className="md:flex  justify-between md:gap-8 items-center space-y-2 md:space-y-0">
                       <div className="flex-1 w-full">
                         <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -75,7 +102,9 @@ export default function EditCouponModal({
                           type="text"
                           name="code"
                           className="block p-2  text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 w-full "
-                          defaultValue={code}
+                          value={code}
+                          placeholder="code"
+                          onChange={handleChange}
                           required
                         />
                       </div>
@@ -84,10 +113,12 @@ export default function EditCouponModal({
                           Discount Percentage
                         </label>
                         <input
-                          name="percentage"
+                          name="discountPercentage"
                           type="number"
                           className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500"
-                          defaultValue={discountPercentage}
+                          placeholder="discount percentage"
+                          value={discountPercentage}
+                          onChange={handleChange}
                           required
                         />
                       </div>
@@ -98,10 +129,11 @@ export default function EditCouponModal({
                           Expiration Date
                         </label>
                         <input
-                          name="expiration"
+                          name="expirationDate"
                           type="date"
                           className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500"
-                          defaultValue={expirationDate}
+                          value={expirationDate}
+                          onChange={handleChange}
                           required
                         />
                       </div>
@@ -113,7 +145,9 @@ export default function EditCouponModal({
                           name="description"
                           type="text"
                           className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500"
-                          defaultValue={description}
+                          placeholder="coupon description"
+                          value={description}
+                          onChange={handleChange}
                           required
                         />
                       </div>
@@ -124,7 +158,7 @@ export default function EditCouponModal({
                         type="submit"
                         className="bg-gradient-to-r from-[#CA43E1] to-[#7111EB] p-2 w-full mt-4 rounded-md text-lg text-white"
                       >
-                        Save
+                        {isAdd ? "Save" : "Update"}
                       </button>
                     </div>
                   </form>

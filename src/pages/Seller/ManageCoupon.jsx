@@ -1,41 +1,59 @@
+import { useState } from "react";
+import CouponModal from "../../components/Modal/Coupon/CouponModal";
 import CouponTable from "../../components/Table/CouponTable";
 import useGetCoupons from "../../hooks/useGetCoupons";
 
 export default function ManageCoupon() {
-  const [coupons, refetch] = useGetCoupons();
-
+  const [coupon, refetch] = useGetCoupons();
+  const [isOpen, setIsOpen] = useState(false);
+  const [couponToUpdate, setCouponToUpdate] = useState(null);
+  const openEditModal = (couponData) => {
+    setCouponToUpdate(couponData);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+    setCouponToUpdate(null);
+  };
   return (
-    <div className="text-gray-700">
-      <h1 className="text-center mb-6 text-xl font-bold">Manage Coupon</h1>
-      <div className="overflow-x-auto">
-        <table className="w-full ">
-          <thead>
-            <tr>
-              <th>SI</th>
-              <th>Coupon Code</th>
-              <th>Discount</th>
-              <th>Expiration</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coupons?.map((coupon, index) => (
-              <CouponTable
-                key={coupon._id}
-                coupon={coupon}
-                index={index}
-                refetch={refetch}
-              />
-            ))}
-          </tbody>
-        </table>
-        <button
-          //   onClick={() => setIsOpen(true)}
-          className="bg-gradient-to-r from-violet-500 to-fuchsia-500 p-2 rounded-xl mt-4 text-white font-semibold"
-        >
-          Add Coupon
-        </button>
+    <>
+      <div className="text-gray-700">
+        <h1 className="text-center mb-6 text-xl font-bold">Manage Coupon</h1>
+        {coupon ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="text-sm">
+                  <th>Coupon Code</th>
+                  <th>Discount</th>
+                  <th>Expiration</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <CouponTable coupon={coupon} onOpen={openEditModal} />
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-gradient-to-r from-violet-500 to-fuchsia-500 mt-4 p-2 px-5 border border-primary rounded-lg hover:bg-primary/[7%] hover:border-transparent transition duration-500 ease-in-out text-primary "
+            >
+              Add Coupon
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+      {isOpen && (
+        <CouponModal
+          isOpen={isOpen}
+          onClose={closeModal}
+          refetch={refetch}
+          couponToUpdate={couponToUpdate}
+        />
+      )}
+    </>
   );
 }
