@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import toast from "react-hot-toast";
-import { IoClose } from "react-icons/io5";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CloseModal from "../../Button/CloseModal";
 
 export default function EditCouponModal({
   isOpen,
@@ -57,11 +57,7 @@ export default function EditCouponModal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all relative">
-                <div className="absolute top-3 right-3">
-                  <span onClick={() => closeModal()}>
-                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
-                  </span>
-                </div>
+                <CloseModal onClose={closeModal} />
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"

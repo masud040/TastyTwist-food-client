@@ -1,11 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import AddressBook from "../../../pages/User/AddressBook";
 import CloseModal from "../../Button/CloseModal";
-
-const BillingAddressModal = ({ isBillingOpen, closeModal }) => {
+export default function LogoutModal({ isOpen, closeModal }) {
   return (
-    <Transition appear show={isBillingOpen} as={Fragment}>
+    <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -20,7 +18,7 @@ const BillingAddressModal = ({ isBillingOpen, closeModal }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -30,18 +28,19 @@ const BillingAddressModal = ({ isBillingOpen, closeModal }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full min-h-[600px] max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
+              <Dialog.Panel className="w-full min-h-[150px] max-w-xs transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all relative ">
                 <CloseModal onClose={closeModal} />
-
                 <Dialog.Title
                   as="h3"
-                  className="text-sm mb-5 font-normal leading-6 text-gray-900"
+                  className=" mb-1 font-semibold leading-6 text-gray-900 text-lg"
                 >
-                  My Billing Address
+                  Logging out?
                 </Dialog.Title>
-                <div className="mt-2">
-                  <AddressBook />
-                </div>
+                <hr />
+                <p className="text-sm mt-4 text-dark-gray">
+                  Thanks for stopping by. See you again soon!
+                </p>
+                <div className="mt-2 w-full"></div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -49,6 +48,4 @@ const BillingAddressModal = ({ isBillingOpen, closeModal }) => {
       </Dialog>
     </Transition>
   );
-};
-
-export default BillingAddressModal;
+}

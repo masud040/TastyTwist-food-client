@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
 import Rating from "react-rating";
+import CloseModal from "../../Button/CloseModal";
 export default function FeedbackModal({
   isFeebackOpen,
   onClose,
@@ -38,11 +38,8 @@ export default function FeedbackModal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all relative ">
-                <div className="absolute top-3 z-30 right-3">
-                  <span onClick={onClose}>
-                    <IoClose className="text-3xl  text-gray-600 hover:text-gray-900" />
-                  </span>
-                </div>
+                <CloseModal onClose={onClose} />
+
                 <Dialog.Title
                   as="h3"
                   className=" mb-1 text-center font-normal leading-6 text-gray-900"

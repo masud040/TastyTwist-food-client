@@ -1,25 +1,16 @@
 import { useState } from "react";
 
-import AddressModal from "../../components/Modal/AddressModal";
 import { IoMdAdd } from "react-icons/io";
-import useGetAddress from "../../hooks/useGetAddress";
+import AddressModal from "../../components/Modal/AddressModal";
 import EditAddressModal from "../../components/Modal/EditAddressModal";
+import useGetAddress from "../../hooks/useGetAddress";
 const AddressBook = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const [userAddress, refetch] = useGetAddress();
-  const {
-    name,
-    address,
-    mobile,
-
-    division,
-    place,
-    city,
-    area,
-  } = userAddress || {};
-
+  const { name, address, mobile, division, place, city, area } =
+    userAddress || {};
   const handleShowModal = () => {
     setIsOpen(true);
   };

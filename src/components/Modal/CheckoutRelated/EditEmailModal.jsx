@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { IoClose } from "react-icons/io5";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import CloseModal from "../../Button/CloseModal";
 
 const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
   const axiosSecure = useAxiosSecure();
@@ -46,11 +46,8 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all relative ">
-                <div className="absolute top-3 z-30 right-3">
-                  <span onClick={() => closeModal(false)}>
-                    <IoClose className="text-3xl  text-gray-600 hover:text-gray-900" />
-                  </span>
-                </div>
+                <CloseModal onClose={closeModal} />
+
                 <Dialog.Title
                   as="h3"
                   className=" mb-1 font-normal leading-6 text-gray-900"

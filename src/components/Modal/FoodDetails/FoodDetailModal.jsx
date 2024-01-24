@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { IoClose } from "react-icons/io5";
+import CloseModal from "../../Button/CloseModal";
 export default function FoodDetailsModal({ showModal, onClose, item }) {
-  const { _id, name, email, price, description, image_url } = item || {};
+  const { _id, name, price, description, image_url } = item || {};
   return (
     <Transition appear show={showModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -29,20 +29,20 @@ export default function FoodDetailsModal({ showModal, onClose, item }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all relative ">
-                <div className="absolute top-3 z-30 right-3">
-                  <span onClick={onClose}>
-                    <IoClose className="text-3xl  text-gray-600 hover:text-gray-900" />
-                  </span>
-                </div>
-                <Dialog.Title as="h3">{name}</Dialog.Title>
-                <hr />
+              <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
+                <CloseModal onClose={onClose} />
+                <Dialog.Title as="h3"></Dialog.Title>
 
-                <div className="mt-2 w-full">
-                  <div className="mt-6 mb-3">
-                    <p className="mb-3 text-sm">Feeback Rating</p>
+                <div className="w-full text-dark-gray">
+                  <img src={image_url} className="w-full h-52" alt="" />
+                  <div className="p-3">
+                    <h2 className="text-2xl font-semibold mb-1">{name}</h2>
+                    <p>{description}</p>
+                    <h3 className="mt-5 mb-2 text-xl font-semibold">
+                      Tk {price}
+                    </h3>
+                    <hr />
                   </div>
-                  <label className="text-sm block">Write about Food</label>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

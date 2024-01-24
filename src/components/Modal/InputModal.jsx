@@ -35,7 +35,7 @@ const InputModal = ({ isOpen, setIsOpen }) => {
               >
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all">
                   <div className="w-full">
-                    <Input size="lg" label="Search Food" error />
+                    <Input size="lg" label="Search Food" />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

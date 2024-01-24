@@ -4,11 +4,11 @@ import axios from "axios";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { IoClose } from "react-icons/io5";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetAddress from "../../hooks/useGetAddress";
 import useGetAllDivision from "../../hooks/useGetAllDivision";
+import CloseModal from "../Button/CloseModal";
 import ToggleBtn from "../Button/ToggleBtn";
 const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const {
@@ -24,6 +24,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
     queryKey: ["city", divisionName],
@@ -119,11 +120,8 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative  ">
-                <div className="absolute top-3 right-3">
-                  <span onClick={() => closeEditModal(false)}>
-                    <IoClose className="text-3xl text-gray-600 hover:text-gray-900" />
-                  </span>
-                </div>
+                <CloseModal onClose={closeEditModal} />
+
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
