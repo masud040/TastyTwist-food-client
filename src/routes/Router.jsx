@@ -18,6 +18,7 @@ import ManageUsers from "../pages/Admin/MangeUsers";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 import Profile from "../pages/Profile/Profile";
+import CustomerFeedback from "../pages/Seller/CustomerFeedback";
 import ManageMenu from "../pages/Seller/ManageMenu";
 import ManageOrder from "../pages/Seller/ManageOrder";
 import AddressBook from "../pages/User/AddressBook";
@@ -113,6 +114,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <SellerRoute>
               <PaymentHistory />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "customer-feedback",
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <CustomerFeedback />
             </SellerRoute>
           </PrivateRoute>
         ),
