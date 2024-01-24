@@ -23,6 +23,7 @@ import ManageOrder from "../pages/Seller/ManageOrder";
 import AddressBook from "../pages/User/AddressBook";
 import Orders from "../pages/User/Orders";
 import PaymentHistory from "../pages/User/PaymentHistory";
+import AdminRoute from "./AdminRoute";
 import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
@@ -141,7 +142,9 @@ const router = createBrowserRouter([
         path: "admin/analytics",
         element: (
           <PrivateRoute>
-            <Analytics />
+            <AdminRoute>
+              <Analytics />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -149,7 +152,9 @@ const router = createBrowserRouter([
         path: "admin/manage-restaurant",
         element: (
           <PrivateRoute>
-            <ManageRestaurant />
+            <AdminRoute>
+              <ManageRestaurant />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -157,7 +162,9 @@ const router = createBrowserRouter([
         path: "admin/manage-coupons",
         element: (
           <PrivateRoute>
-            <ManageCoupon />
+            <AdminRoute>
+              <ManageCoupon />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -165,7 +172,9 @@ const router = createBrowserRouter([
         path: "admin/customer-support",
         element: (
           <PrivateRoute>
-            <CustomerSupport />
+            <AdminRoute>
+              <CustomerSupport />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -173,7 +182,9 @@ const router = createBrowserRouter([
         path: "admin/manage-users",
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
