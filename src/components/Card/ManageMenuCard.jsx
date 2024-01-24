@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetMenu from "../../hooks/useGetMenu";
-import CardBody from "./CardBody";
+import MenuCardBody from "./MenuCardBody";
 const ManageMenuCard = ({ item, onEditMenu }) => {
   const { _id, name, price, description, image_url } = item || {};
 
@@ -34,7 +34,7 @@ const ManageMenuCard = ({ item, onEditMenu }) => {
   };
   return (
     <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
-      <CardBody name={name} description={description} price={price} />
+      <MenuCardBody name={name} description={description} price={price} />
       <div className="relative">
         <img
           src={image_url}

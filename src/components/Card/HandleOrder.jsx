@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetSellerOrderItem from "../../hooks/useGetSellerOrder";
 import ShowAddressModal from "../Modal/ShowAddressModal";
+import OrderCardBody from "./OrderCardBody";
 
 const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
   const { name, image, count } = item || {};
@@ -70,15 +71,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
     <>
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 ">
         <div className=" grid grid-cols-6 items-center text-sm overflow-x-auto">
-          <img
-            src={image}
-            className="w-[72px] md:w-28 h-12 rounded-sm md:h-14 "
-            alt=""
-          />
-          <p className="text-center ">{name}</p>
-          <p className="flex justify-center items-center gap-2 ">
-            Qty: <span>{count}</span>
-          </p>
+          <OrderCardBody image={image} name={name} count={count} />
           <div className="flex justify-center">
             <button
               onClick={() => setIsOpen(true)}

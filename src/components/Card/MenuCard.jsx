@@ -7,7 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 import FoodDetailsModal from "../Modal/FoodDetails/FoodDetailModal";
-import CardBody from "./CardBody";
+import MenuCardBody from "./MenuCardBody";
 
 const MenuCard = ({ item }) => {
   const { user } = useAuth();
@@ -89,7 +89,7 @@ const MenuCard = ({ item }) => {
         onClick={() => handleOpenModal(item)}
         className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group "
       >
-        <CardBody name={name} description={description} price={price} />
+        <MenuCardBody name={name} description={description} price={price} />
         <div className="relative">
           <img
             src={image_url}

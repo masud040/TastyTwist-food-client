@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import FeedbackModal from "../Modal/FeebackModal/FeedbackModal";
+import OrderCardBody from "./OrderCardBody";
 
 const OrderCard = ({ item, estimatedDate, status, id }) => {
   const { name, image, count } = item || {};
@@ -42,15 +43,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       )}
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
         <div className=" flex gap-6 justify-between  items-center  text-sm">
-          <img
-            src={image}
-            className="w-[72px] md:w-28 h-12 rounded-sm md:h-14 "
-            alt=""
-          />
-          <p>{name}</p>
-          <p className="flex items-center gap-2">
-            Qty: <span>{count}</span>
-          </p>
+          <OrderCardBody image={image} name={name} count={count} />
           {status !== "delivered" ? (
             <p className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2">
               {status}

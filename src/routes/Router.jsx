@@ -102,6 +102,16 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "all-payment-history",
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <PaymentHistory />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
+      },
 
       {
         path: "manage-menu",
@@ -117,7 +127,9 @@ const router = createBrowserRouter([
         path: "manage-order",
         element: (
           <PrivateRoute>
-            <ManageOrder />
+            <SellerRoute>
+              <ManageOrder />
+            </SellerRoute>
           </PrivateRoute>
         ),
       },

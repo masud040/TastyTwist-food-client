@@ -26,7 +26,7 @@ const SellerMenu = ({ handleToggle }) => {
       <MenuItem
         icon={MdPayments}
         label="All Payment History"
-        address="/dashboard/payment-history"
+        address="/dashboard/all-payment-history"
         handleToggle={handleToggle}
       />
 
