@@ -1,16 +1,12 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import LogoutModal from "../Modal/Logout/LogoutModal";
 
 const MenuDropDown = ({ isOpen }) => {
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const handleLogout = async () => {
-    await logOut();
-    toast.success("Logout Successfully");
-  };
+
   return (
     isOpen && (
       <>

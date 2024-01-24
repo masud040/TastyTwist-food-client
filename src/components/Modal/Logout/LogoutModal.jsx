@@ -1,7 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import toast from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
 import CloseModal from "../../Button/CloseModal";
 export default function LogoutModal({ isOpen, closeModal }) {
+  const { logOut } = useAuth();
+  const handleLogout = async () => {
+    await logOut();
+    toast.success("Logout Successfully");
+    closeModal();
+  };
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -37,10 +45,25 @@ export default function LogoutModal({ isOpen, closeModal }) {
                   Logging out?
                 </Dialog.Title>
                 <hr />
-                <p className="text-sm mt-4 text-dark-gray">
-                  Thanks for stopping by. See you again soon!
-                </p>
-                <div className="mt-2 w-full"></div>
+                <div className="mt-2 w-full">
+                  <p className="text-sm mt-4 text-dark-gray">
+                    Thanks for stopping by. See you again soon!
+                  </p>
+                  <div className="flex mt-6 justify-between items-center">
+                    <button
+                      onClick={closeModal}
+                      className="p-2 px-5 border border-primary rounded-lg hover:bg-primary/[7%] hover:border-transparent transition duration-500 ease-in-out text-primary"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="p-2 px-5 bg-primary rounded-lg text-white hover:scale-105 transition duration-500 "
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
