@@ -73,7 +73,7 @@ export default function FeedbackModal({
                       </div>
                       <label className="text-sm block">Write about Food</label>
                       <textarea
-                        className="border text-sm text-gray-700 w-full mt-3 focus:outline-0 focus:ring-1 rounded-md ring-primary transition-color focus:shadow-xl duration-300"
+                        className="ps-3 border text-sm text-gray-700 w-full mt-3 focus:outline-0 focus:ring-1 rounded-md ring-primary transition-color focus:shadow-xl duration-300"
                         name="message"
                         placeholder="Rate Your Experience"
                         value={feedback.message}
