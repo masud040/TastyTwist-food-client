@@ -5,7 +5,6 @@ import {
   MdOutlineRestaurantMenu,
   MdPayments,
 } from "react-icons/md";
-import { RiCoupon2Fill } from "react-icons/ri";
 import MenuItem from "../Sidebar/MenuItem";
 
 const SellerMenu = ({ handleToggle }) => {
@@ -30,12 +29,7 @@ const SellerMenu = ({ handleToggle }) => {
         address="/dashboard/payment-history"
         handleToggle={handleToggle}
       />
-      <MenuItem
-        icon={RiCoupon2Fill}
-        label="Manage Coupons"
-        address="/dashboard/manage-coupons"
-        handleToggle={handleToggle}
-      />
+
       <MenuItem
         icon={MdFeedback}
         label="Customer Feedback"

@@ -1,29 +1,31 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { AiOutlineBars } from "react-icons/ai";
 import { FcSettings } from "react-icons/fc";
 import { GrLogout } from "react-icons/gr";
 import { Link } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
 import useGetUserRole from "../../../hooks/useGetUserRole";
+import LogoutModal from "../../Modal/Logout/LogoutModal";
+import AdminMenu from "../Menu/AdminMenu";
 import SellerMenu from "../Menu/SellerMenu";
 import UserMenu from "../Menu/UserMenu";
 import MenuItem from "./MenuItem";
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false);
-  const { logOut } = useAuth();
-  const { role } = useGetUserRole();
-
+  const [userData] = useGetUserRole();
+  const [showModal, setShowModal] = useState(false);
   const handleToggle = () => {
     setActive(!isActive);
   };
-  const handleLogout = async () => {
-    await logOut();
-    toast.success("Log out successfully");
-  };
+
   return (
     <>
+      {showModal && (
+        <LogoutModal
+          isOpen={showModal}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
       <div className=" fixed w-full bg-gray-400 bg-opacity-30 text-gray-800 flex justify-between md:hidden z-10">
         <div>
           <div className="block cursor-pointer ps-4 py-[14px] font-bold">
@@ -54,9 +56,14 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="mt-12">
-            {role?.role === "user" && <UserMenu handleToggle={handleToggle} />}
-            {role?.role === "seller" && (
+            {userData?.role === "user" && (
+              <UserMenu handleToggle={handleToggle} />
+            )}
+            {userData?.role === "seller" && (
               <SellerMenu handleToggle={handleToggle} />
+            )}
+            {userData?.role === "admin" && (
+              <AdminMenu handleToggle={handleToggle} />
             )}
           </div>
         </div>
@@ -71,7 +78,7 @@ const Sidebar = () => {
             handleToggle={handleToggle}
           />
           <button
-            onClick={handleLogout}
+            onClick={() => setShowModal(true)}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
           >
             <GrLogout className="w-5 h-5" />

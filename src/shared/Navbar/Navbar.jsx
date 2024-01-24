@@ -79,7 +79,7 @@ const Navbar = () => {
           </button>
 
           <div className="relative">
-            <div className="border  rounded-full hover:border-gray-600 border-gray-400 p-1">
+            <div className="border border-primary/[30%]  rounded-full hover:border-primary transition duration-500  p-1">
               <img
                 onClick={handleShowMenu}
                 src={user?.photoURL ? user.photoURL : placeholder}

@@ -119,7 +119,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "manage-coupons",
+        path: "admin/manage-coupons",
         element: (
           <PrivateRoute>
             <ManageCoupon />
