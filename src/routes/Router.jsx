@@ -19,6 +19,7 @@ import ManageOrder from "../pages/Seller/ManageOrder";
 import AddressBook from "../pages/User/AddressBook";
 import Orders from "../pages/User/Orders";
 import PaymentHistory from "../pages/User/PaymentHistory";
+import SellerRoute from "./SellerRoute";
 
 const router = createBrowserRouter([
   {
@@ -106,7 +107,9 @@ const router = createBrowserRouter([
         path: "manage-menu",
         element: (
           <PrivateRoute>
-            <ManageMenu />
+            <SellerRoute>
+              <ManageMenu />
+            </SellerRoute>
           </PrivateRoute>
         ),
       },
