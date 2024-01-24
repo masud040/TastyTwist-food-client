@@ -10,10 +10,14 @@ import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../layouts/DashboardLayout";
+import Analytics from "../pages/Admin/Analytics";
+import CustomerSupport from "../pages/Admin/CustomerSupport";
+import ManageCoupon from "../pages/Admin/ManageCoupon";
+import ManageRestaurant from "../pages/Admin/ManageRestaurant";
+import ManageUsers from "../pages/Admin/MangeUsers";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 import Profile from "../pages/Profile/Profile";
-import ManageCoupon from "../pages/Seller/ManageCoupon";
 import ManageMenu from "../pages/Seller/ManageMenu";
 import ManageOrder from "../pages/Seller/ManageOrder";
 import AddressBook from "../pages/User/AddressBook";
@@ -134,10 +138,42 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "admin/analytics",
+        element: (
+          <PrivateRoute>
+            <Analytics />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/manage-restaurant",
+        element: (
+          <PrivateRoute>
+            <ManageRestaurant />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "admin/manage-coupons",
         element: (
           <PrivateRoute>
             <ManageCoupon />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/customer-support",
+        element: (
+          <PrivateRoute>
+            <CustomerSupport />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin/manage-users",
+        element: (
+          <PrivateRoute>
+            <ManageUsers />
           </PrivateRoute>
         ),
       },

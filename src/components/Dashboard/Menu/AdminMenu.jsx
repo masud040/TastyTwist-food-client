@@ -1,15 +1,16 @@
 import { FaUsers } from "react-icons/fa";
 import { GrRestaurant } from "react-icons/gr";
-import { MdDashboard, MdFeedback } from "react-icons/md";
+import { IoMdAnalytics } from "react-icons/io";
+import { MdFeedback } from "react-icons/md";
 import { RiCoupon2Fill } from "react-icons/ri";
 import MenuItem from "../Sidebar/MenuItem";
 const AdminMenu = ({ handleToggle }) => {
   return (
     <>
       <MenuItem
-        icon={MdDashboard}
-        label="Dashboard"
-        address="/dashboard/dashboard"
+        icon={IoMdAnalytics}
+        label="Analytics"
+        address="/dashboard/admin/analytics"
         handleToggle={handleToggle}
       />
       <MenuItem
@@ -34,7 +35,7 @@ const AdminMenu = ({ handleToggle }) => {
       <MenuItem
         icon={FaUsers}
         label="Manage Users"
-        address="/dashboard/admin/manage-user"
+        address="/dashboard/admin/manage-users"
         handleToggle={handleToggle}
       />
     </>
