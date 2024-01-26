@@ -1,13 +1,16 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { imageUpload } from "../../../api/auth";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
 import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
+import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
+
 import CloseModal from "../../Button/CloseModal";
 
 export default function AddRestaurantModal({ isOpen, closeModal }) {
@@ -21,9 +24,38 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
   const [divisionName, setDivisionName] = useState("");
   const [cityName, setCityName] = useState("");
   const [areaName, setAreaName] = useState("");
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [refetch] = useGetAllRestaurant();
+  const [isDisable, setIsDisable] = useState(true);
+  const [checkData, setCheckData] = useState({
+    name: "",
+    image: "",
+    delivery_fee: "",
+    delivery_time: "",
+    minimum_delivery_range: "",
+    cuisine: "",
+    email: "",
+    mobile: "",
+    menu: "",
+    address: "",
+  });
+  useEffect(() => {
+    const areAllFieldsValid = Object.values(checkData).every((value) => value);
+    setIsDisable(!areAllFieldsValid);
+  }, [checkData]);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target?.value;
+    if (name === "image") {
+      value = e.target.files[0].name;
+    }
+    setCheckData({
+      ...checkData,
+      [name]: value,
+    });
+  };
+
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
     queryKey: ["city", divisionName],
@@ -49,30 +81,38 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
   };
   const handleAddRestaurant = async (data) => {
     const toastId = toast.loading("Restaurant Adding...");
+    const { url } = await imageUpload(data?.image[0]);
     const restaurantData = {
-      name: data.name,
-      image: data.image[0],
-      email: data?.email,
-      address: data.address,
+      name: capitalizeFirstLetter(data.name),
+      image: url,
+      delivery_fee: parseFloat(data.delivery_fee),
+      delivery_time: data.delivery_time,
+      minimum_delivery_range: parseFloat(data.minimum_delivery_range),
+      cuisine: capitalizeFirstLetter(data.cuisine),
+      restaurantEmail: data.email,
+      email: user?.email,
       mobile: data.mobile,
-      landmark: data?.landmark || "N/A",
-      division: data.division,
-
-      city: data.city,
-      area: data.area,
+      menu: data.menu.split(","),
+      rating: 4.5,
+      location: {
+        address: data.address,
+        division: data.division,
+        city: data.city,
+        area: data.area,
+      },
     };
-    console.log(data);
-    // const { data: details } = await axiosSecure.post(
-    //   "/restaurant",
-    //   restaurantData
-    // );
-    // if (details.insertedId) {
-    //   toast.success("Restaurant added successfully", {
-    //     id: toastId,
-    //   });
-    //   closeModal(false);
-    //   refetch();
-    // }
+
+    const { data: details } = await axiosSecure.post(
+      "/restaurants",
+      restaurantData
+    );
+    if (details.insertedId) {
+      toast.success("Restaurant added successfully", {
+        id: toastId,
+      });
+      closeModal(false);
+      refetch();
+    }
     setDivisionName("default");
     setCityName("default");
     setAreaName("default");
@@ -132,6 +172,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           placeholder="Restaurant Name"
                           {...register("name", { required: true })}
                           className="input"
+                          name="name"
+                          onChange={handleChange}
                         />
 
                         {errors.name && (
@@ -148,6 +190,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           type="file"
                           {...register("image", { required: true })}
                           className="input"
+                          name="image"
+                          onChange={handleChange}
                         />
 
                         {errors.image && (
@@ -167,6 +211,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           placeholder="Delivery fee"
                           {...register("delivery_fee", { required: true })}
                           className="input"
+                          name="delivery_fee"
+                          onChange={handleChange}
                         />
 
                         {errors.delivery_fee && (
@@ -183,6 +229,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           placeholder="20 minutes"
                           {...register("delivery_time", { required: true })}
                           className="input"
+                          name="delivery_time"
+                          onChange={handleChange}
                         />
 
                         {errors.delivery_time && (
@@ -204,6 +252,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                             required: true,
                           })}
                           className="input"
+                          name="minimum_delivery_range"
+                          onChange={handleChange}
                         />
 
                         {errors.minimum_delivery_range && (
@@ -218,6 +268,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           placeholder="name of the cuisine"
                           {...register("cuisine", { required: true })}
                           className="input"
+                          name="cuisine"
+                          onChange={handleChange}
                         />
 
                         {errors.cuisine && (
@@ -235,6 +287,8 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                         "
                           {...register("menu", { required: true })}
                           className="input"
+                          name="menu"
+                          onChange={handleChange}
                         />
 
                         {errors.menu && (
@@ -245,25 +299,20 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                       </div>
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">
-                          Select Division
+                          Restaurant Email
                         </label>
-                        <select
-                          {...register("division", { required: true })}
-                          className="input bg-gray-200"
-                          defaultValue="default"
-                          onChange={handleDivision}
-                        >
-                          {divisions?.map((division) => (
-                            <option
-                              key={division._id}
-                              value={division.division}
-                            >
-                              {division.division}
-                            </option>
-                          ))}
-                        </select>
+                        <input
+                          placeholder="Restaurant email"
+                          {...register("email", {
+                            required: true,
+                          })}
+                          type="email"
+                          className="input"
+                          name="email"
+                          onChange={handleChange}
+                        />
 
-                        {errors.division && (
+                        {errors.email && (
                           <p className="text-primary text-xs absolute">
                             You can not leave this empty.
                           </p>
@@ -299,7 +348,37 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                         )}
                       </div>
                       <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Area</label>
+                        <label className="text-xs mb-1 block">
+                          Select Division
+                        </label>
+                        <select
+                          {...register("division", { required: true })}
+                          className="input bg-gray-200"
+                          defaultValue="default"
+                          onChange={handleDivision}
+                        >
+                          {divisions?.map((division) => (
+                            <option
+                              key={division._id}
+                              value={division.division}
+                            >
+                              {division.division}
+                            </option>
+                          ))}
+                        </select>
+
+                        {errors.division && (
+                          <p className="text-primary text-xs absolute">
+                            You can not leave this empty.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">
+                          Select Area
+                        </label>
                         <select
                           disabled={!cityName || cityName === "default"}
                           {...register("area", { required: true })}
@@ -323,31 +402,15 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                           </p>
                         )}
                       </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Email</label>
-                        <input
-                          placeholder="Restaurant email"
-                          {...register("email", {
-                            required: true,
-                          })}
-                          type="email"
-                          className="input"
-                        />
 
-                        {errors.email && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Mobile</label>
                         <input
                           placeholder="Your mobile number"
                           {...register("mobile", { required: true })}
-                          className="input "
+                          className="input"
+                          name="mobile"
+                          onChange={handleChange}
                         />
                         {errors.mobile && (
                           <p className="text-primary text-xs absolute">
@@ -361,7 +424,9 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                       <input
                         placeholder="Your restaurant address"
                         {...register("address", { required: true })}
-                        className="input "
+                        className="input"
+                        name="address"
+                        onChange={handleChange}
                       />
                       {errors.address && (
                         <p className="text-primary text-xs absolute">
@@ -370,6 +435,9 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                       )}
                     </div>
                     <input
+                      disabled={
+                        isDisable || !areaName || areaName === "default"
+                      }
                       type="submit"
                       value="Submit"
                       className="bg-primary px-12 py-1 rounded-md text-white disabled:bg-gray-400 "

@@ -1,3 +1,4 @@
+import NoData from "../../components/NoData/NoData";
 import HistoryTableRow from "../../components/Table/HistoryTableRow";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 
@@ -14,7 +15,7 @@ const PaymentHistory = () => {
       {orderItems?.length > 0 ? (
         <div className="relative overflow-x-auto">
           <table className="w-full text-left">
-            <thead className=" text-gray-700 ">
+            <thead className=" text-gray-700 text-sm ">
               <tr>
                 <th className="px-3">Order Id</th>
                 <th className="px-3">Items Name</th>
@@ -31,11 +32,7 @@ const PaymentHistory = () => {
           </table>
         </div>
       ) : (
-        <div className="flex justify-center items-center h-[200px]">
-          <h1 className="text-2xl text-secondary">
-            No payment history on here.
-          </h1>
-        </div>
+        <NoData content=" No payment history on here." />
       )}
     </>
   );

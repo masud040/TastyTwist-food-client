@@ -1,3 +1,4 @@
+import NoData from "../../components/NoData/NoData";
 import TotalOrder from "../../components/Seller/TotalOrder";
 import useGetSellerOrderItem from "../../hooks/useGetSellerOrder";
 
@@ -9,9 +10,7 @@ const ManageOrder = () => {
       {orderItems?.length > 0 ? (
         orderItems?.map((order) => <TotalOrder key={order._id} order={order} />)
       ) : (
-        <div className="flex justify-center items-center h-[500px]">
-          <h1 className="text-secondary text-2xl">No orders in your shop</h1>
-        </div>
+        <NoData content="There is no oder." />
       )}
     </div>
   );
