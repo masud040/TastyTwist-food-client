@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -26,6 +26,16 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [isDisable, setIsDisable] = useState(true);
+  const [checkData, setCheckData] = useState({
+    fullName: "",
+    mobile: "",
+    address: "",
+  });
+  useEffect(() => {
+    const areAllFieldsValid = Object.values(checkData).every((value) => value);
+    setIsDisable(!areAllFieldsValid);
+  }, [checkData]);
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
     queryKey: ["city", divisionName],
@@ -51,7 +61,15 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
   const handleAddArea = (e) => {
     setAreaName(e.target.value);
   };
+  const handleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target?.value;
 
+    setCheckData({
+      ...checkData,
+      [name]: value,
+    });
+  };
   const handleAddAddress = async (data) => {
     const toastId = toast.loading("Address Adding...");
     const address = {
@@ -126,6 +144,8 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           placeholder="Input full Name"
                           {...register("fullName", { required: true })}
                           className="input"
+                          name="fullName"
+                          onChange={handleChange}
                         />
 
                         {errors.firstName && (
@@ -140,6 +160,8 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           placeholder="House no. / building / street / area"
                           {...register("address", { required: true })}
                           className="input"
+                          name="address"
+                          onChange={handleChange}
                         />
 
                         {errors.address && (
@@ -159,6 +181,8 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           type="number"
                           {...register("mobile", { required: true })}
                           className="input"
+                          name="mobile"
+                          onChange={handleChange}
                         />
 
                         {errors.mobileNumber && (
@@ -259,7 +283,9 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                     <input
                       type="submit"
                       value="Save"
-                      disabled={!areaName || areaName === "default"}
+                      disabled={
+                        isDisable || !areaName || areaName === "default"
+                      }
                       className="btn"
                     />
                   </form>
