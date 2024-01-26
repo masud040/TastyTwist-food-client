@@ -40,7 +40,6 @@ const Navbar = () => {
     setShowFavorite(true);
     setShowCart(true);
   };
-
   return (
     <>
       <div className="md:flex justify-between py-2 drop-shadow-2xl px-3 items-center fixed z-10 w-full  bg-white bg-opacity-70 ">
@@ -82,7 +81,7 @@ const Navbar = () => {
             <div className="border border-primary/[30%]  rounded-full hover:border-primary transition duration-500  p-1">
               <img
                 onClick={handleShowMenu}
-                src={user?.photoURL ? user.photoURL : placeholder}
+                src={user ? user.photoURL : placeholder}
                 className="w-8 h-8  rounded-full "
                 alt=""
               />

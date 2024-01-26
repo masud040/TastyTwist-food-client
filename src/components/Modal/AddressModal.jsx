@@ -155,7 +155,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           Mobile Number
                         </label>
                         <input
-                          placeholder="Input mobile number"
+                          placeholder="Enter mobile number"
                           type="number"
                           {...register("mobile", { required: true })}
                           className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"

@@ -5,7 +5,7 @@ import UserProfile from "../../components/Dashboard/Profile/UserProfile/UserProf
 import useGetUserRole from "../../hooks/useGetUserRole";
 
 const Profile = () => {
-  const { role, isLoading } = useGetUserRole();
+  const [role, isLoading] = useGetUserRole();
 
   if (!isLoading && role?.role === "user") {
     return <UserProfile />;

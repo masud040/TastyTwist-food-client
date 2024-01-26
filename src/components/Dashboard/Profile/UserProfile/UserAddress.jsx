@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { IoMdAdd } from "react-icons/io";
+import { Link } from "react-router-dom";
 import useGetAddress from "../../../../hooks/useGetAddress";
 import AddressModal from "../../../Modal/AddressModal";
-import { Link } from "react-router-dom";
 
 const UserAddress = () => {
   const [isOpen, setIsOpen] = useState(false);
