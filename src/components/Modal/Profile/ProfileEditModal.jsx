@@ -1,13 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAddress from "../../../hooks/useGetAddress";
 import CloseModal from "../../Button/CloseModal";
 
 const ProfileEditModal = ({ isProfileOpen, closeModal }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [userAddress, refetch] = useGetAddress();
-  const { name, gender } = userAddress || {};
   const axiosSecure = useAxiosSecure();
+
   const handleEditProfile = async (e) => {
     e.preventDefault();
 
@@ -52,36 +59,68 @@ const ProfileEditModal = ({ isProfileOpen, closeModal }) => {
                   Edit Profile
                 </Dialog.Title>
                 <hr />
-                <p className="text-xs mt-4 text-indigo-600">Name</p>
-                <div className="mt-2 w-full">
-                  <form onSubmit={handleEditProfile}>
-                    <input
-                      className="block w-full p-2 rounded-md border focus:outline-none focus:border-indigo-500 transition-colors duration-500"
-                      type="text"
-                      name="name"
-                      defaultValue={name}
-                    />
-                    <select
-                      name="gender"
-                      className="w-full border p-2.5 focus:outline-none mt-4 focus:border-indigo-500 transition-colors duration-500 rounded-md "
-                      defaultValue={gender}
-                    >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                    <input
-                      type="date"
-                      name="birth"
-                      className="block w-full p-2 rounded-md border focus:outline-none focus:border-indigo-500 transition-colors duration-500 mt-4"
-                    />
+
+                <form
+                  className="mt-4"
+                  onSubmit={handleSubmit((data) => console.log(data))}
+                >
+                  <div className=" space-y-6">
+                    <div className=" relative">
+                      <label className="text-xs mb-1.5 block">Name</label>
+                      <input
+                        placeholder="your name"
+                        {...register("name", { required: true })}
+                        className="input"
+                        value={userAddress?.name}
+                      />
+
+                      {errors.name && (
+                        <p className="text-primary text-xs absolute">
+                          You can not leave this empty.
+                        </p>
+                      )}
+                    </div>
+                    <div className=" relative">
+                      <label className="text-xs mb-1.5 block">Gender</label>
+                      <select
+                        {...register("gender", { required: true })}
+                        className="input"
+                        value={userAddress?.gender}
+                      >
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                      {errors.gender && (
+                        <p className="text-primary text-xs absolute">
+                          You can not leave this empty.
+                        </p>
+                      )}
+                    </div>
+                    <div className=" relative">
+                      <label className="text-xs mb-1.5 block">
+                        Date of birth
+                      </label>
+                      <input
+                        {...register("birth", { required: true })}
+                        className="input"
+                        type="date"
+                        value={userAddress?.birth}
+                      />
+
+                      {errors.birth && (
+                        <p className="text-primary text-xs absolute">
+                          You can not leave this empty.
+                        </p>
+                      )}
+                    </div>
                     <button
                       type="submit"
                       className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold"
                     >
                       Confirm
                     </button>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>

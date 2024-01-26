@@ -140,7 +140,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <input
                           placeholder="Input full Name"
                           {...register("fullName", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                           defaultValue={name}
                         />
 
@@ -155,7 +155,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <input
                           placeholder="House no. / building / street / area"
                           {...register("address", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                           defaultValue={address}
                         />
 
@@ -175,7 +175,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                           placeholder="Input mobile number"
                           type="number"
                           {...register("mobile", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                           defaultValue={mobile}
                         />
 
@@ -192,7 +192,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <input
                           placeholder="E.g. beside train station"
                           {...register("landmark")}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                           defaultValue={landmark}
                         />
                       </div>
@@ -202,7 +202,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <label className="text-xs mb-1 block">Province</label>
                         <select
                           {...register("division")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200"
+                          className="input bg-gray-200  "
                           value={divisionName}
                           onChange={handleDivision}
                         >
@@ -243,7 +243,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <select
                           disabled={!divisionName || divisionName === "default"}
                           {...register("city")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
+                          className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={cityName || "default"}
                           onChange={handleAddCity}
                         >
@@ -262,7 +262,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                         <select
                           disabled={!cityName || cityName === "default"}
                           {...register("area")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
+                          className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={areaName || "default"}
                           onChange={handleAddArea}
                         >
@@ -282,7 +282,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                       type="submit"
                       value="Update"
                       disabled={!areaName || areaName === "default"}
-                      className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      className="btn"
                     />
                   </form>
                 </div>

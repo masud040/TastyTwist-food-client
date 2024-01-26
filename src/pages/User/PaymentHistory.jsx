@@ -11,32 +11,32 @@ const PaymentHistory = () => {
           Payment History
         </h1>
       </div>
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-left">
-          <thead className=" text-gray-700 ">
-            <tr>
-              <th className="px-3">Order Id</th>
-              <th className="px-3">Items Name</th>
-              <th className="px-3">Price</th>
-              <th className="px-3">Transaction Id</th>
-              <th className="px-3">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderItems?.length > 0 ? (
-              orderItems?.map((order) => (
+      {orderItems?.lenght > 0 ? (
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-left">
+            <thead className=" text-gray-700 ">
+              <tr>
+                <th className="px-3">Order Id</th>
+                <th className="px-3">Items Name</th>
+                <th className="px-3">Price</th>
+                <th className="px-3">Transaction Id</th>
+                <th className="px-3">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderItems?.map((order) => (
                 <HistoryTableRow key={order._id} order={order} />
-              ))
-            ) : (
-              <div className="flex justify-center items-center h-[500px]">
-                <h1 className="text-2xl text-secondary">
-                  No payment history on your shop.
-                </h1>
-              </div>
-            )}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-[200px]">
+          <h1 className="text-2xl text-secondary">
+            No payment history on here.
+          </h1>
+        </div>
+      )}
     </>
   );
 };

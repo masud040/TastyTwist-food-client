@@ -125,7 +125,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <input
                           placeholder="Input full Name"
                           {...register("fullName", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                         />
 
                         {errors.firstName && (
@@ -139,7 +139,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <input
                           placeholder="House no. / building / street / area"
                           {...register("address", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                         />
 
                         {errors.address && (
@@ -158,7 +158,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           placeholder="Enter mobile number"
                           type="number"
                           {...register("mobile", { required: true })}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                         />
 
                         {errors.mobileNumber && (
@@ -174,7 +174,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <input
                           placeholder="E.g. beside train station"
                           {...register("landmark")}
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="input"
                         />
                       </div>
                     </div>
@@ -183,7 +183,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <label className="text-xs mb-1 block">Province</label>
                         <select
                           {...register("division")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200"
+                          className="input bg-gray-200"
                           defaultValue="default"
                           onChange={handleDivision}
                         >
@@ -221,7 +221,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <select
                           disabled={!divisionName || divisionName === "default"}
                           {...register("city")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
+                          className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={cityName || "default"}
                           onChange={handleAddCity}
                         >
@@ -240,7 +240,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <select
                           disabled={!cityName || cityName === "default"}
                           {...register("area")}
-                          className="border w-full p-1.5 rounded-md focus:outline-none text-gray-700 text-sm bg-gray-200 disabled:cursor-not-allowed"
+                          className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={areaName || "default"}
                           onChange={handleAddArea}
                         >
@@ -260,7 +260,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                       type="submit"
                       value="Save"
                       disabled={!areaName || areaName === "default"}
-                      className="bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      className="btn"
                     />
                   </form>
                 </div>

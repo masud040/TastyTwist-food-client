@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.input {
+  @apply block border focus:outline-none rounded-md p-1.5 w-full ps-3 text-sm focus:border-primary transition duration-500 ease-in-out text-gray-700;
+}
+
+.btn {
+  @apply bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed;
+}
