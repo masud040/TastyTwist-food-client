@@ -9,3 +9,7 @@
 .btn {
   @apply bg-primary px-8 py-1 rounded-md text-white disabled:bg-gray-400 disabled:cursor-not-allowed;
 }
+
+.readonly_input {
+  @apply block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary/[25%];
+}

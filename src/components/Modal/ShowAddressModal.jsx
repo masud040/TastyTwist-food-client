@@ -59,7 +59,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Full Name</label>
                         <input
-                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="readonly_input"
                           value={name}
                           readOnly
                         />
@@ -67,7 +67,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Address</label>
                         <input
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          className="readonly_input"
                           value={address}
                           readOnly
                         />
@@ -77,7 +77,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Email</label>
                         <input
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          className="readonly_input"
                           value={email}
                           readOnly
                         />
@@ -87,7 +87,7 @@ export default function ShowAddressModal({
                           Mobile Number
                         </label>
                         <input
-                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="readonly_input"
                           type="number"
                           value={mobile}
                           readOnly
@@ -98,7 +98,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Province</label>
                         <input
-                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="readonly_input"
                           type="text"
                           value={division}
                           readOnly
@@ -109,7 +109,7 @@ export default function ShowAddressModal({
                           Delivery Place
                         </label>
                         <input
-                          className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                          className="readonly_input"
                           value={place}
                           readOnly
                         />
@@ -119,7 +119,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">City</label>
                         <input
-                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="readonly_input"
                           type="text"
                           value={city}
                           readOnly
@@ -128,7 +128,7 @@ export default function ShowAddressModal({
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Area</label>
                         <input
-                          className="block  border border-secondary focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm"
+                          className="readonly_input"
                           type="text"
                           value={area}
                           readOnly
@@ -140,7 +140,7 @@ export default function ShowAddressModal({
                         Landmark(Optional)
                       </label>
                       <input
-                        className="block border focus:outline-none  rounded-md p-1.5 w-full ps-3 text-sm border-secondary"
+                        className="readonly_input"
                         value={landmark}
                         readOnly
                       />

@@ -182,7 +182,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Province</label>
                         <select
-                          {...register("division")}
+                          {...register("division", { required: true })}
                           className="input bg-gray-200"
                           defaultValue="default"
                           onChange={handleDivision}
@@ -220,7 +220,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         </label>
                         <select
                           disabled={!divisionName || divisionName === "default"}
-                          {...register("city")}
+                          {...register("city", { required: true })}
                           className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={cityName || "default"}
                           onChange={handleAddCity}
@@ -239,7 +239,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         <label className="text-xs mb-1 block">Area</label>
                         <select
                           disabled={!cityName || cityName === "default"}
-                          {...register("area")}
+                          {...register("area", { required: true })}
                           className="input bg-gray-200 disabled:cursor-not-allowed"
                           value={areaName || "default"}
                           onChange={handleAddArea}

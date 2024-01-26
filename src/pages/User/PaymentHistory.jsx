@@ -11,7 +11,7 @@ const PaymentHistory = () => {
           Payment History
         </h1>
       </div>
-      {orderItems?.lenght > 0 ? (
+      {orderItems?.length > 0 ? (
         <div className="relative overflow-x-auto">
           <table className="w-full text-left">
             <thead className=" text-gray-700 ">
@@ -24,7 +24,7 @@ const PaymentHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {orderItems?.map((order) => (
+              {orderItems.map((order) => (
                 <HistoryTableRow key={order._id} order={order} />
               ))}
             </tbody>
