@@ -24,6 +24,22 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [isDisable, setIsDisable] = useState(true);
+  const {
+    name,
+    address,
+    mobile,
+    landmark,
+    division,
+    place,
+    city: district,
+    area: upazilla,
+  } = userAddress || {};
+  const [checkData, setCheckData] = useState({
+    fullName: name,
+    mobile: mobile,
+    address: address,
+  });
 
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
@@ -35,23 +51,16 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
       return data?.data;
     },
   });
-  const {
-    name,
-    address,
-    mobile,
-    landmark,
-    division,
-    place,
-    city: district,
-    area: upazilla,
-  } = userAddress || {};
+
   const selectedPlace = place === "Home" ? false : true;
   const area = city?.find((data) => data.district === cityName)?.upazilla;
   useEffect(() => {
+    const areAllFieldsValid = Object.values(checkData).every((value) => value);
+    setIsDisable(!areAllFieldsValid);
     setDivisionName(division);
     setCityName(district);
     setAreaName(upazilla);
-  }, [district, division, upazilla]);
+  }, [district, division, upazilla, checkData]);
 
   const handleDivision = (e) => {
     setDivisionName(e.target.value);
@@ -65,6 +74,15 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   };
   const handleAddArea = (e) => {
     setAreaName(e.target.value);
+  };
+  const handleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target?.value;
+
+    setCheckData({
+      ...checkData,
+      [name]: value,
+    });
   };
 
   const handleAddAddress = async (data) => {
@@ -142,6 +160,8 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                           {...register("fullName", { required: true })}
                           className="input"
                           defaultValue={name}
+                          name="fullName"
+                          onChange={handleChange}
                         />
 
                         {errors.firstName && (
@@ -157,6 +177,8 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                           {...register("address", { required: true })}
                           className="input"
                           defaultValue={address}
+                          name="address"
+                          onChange={handleChange}
                         />
 
                         {errors.address && (
@@ -177,6 +199,8 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                           {...register("mobile", { required: true })}
                           className="input"
                           defaultValue={mobile}
+                          name="mobile"
+                          onChange={handleChange}
                         />
 
                         {errors.mobileNumber && (
@@ -281,7 +305,9 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                     <input
                       type="submit"
                       value="Update"
-                      disabled={!areaName || areaName === "default"}
+                      disabled={
+                        isDisable || !areaName || areaName === "default"
+                      }
                       className="btn"
                     />
                   </form>
