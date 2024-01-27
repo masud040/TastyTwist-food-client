@@ -8,12 +8,12 @@ import { imageUpload } from "../../../api/auth";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
-import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
 import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
 
 import CloseModal from "../../Button/CloseModal";
+import Greeting from "../../GreetingMessage/Greeting";
 
-export default function AddRestaurantModal({ isOpen, closeModal }) {
+export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
   const {
     register,
     handleSubmit,
@@ -26,7 +26,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [, , refetch] = useGetAllRestaurant();
+
   const [isDisable, setIsDisable] = useState(true);
   const [showGreeting, setShowGreeting] = useState(false);
   const [checkData, setCheckData] = useState({
@@ -87,7 +87,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
       const { url } = await imageUpload(data?.image[0]);
       const restaurantData = {
         name: capitalizeFirstLetter(data.name),
-        image: url,
+        image_url: url,
         delivery_fee: parseFloat(data.delivery_fee),
         delivery_time: data.delivery_time,
         minimum_delivery_range: parseFloat(data.minimum_delivery_range),
@@ -107,7 +107,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
       };
 
       const { data: details } = await axiosSecure.post(
-        `/restaurants?email=${user?.email}`,
+        `/requested/restaurants?email=${user?.email}`,
         restaurantData
       );
       if (details.insertedId) {
@@ -479,9 +479,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                     </form>
                   )}
                   {showGreeting && (
-                    <div className="flex justify-center items-center text-3xl font-semibold text-primary h-[150px]">
-                      <h1>Thanks for submitting!</h1>
-                    </div>
+                    <Greeting message="Thanks for submitting!" />
                   )}
                 </div>
               </Dialog.Panel>

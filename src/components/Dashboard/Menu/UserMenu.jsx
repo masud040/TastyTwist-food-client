@@ -18,7 +18,7 @@ const UserMenu = ({ handleToggle }) => {
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
   const [isResModalOpen, setIsResModalOpen] = useState(false);
-  const [userData] = useGetUserRole();
+  const [userData, , refetch] = useGetUserRole();
   const [userAddress] = useGetAddress();
   const navigate = useNavigate();
   const { pathname } = useNavigate();
@@ -121,6 +121,7 @@ const UserMenu = ({ handleToggle }) => {
       <AddRestaurantModal
         closeModal={closeRestaurantModal}
         isOpen={isResModalOpen}
+        refetch={refetch}
       />
     </>
   );
