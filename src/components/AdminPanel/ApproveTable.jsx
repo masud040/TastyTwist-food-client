@@ -20,7 +20,11 @@ export default function ApproveTable({ pendingList, refetch }) {
             </thead>
             <tbody>
               {pendingList?.map((data) => (
-                <ApprovedTableRow key={data._id} data={data} />
+                <ApprovedTableRow
+                  key={data._id}
+                  data={data}
+                  refetch={refetch}
+                />
               ))}
             </tbody>
           </table>

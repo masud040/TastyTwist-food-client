@@ -3,7 +3,7 @@ import { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import RestaurantDetails from "../Modal/RestaurantDetails/RestaurantDetails";
 
-export default function ApprovedTableRow({ data }) {
+export default function ApprovedTableRow({ data, refetch }) {
   const { email, name } = data || {};
   const [showModal, setIsShow] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -18,8 +18,6 @@ export default function ApprovedTableRow({ data }) {
       return data;
     },
   });
-  console.log(restaurantData);
-
   const handleShowDetails = (email) => {
     setSelectedEmail(email);
     setIsShow(true);
