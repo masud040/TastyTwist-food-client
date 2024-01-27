@@ -54,11 +54,14 @@ export default function RestaurantDetails({ details, showModal, onClose }) {
                 </Dialog.Title>
                 <div className="w-full">
                   <img className="w-full h-60" src={image} alt="" />
-                  <div className="p-3">
+                  <div className="p-4">
                     <h4 className="text-sm font-semibold border-b-2 pb-1 border-primary/[70%]">
                       Restaurant Details
                     </h4>
-                    <div className="text-xs mt-3 text-gray-700">
+                    <div className="text-xs my-3 text-gray-700">
+                      <p className="mt-5 mb-2 text-xs text-gray-800 font-semibold">
+                        Restaurant
+                      </p>
                       <GenerateInput label="Name" value={name} />
                       <GenerateInput label="Cuisine" value={cuisine} />
                       <GenerateInput label="Menu" value={menu} />
@@ -75,7 +78,7 @@ export default function RestaurantDetails({ details, showModal, onClose }) {
                         label="Minimum Delivery Range"
                         value={minimum_delivery_range}
                       />
-                      <p className="mt-5 mb-2 text-sm font-semibold">
+                      <p className="mt-5 mb-2 text-xs text-gray-800 font-semibold">
                         Location
                       </p>
                       <GenerateInput
@@ -88,7 +91,9 @@ export default function RestaurantDetails({ details, showModal, onClose }) {
                       />
                       <GenerateInput label="City" value={location?.city} />
                       <GenerateInput label="Area" value={location?.area} />
-                      <p className="mt-5 mb-2 text-sm font-semibold">Contact</p>
+                      <p className="mt-5 mb-2 text-xs text-gray-800 font-semibold">
+                        Contact
+                      </p>
                       <GenerateInput label="Email" value={email} />
                       <GenerateInput
                         label="Restaurt Email"
@@ -96,10 +101,18 @@ export default function RestaurantDetails({ details, showModal, onClose }) {
                       />
 
                       <GenerateInput label="Mobile" value={mobile} />
-                      <p className="mt-5 mb-2 text-sm font-semibold">
+                      <p className="mt-5 mb-2 text-xs text-gray-800 font-semibold">
                         Important Message
                       </p>
                       <GenerateInput label="Message" value={message} />
+                    </div>
+                    <div className="flex my-6 justify-between items-center">
+                      <button className="p-2 px-5 bg-primary rounded-lg text-white hover:scale-105 transition duration-500 ">
+                        Confirm
+                      </button>
+                      <button className="p-2 px-5 border border-primary rounded-lg hover:bg-primary/[7%] hover:border-transparent transition duration-500 ease-in-out text-primary">
+                        Remove
+                      </button>
                     </div>
                   </div>
                 </div>

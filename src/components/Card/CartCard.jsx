@@ -1,11 +1,11 @@
-import { FaRegHeart } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { IoIosRemove, IoMdAdd } from "react-icons/io";
 import { useState } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import useGetCartItem from "../../hooks/useGetCartItem";
+import { FaRegHeart } from "react-icons/fa";
+import { IoIosRemove, IoMdAdd } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetCartItem from "../../hooks/useGetCartItem";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
@@ -46,7 +46,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
-      showCancelButton: true,
+      showCancel: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",

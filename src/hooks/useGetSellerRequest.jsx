@@ -7,7 +7,7 @@ export default function useGetSellerRequest() {
   const [requestedList, setRequestedList] = useState([]);
   const [pendingList, setpendingList] = useState([]);
   const { refetch } = useQuery({
-    queryKey: ["seller-request"],
+    queryKey: ["sellerRequest"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/seller-request");
       setRequestedList(data?.filter((user) => user.status === "Requested"));
