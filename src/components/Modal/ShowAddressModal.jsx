@@ -6,6 +6,7 @@ export default function ShowAddressModal({
   isOpen,
   closeModal,
   customerDetails,
+  sellerRequest = "",
 }) {
   const {
     name,
@@ -18,6 +19,7 @@ export default function ShowAddressModal({
     city,
     area,
   } = customerDetails || {};
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -50,7 +52,7 @@ export default function ShowAddressModal({
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Customer Details
+                  {sellerRequest ? "User Details" : "Customer Details"}
                 </Dialog.Title>
 
                 <div className="mt-2">
@@ -104,16 +106,18 @@ export default function ShowAddressModal({
                           readOnly
                         />
                       </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Delivery Place
-                        </label>
-                        <input
-                          className="readonly_input"
-                          value={place}
-                          readOnly
-                        />
-                      </div>
+                      {!sellerRequest && (
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Delivery Place
+                          </label>
+                          <input
+                            className="readonly_input"
+                            value={place}
+                            readOnly
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
                       <div className="flex-1 relative">
