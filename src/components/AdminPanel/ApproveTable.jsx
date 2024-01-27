@@ -1,14 +1,26 @@
+import { useState } from "react";
+import FoodDetailsModal from "../Modal/FoodDetails/FoodDetailModal";
 import NoData from "../NoData/NoData";
 import ApprovedTableRow from "../Table/ApprovedTableRow";
 
-export default function ApproveTable({ approveList, refetch }) {
+export default function ApproveTable({ pendingList, refetch }) {
+  const [showModal, setIsShow] = useState(false);
+  const handleShowDetails = (email) => {
+    setIsShow(true);
+  };
+  const closeModal = () => {
+    setIsShow(false);
+  };
   return (
     <>
+      {showModal && (
+        <FoodDetailsModal showModal={showModal} onClose={closeModal} />
+      )}
       <h1 className="text-center text-xl text-primary font-semibold mb-5">
         Approved User
       </h1>
 
-      {approveList?.length > 0 ? (
+      {pendingList?.length > 0 ? (
         <div className="relative overflow-x-auto">
           <table className="w-full text-left">
             <thead className=" text-gray-700 text-sm text-center">
@@ -19,8 +31,12 @@ export default function ApproveTable({ approveList, refetch }) {
               </tr>
             </thead>
             <tbody>
-              {approveList?.map((data) => (
-                <ApprovedTableRow key={data._id} data={data} />
+              {pendingList?.map((data) => (
+                <ApprovedTableRow
+                  key={data._id}
+                  data={data}
+                  onShowDetails={handleShowDetails}
+                />
               ))}
             </tbody>
           </table>

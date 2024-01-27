@@ -5,14 +5,14 @@ import useAxiosSecure from "./useAxiosSecure";
 export default function useGetSellerRequest() {
   const axiosSecure = useAxiosSecure();
   const [requestedList, setRequestedList] = useState([]);
-  const [approveList, setApproveList] = useState([]);
+  const [pendingList, setpendingList] = useState([]);
   const { refetch } = useQuery({
     queryKey: ["seller-request"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/seller-request");
       setRequestedList(data?.filter((user) => user.status === "Requested"));
-      setApproveList(data?.filter((user) => user.status === "Approved"));
+      setpendingList(data?.filter((user) => user.status === "Pending"));
     },
   });
-  return { requestedList, approveList, refetch };
+  return { requestedList, pendingList, refetch };
 }
