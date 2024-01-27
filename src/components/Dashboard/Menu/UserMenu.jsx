@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { MdFoodBank, MdPayments } from "react-icons/md";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useGetUserRole from "../../../hooks/useGetUserRole";
 import AddRestaurantModal from "../../Modal/AddRestaurant/AddRestaurantModal";
 import SellerRequestModal from "../../Modal/SellerRequestModal";
 
@@ -15,6 +16,7 @@ const UserMenu = ({ handleToggle }) => {
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
   const [isResModalOpen, setIsResModalOpen] = useState(false);
+  const [userData] = useGetUserRole();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -81,14 +83,17 @@ const UserMenu = ({ handleToggle }) => {
 
         <span className="mx-4 font-medium text-sm">Become A Seller</span>
       </div>
-      <div
-        onClick={openRestaurantModal}
-        className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
-      >
-        <MdFoodBank className="w-5 h-5" />
 
-        <button className="mx-4 font-medium text-sm"> Add Restaurant</button>
-      </div>
+      {userData?.role === "accepeted" && (
+        <div
+          onClick={openRestaurantModal}
+          className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+        >
+          <MdFoodBank className="w-5 h-5" />
+
+          <button className="mx-4 font-medium text-sm"> Add Restaurant</button>
+        </div>
+      )}
 
       <SellerRequestModal
         modalHandler={modalHandler}
