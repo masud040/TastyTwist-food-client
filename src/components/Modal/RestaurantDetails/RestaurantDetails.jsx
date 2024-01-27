@@ -2,7 +2,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import CloseModal from "../../Button/CloseModal";
 
-export default function ShowRestaurant({ showModal, onClose }) {
+export default function RestaurantDetails({ details, showModal, onClose }) {
+  //   const c = Object.keys(details).keys().join(",");
+  //   console.log(c);
   return (
     <Transition appear show={showModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -29,7 +31,7 @@ export default function ShowRestaurant({ showModal, onClose }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
+              <Dialog.Panel className="w-full min-h-[150px] max-w-xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
                 <CloseModal onClose={onClose} />
                 <Dialog.Title as="h3"></Dialog.Title>
 

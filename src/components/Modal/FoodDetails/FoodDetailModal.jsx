@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import CloseModal from "../../Button/CloseModal";
 export default function FoodDetailsModal({ showModal, onClose, item }) {
-  const { _id, name, price, description, image_url } = item || {};
+  const { name, price, description, image_url } = item || {};
   return (
     <Transition appear show={showModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -29,11 +29,9 @@ export default function FoodDetailsModal({ showModal, onClose, item }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full min-h-[150px] max-w-2xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
+              <Dialog.Panel className="w-full min-h-[150px] max-w-sm transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
                 <CloseModal onClose={onClose} />
-                <Dialog.Title as="h3">
-                  <h1>Restaurant Details</h1>
-                </Dialog.Title>
+                <Dialog.Title as="h3"></Dialog.Title>
 
                 <div className="w-full text-dark-gray">
                   <img src={image_url} className="w-full h-52" alt="" />
