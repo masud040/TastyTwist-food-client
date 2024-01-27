@@ -5,8 +5,10 @@ import MenuItem from "../Sidebar/MenuItem";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdFoodBank, MdPayments } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useGetAddress from "../../../hooks/useGetAddress";
 import useGetUserRole from "../../../hooks/useGetUserRole";
 import AddRestaurantModal from "../../Modal/AddRestaurant/AddRestaurantModal";
 import SellerRequestModal from "../../Modal/SellerRequestModal";
@@ -17,7 +19,9 @@ const UserMenu = ({ handleToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isResModalOpen, setIsResModalOpen] = useState(false);
   const [userData] = useGetUserRole();
-
+  const [userAddress] = useGetAddress();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -32,6 +36,12 @@ const UserMenu = ({ handleToggle }) => {
     setIsResModalOpen(false);
   };
   const modalHandler = async () => {
+    if (!userAddress) {
+      navigate("/dashboard/address-book", { state: pathname });
+      return toast.error(
+        "Please complete your profile before requesting a seller."
+      );
+    }
     const currentUser = {
       email: user?.email,
       status: "Requested",
