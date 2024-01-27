@@ -28,6 +28,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
   const axiosSecure = useAxiosSecure();
   const [, , refetch] = useGetAllRestaurant();
   const [isDisable, setIsDisable] = useState(true);
+  const [showGreeting, setShowGreeting] = useState(false);
   const [checkData, setCheckData] = useState({
     name: "",
     image: "",
@@ -81,46 +82,52 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
     setAreaName(e.target.value);
   };
   const handleAddRestaurant = async (data) => {
-    const toastId = toast.loading("Restaurant Adding...");
-    const { url } = await imageUpload(data?.image[0]);
-    const restaurantData = {
-      name: capitalizeFirstLetter(data.name),
-      image: url,
-      delivery_fee: parseFloat(data.delivery_fee),
-      delivery_time: data.delivery_time,
-      minimum_delivery_range: parseFloat(data.minimum_delivery_range),
-      cuisine: capitalizeFirstLetter(data.cuisine),
-      restaurantEmail: data.email,
-      email: user?.email,
-      mobile: data.mobile,
-      menu: data.menu.split(","),
-      rating: 4.5,
-      message: data.message,
-      location: {
-        address: data.address,
-        division: data.division,
-        city: data.city,
-        area: data.area,
-      },
-    };
+    try {
+      const toastId = toast.loading("Restaurant Adding...");
+      const { url } = await imageUpload(data?.image[0]);
+      const restaurantData = {
+        name: capitalizeFirstLetter(data.name),
+        image: url,
+        delivery_fee: parseFloat(data.delivery_fee),
+        delivery_time: data.delivery_time,
+        minimum_delivery_range: parseFloat(data.minimum_delivery_range),
+        cuisine: capitalizeFirstLetter(data.cuisine),
+        restaurantEmail: data.email,
+        email: user?.email,
+        mobile: data.mobile,
+        menu: data.menu.split(","),
+        rating: 4.5,
+        message: data.message,
+        location: {
+          address: data.address,
+          division: data.division,
+          city: data.city,
+          area: data.area,
+        },
+      };
 
-    const { data: details } = await axiosSecure.post(
-      `/restaurants?email=${user?.email}`,
-      restaurantData
-    );
-    console.log(details);
-    if (details.insertedId) {
-      toast.success("Restaurant added successfully", {
-        id: toastId,
-      });
-      closeModal(false);
-      refetch();
+      const { data: details } = await axiosSecure.post(
+        `/restaurants?email=${user?.email}`,
+        restaurantData
+      );
+      if (details.insertedId) {
+        toast.success("Restaurant added successfully", {
+          id: toastId,
+        });
+        setShowGreeting(true);
+        setTimeout(() => {
+          closeModal();
+        }, 4000);
+        refetch();
+      }
+      setDivisionName("default");
+      setCityName("default");
+      setAreaName("default");
+
+      reset();
+    } catch (err) {
+      toast.error(err.message);
     }
-    setDivisionName("default");
-    setCityName("default");
-    setAreaName("default");
-
-    reset();
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -157,314 +164,325 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                   Fill this form for your restaurant.
                 </Dialog.Title>
                 <p className="text-xs text-center text-gray-700">
-                  we get your seller request and check this request.so please
-                  add your restaurant informantion.
+                  We have accepted your request so you have been given a form.
+                  Please add your restaurant information.
                 </p>
 
                 <div className="mt-6">
-                  <form
-                    className="space-y-5"
-                    onSubmit={handleSubmit(handleAddRestaurant)}
-                  >
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Restaurant Name
-                        </label>
-                        <input
-                          placeholder="Restaurant Name"
-                          {...register("name", { required: true })}
-                          className="input"
-                          name="name"
-                          onChange={handleChange}
-                        />
+                  {!showGreeting && (
+                    <form
+                      className="space-y-5"
+                      onSubmit={handleSubmit(handleAddRestaurant)}
+                    >
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Restaurant Name
+                          </label>
+                          <input
+                            placeholder="Restaurant Name"
+                            {...register("name", { required: true })}
+                            className="input"
+                            name="name"
+                            onChange={handleChange}
+                          />
 
-                        {errors.name && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Restaurant Image
-                        </label>
-                        <input
-                          type="file"
-                          {...register("image", { required: true })}
-                          className="input"
-                          name="image"
-                          onChange={handleChange}
-                        />
+                          {errors.name && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Restaurant Image
+                          </label>
+                          <input
+                            type="file"
+                            {...register("image", { required: true })}
+                            className="input"
+                            name="image"
+                            onChange={handleChange}
+                          />
 
-                        {errors.image && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.image && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Delivery Fee
-                        </label>
-                        <input
-                          type="number"
-                          placeholder="Delivery fee"
-                          {...register("delivery_fee", { required: true })}
-                          className="input"
-                          name="delivery_fee"
-                          onChange={handleChange}
-                        />
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Delivery Fee
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="Delivery fee"
+                            {...register("delivery_fee", { required: true })}
+                            className="input"
+                            name="delivery_fee"
+                            onChange={handleChange}
+                          />
 
-                        {errors.delivery_fee && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Delivery Time
-                        </label>
-                        <input
-                          placeholder="20 minutes"
-                          {...register("delivery_time", { required: true })}
-                          className="input"
-                          name="delivery_time"
-                          onChange={handleChange}
-                        />
+                          {errors.delivery_fee && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Delivery Time
+                          </label>
+                          <input
+                            placeholder="20 minutes"
+                            {...register("delivery_time", { required: true })}
+                            className="input"
+                            name="delivery_time"
+                            onChange={handleChange}
+                          />
 
-                        {errors.delivery_time && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.delivery_time && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Minimum Delivery Range
-                        </label>
-                        <input
-                          type="number"
-                          placeholder="Minimum Delivery Range"
-                          {...register("minimum_delivery_range", {
-                            required: true,
-                          })}
-                          className="input"
-                          name="minimum_delivery_range"
-                          onChange={handleChange}
-                        />
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Minimum Delivery Range
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="Minimum Delivery Range"
+                            {...register("minimum_delivery_range", {
+                              required: true,
+                            })}
+                            className="input"
+                            name="minimum_delivery_range"
+                            onChange={handleChange}
+                          />
 
-                        {errors.minimum_delivery_range && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Cuisine</label>
-                        <input
-                          placeholder="name of the cuisine"
-                          {...register("cuisine", { required: true })}
-                          className="input"
-                          name="cuisine"
-                          onChange={handleChange}
-                        />
+                          {errors.minimum_delivery_range && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">Cuisine</label>
+                          <input
+                            placeholder="name of the cuisine"
+                            {...register("cuisine", { required: true })}
+                            className="input"
+                            name="cuisine"
+                            onChange={handleChange}
+                          />
 
-                        {errors.cuisine && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.cuisine && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Menu name</label>
-                        <input
-                          placeholder="like Sushi, Platter, Miso Soup, Tempura
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Menu name
+                          </label>
+                          <input
+                            placeholder="like Sushi, Platter, Miso Soup, Tempura
                         "
-                          {...register("menu", { required: true })}
-                          className="input"
-                          name="menu"
-                          onChange={handleChange}
-                        />
+                            {...register("menu", { required: true })}
+                            className="input"
+                            name="menu"
+                            onChange={handleChange}
+                          />
 
-                        {errors.menu && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Restaurant Email
-                        </label>
-                        <input
-                          placeholder="Restaurant email"
-                          {...register("email", {
-                            required: true,
-                          })}
-                          type="email"
-                          className="input"
-                          name="email"
-                          onChange={handleChange}
-                        />
+                          {errors.menu && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Restaurant Email
+                          </label>
+                          <input
+                            placeholder="Restaurant email"
+                            {...register("email", {
+                              required: true,
+                            })}
+                            type="email"
+                            className="input"
+                            name="email"
+                            onChange={handleChange}
+                          />
 
-                        {errors.email && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.email && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Select Division
-                        </label>
-                        <select
-                          {...register("division", { required: true })}
-                          className="input bg-gray-200"
-                          defaultValue="default"
-                          onChange={handleDivision}
-                        >
-                          {divisions?.map((division) => (
-                            <option
-                              key={division._id}
-                              value={division.division}
-                            >
-                              {division.division}
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Select Division
+                          </label>
+                          <select
+                            {...register("division", { required: true })}
+                            className="input bg-gray-200"
+                            defaultValue="default"
+                            onChange={handleDivision}
+                          >
+                            {divisions?.map((division) => (
+                              <option
+                                key={division._id}
+                                value={division.division}
+                              >
+                                {division.division}
+                              </option>
+                            ))}
+                          </select>
+
+                          {errors.division && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Select City
+                          </label>
+                          <select
+                            disabled={
+                              !divisionName || divisionName === "default"
+                            }
+                            {...register("city", { required: true })}
+                            className="input bg-gray-200 disabled:cursor-not-allowed"
+                            value={cityName || "default"}
+                            onChange={handleAddCity}
+                          >
+                            <option disabled className="hidden" value="default">
+                              Please choose your city
                             </option>
-                          ))}
-                        </select>
+                            {city?.map((item) => (
+                              <option key={item._id} value={item.district}>
+                                {item.district}
+                              </option>
+                            ))}
+                          </select>
 
-                        {errors.division && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.city && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Select City
-                        </label>
-                        <select
-                          disabled={!divisionName || divisionName === "default"}
-                          {...register("city", { required: true })}
-                          className="input bg-gray-200 disabled:cursor-not-allowed"
-                          value={cityName || "default"}
-                          onChange={handleAddCity}
-                        >
-                          <option disabled className="hidden" value="default">
-                            Please choose your city
-                          </option>
-                          {city?.map((item) => (
-                            <option key={item._id} value={item.district}>
-                              {item.district}
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">
+                            Select Area
+                          </label>
+                          <select
+                            disabled={!cityName || cityName === "default"}
+                            {...register("area", { required: true })}
+                            className="input bg-gray-200 disabled:cursor-not-allowed"
+                            value={areaName || "default"}
+                            onChange={handleAddArea}
+                          >
+                            <option disabled className="hidden" value="default">
+                              Please choose your area
                             </option>
-                          ))}
-                        </select>
+                            {area?.map((data) => (
+                              <option key={data} value={data}>
+                                {data}
+                              </option>
+                            ))}
+                          </select>
 
-                        {errors.city && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
+                          {errors.area && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="flex-1 relative">
+                          <label className="text-xs mb-1 block">Mobile</label>
+                          <input
+                            placeholder="Your mobile number"
+                            {...register("mobile", { required: true })}
+                            className="input"
+                            name="mobile"
+                            onChange={handleChange}
+                          />
+                          {errors.mobile && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
                       </div>
+                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                        <div className="flex-1 pb-4 relative">
+                          <label className="text-xs mb-1 block">Address</label>
+                          <input
+                            placeholder="Your restaurant address"
+                            {...register("address", { required: true })}
+                            className="input"
+                            name="address"
+                            onChange={handleChange}
+                          />
+                          {errors.address && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex-1 pb-4 relative">
+                          <label className="text-xs mb-1 block">Message</label>
+                          <textarea
+                            placeholder="Message"
+                            {...register("message", { required: true })}
+                            className="input"
+                            rows={4}
+                            name="message"
+                            onChange={handleChange}
+                          />
+                          {errors.address && (
+                            <p className="text-primary text-xs absolute">
+                              You can not leave this empty.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <input
+                        disabled={
+                          isDisable || !areaName || areaName === "default"
+                        }
+                        type="submit"
+                        value="Submit"
+                        className="bg-primary px-12 py-1 rounded-md text-white disabled:bg-gray-400 "
+                      />
+                    </form>
+                  )}
+                  {showGreeting && (
+                    <div className="flex justify-center items-center text-3xl font-semibold text-primary h-[150px]">
+                      <h1>Thanks for submitting!</h1>
                     </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Select Area
-                        </label>
-                        <select
-                          disabled={!cityName || cityName === "default"}
-                          {...register("area", { required: true })}
-                          className="input bg-gray-200 disabled:cursor-not-allowed"
-                          value={areaName || "default"}
-                          onChange={handleAddArea}
-                        >
-                          <option disabled className="hidden" value="default">
-                            Please choose your area
-                          </option>
-                          {area?.map((data) => (
-                            <option key={data} value={data}>
-                              {data}
-                            </option>
-                          ))}
-                        </select>
-
-                        {errors.area && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Mobile</label>
-                        <input
-                          placeholder="Your mobile number"
-                          {...register("mobile", { required: true })}
-                          className="input"
-                          name="mobile"
-                          onChange={handleChange}
-                        />
-                        {errors.mobile && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 pb-4 relative">
-                        <label className="text-xs mb-1 block">Address</label>
-                        <input
-                          placeholder="Your restaurant address"
-                          {...register("address", { required: true })}
-                          className="input"
-                          name="address"
-                          onChange={handleChange}
-                        />
-                        {errors.address && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 pb-4 relative">
-                        <label className="text-xs mb-1 block">Message</label>
-                        <textarea
-                          placeholder="Message"
-                          {...register("message", { required: true })}
-                          className="input"
-                          rows={4}
-                          name="message"
-                          onChange={handleChange}
-                        />
-                        {errors.address && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <input
-                      disabled={
-                        isDisable || !areaName || areaName === "default"
-                      }
-                      type="submit"
-                      value="Submit"
-                      className="bg-primary px-12 py-1 rounded-md text-white disabled:bg-gray-400 "
-                    />
-                  </form>
+                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
