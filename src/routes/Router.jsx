@@ -190,7 +190,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin/manage-users",
+        path: "admin/seller-request",
         element: (
           <PrivateRoute>
             <AdminRoute>

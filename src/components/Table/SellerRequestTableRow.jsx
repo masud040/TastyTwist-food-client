@@ -53,20 +53,20 @@ export default function SellerRequestTableRow({ user, onHandleAction }) {
         <td className="px-3  py-5 text-xs">
           <button
             onClick={() => handleShowDetails(email)}
-            className=" whitespace-no-wrap bg-blue-500 px-2 py-[2px] rounded-xl text-white/[85%]  "
+            className="bg-blue-500 px-2 py-[2px] rounded-xl text-white/[85%]  "
           >
             details
           </button>
         </td>
         <td className="px-3 flex justify-center gap-4 py-5 text-xs  ">
           <button
-            onClick={() => onHandleAction(email, "Approve")}
-            className="bg- px-2 py-[2px] bg-green-500 text-white/[85%] rounded-xl "
+            onClick={() => onHandleAction(email, "Approved")}
+            className="px-2 py-[2px] bg-green-500 text-white/[85%] rounded-xl "
           >
             Approve
           </button>
           <button
-            onClick={() => onHandleAction(email, "Cancel")}
+            onClick={() => onHandleAction(email, "Canceled")}
             className="bg-gray-700 text-white/[85%] px-2 py-[2px] rounded-xl "
           >
             Cancel

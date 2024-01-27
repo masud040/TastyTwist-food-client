@@ -1,4 +1,4 @@
-import { FaUsers } from "react-icons/fa";
+import { CiSquareQuestion } from "react-icons/ci";
 import { GrRestaurant } from "react-icons/gr";
 import { IoMdAnalytics } from "react-icons/io";
 import { MdFeedback } from "react-icons/md";
@@ -33,9 +33,9 @@ const AdminMenu = ({ handleToggle }) => {
         handleToggle={handleToggle}
       />
       <MenuItem
-        icon={FaUsers}
-        label="Manage Users"
-        address="/dashboard/admin/manage-users"
+        icon={CiSquareQuestion}
+        label="Seller Request"
+        address="/dashboard/admin/seller-request"
         handleToggle={handleToggle}
       />
     </>

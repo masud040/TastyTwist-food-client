@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import useAxiosSecure from "./useAxiosSecure";
 
 export default function useGetSellerRequest() {
   const axiosSecure = useAxiosSecure();
-
-  const { data: requesteUsers, refetch } = useQuery({
-    queryKey: ["users"],
+  const [requestedList, setRequestedList] = useState([]);
+  const [approveList, setApproveList] = useState([]);
+  const { refetch } = useQuery({
+    queryKey: ["seller-request"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(
-        "/seller-request?status=Requested"
-      );
-      return data;
+      const { data } = await axiosSecure.get("/seller-request");
+      setRequestedList(data?.filter((user) => user.status === "Requested"));
+      setApproveList(data?.filter((user) => user.status === "Approved"));
     },
   });
-  return [requesteUsers, refetch];
+  return { requestedList, approveList, refetch };
 }
