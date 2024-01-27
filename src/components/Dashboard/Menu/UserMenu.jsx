@@ -5,7 +5,7 @@ import MenuItem from "../Sidebar/MenuItem";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { MdFoodBank, MdPayments } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAddress from "../../../hooks/useGetAddress";
@@ -21,7 +21,8 @@ const UserMenu = ({ handleToggle }) => {
   const [userData] = useGetUserRole();
   const [userAddress] = useGetAddress();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname } = useNavigate();
+
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -30,6 +31,12 @@ const UserMenu = ({ handleToggle }) => {
     handleToggle();
   };
   const openRestaurantModal = () => {
+    if (!userAddress) {
+      navigate("/dashboard/address-book", { state: pathname });
+      return toast.error(
+        "Please complete your profile before requesting a seller."
+      );
+    }
     setIsResModalOpen(true);
   };
   const closeRestaurantModal = () => {
@@ -37,7 +44,7 @@ const UserMenu = ({ handleToggle }) => {
   };
   const modalHandler = async () => {
     if (!userAddress) {
-      navigate("/dashboard/address-book", { state: pathname });
+      navigate("/dashboard/address-book", { state: pathname, replace: true });
       return toast.error(
         "Please complete your profile before requesting a seller."
       );
@@ -110,6 +117,7 @@ const UserMenu = ({ handleToggle }) => {
         closeModal={closeModal}
         isOpen={isOpen}
       />
+
       <AddRestaurantModal
         closeModal={closeRestaurantModal}
         isOpen={isResModalOpen}

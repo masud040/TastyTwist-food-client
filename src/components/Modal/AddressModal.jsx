@@ -90,7 +90,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
       });
       closeModal(false);
       refetch();
-      navigate(state && state);
+      navigate(state && state, { replace: true });
     }
     setDivisionName("default");
     setCityName("default");

@@ -9,13 +9,14 @@ const googleProvider = new GoogleAuthProvider();
 const Social = () => {
   const { signInWithSocial } = useAuth();
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handleLogin = async () => {
     const { user } = await signInWithSocial(googleProvider);
     await saveUser(user);
     toast.success("Login successful");
-    navigate(state ? state : "/");
+    navigate(from, { replace: true });
   };
   return (
     <div

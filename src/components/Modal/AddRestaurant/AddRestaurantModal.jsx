@@ -26,7 +26,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [refetch] = useGetAllRestaurant();
+  const [, , refetch] = useGetAllRestaurant();
   const [isDisable, setIsDisable] = useState(true);
   const [checkData, setCheckData] = useState({
     name: "",
@@ -39,6 +39,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
     mobile: "",
     menu: "",
     address: "",
+    message: "",
   });
   useEffect(() => {
     const areAllFieldsValid = Object.values(checkData).every((value) => value);
@@ -94,6 +95,7 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
       mobile: data.mobile,
       menu: data.menu.split(","),
       rating: 4.5,
+      message: data.message,
       location: {
         address: data.address,
         division: data.division,
@@ -103,9 +105,10 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
     };
 
     const { data: details } = await axiosSecure.post(
-      "/restaurants",
+      `/restaurants?email=${user?.email}`,
       restaurantData
     );
+    console.log(details);
     if (details.insertedId) {
       toast.success("Restaurant added successfully", {
         id: toastId,
@@ -322,6 +325,32 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                     <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">
+                          Select Division
+                        </label>
+                        <select
+                          {...register("division", { required: true })}
+                          className="input bg-gray-200"
+                          defaultValue="default"
+                          onChange={handleDivision}
+                        >
+                          {divisions?.map((division) => (
+                            <option
+                              key={division._id}
+                              value={division.division}
+                            >
+                              {division.division}
+                            </option>
+                          ))}
+                        </select>
+
+                        {errors.division && (
+                          <p className="text-primary text-xs absolute">
+                            You can not leave this empty.
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">
                           Select City
                         </label>
                         <select
@@ -342,32 +371,6 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                         </select>
 
                         {errors.city && (
-                          <p className="text-primary text-xs absolute">
-                            You can not leave this empty.
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
-                          Select Division
-                        </label>
-                        <select
-                          {...register("division", { required: true })}
-                          className="input bg-gray-200"
-                          defaultValue="default"
-                          onChange={handleDivision}
-                        >
-                          {divisions?.map((division) => (
-                            <option
-                              key={division._id}
-                              value={division.division}
-                            >
-                              {division.division}
-                            </option>
-                          ))}
-                        </select>
-
-                        {errors.division && (
                           <p className="text-primary text-xs absolute">
                             You can not leave this empty.
                           </p>
@@ -419,21 +422,40 @@ export default function AddRestaurantModal({ isOpen, closeModal }) {
                         )}
                       </div>
                     </div>
-                    <div className="flex-1 pb-4 relative">
-                      <label className="text-xs mb-1 block">Address</label>
-                      <input
-                        placeholder="Your restaurant address"
-                        {...register("address", { required: true })}
-                        className="input"
-                        name="address"
-                        onChange={handleChange}
-                      />
-                      {errors.address && (
-                        <p className="text-primary text-xs absolute">
-                          You can not leave this empty.
-                        </p>
-                      )}
+                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
+                      <div className="flex-1 pb-4 relative">
+                        <label className="text-xs mb-1 block">Address</label>
+                        <input
+                          placeholder="Your restaurant address"
+                          {...register("address", { required: true })}
+                          className="input"
+                          name="address"
+                          onChange={handleChange}
+                        />
+                        {errors.address && (
+                          <p className="text-primary text-xs absolute">
+                            You can not leave this empty.
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex-1 pb-4 relative">
+                        <label className="text-xs mb-1 block">Message</label>
+                        <textarea
+                          placeholder="Message"
+                          {...register("message", { required: true })}
+                          className="input"
+                          rows={4}
+                          name="message"
+                          onChange={handleChange}
+                        />
+                        {errors.address && (
+                          <p className="text-primary text-xs absolute">
+                            You can not leave this empty.
+                          </p>
+                        )}
+                      </div>
                     </div>
+
                     <input
                       disabled={
                         isDisable || !areaName || areaName === "default"

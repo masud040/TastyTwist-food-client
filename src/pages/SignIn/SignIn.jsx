@@ -12,7 +12,8 @@ const SignIn = () => {
   const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const SignIn = () => {
       .then(() => {
         toast.success("Login Successfully");
         setLoading(false);
-        navigate(state ? state : "/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         setLoading(false);
