@@ -20,10 +20,17 @@ const SignIn = () => {
     const form = e.target;
     const email = form.email?.value;
     const password = form.password?.value;
-    await signIn(email, password);
-    toast.success("Login Successfully");
-    setLoading(false);
-    navigate(state ? state : "/");
+
+    signIn(email, password)
+      .then(() => {
+        toast.success("Login Successfully");
+        setLoading(false);
+        navigate(state ? state : "/");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.message);
+      });
   };
   return (
     <Container>

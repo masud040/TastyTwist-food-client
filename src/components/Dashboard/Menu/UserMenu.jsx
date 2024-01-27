@@ -94,7 +94,7 @@ const UserMenu = ({ handleToggle }) => {
         <span className="mx-4 font-medium text-sm">Become A Seller</span>
       </div>
 
-      {userData?.role === "accepeted" && (
+      {userData?.status === "Approved" && (
         <div
           onClick={openRestaurantModal}
           className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"

@@ -14,25 +14,55 @@ const SignUp = () => {
   const { createUser, updateUserProfile } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    if (error) {
+      setLoading(false);
+      return toast.error("Image size exceeds 300KB limit.");
+    }
     const form = e.target;
     const name = form.name.value;
     const image = form.image.files[0];
     const email = form.email.value;
     const password = form.password.value;
-    const { url } = await imageUpload(image);
-
-    const { user } = await createUser(email, password);
-    await updateUserProfile(name, url);
-    if (user?.email) {
-      const data = await saveUser(user);
-      if (data.upsertedId) {
-        toast.success("Sign up successfully");
+    try {
+      const { url } = await imageUpload(image);
+      const { user } = await createUser(email, password);
+      await updateUserProfile(name, url);
+      if (user?.email) {
+        const data = await saveUser(user);
+        if (data.upsertedId) {
+          toast.success("Sign up successfully");
+        }
+        setLoading(false);
+        navigate("/");
       }
+    } catch (err) {
       setLoading(false);
-      navigate("/");
+      toast.error(err.message);
+    }
+    //   .then(async () => {
+    //
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     toast.error(err.message);
+    //   });
+    // .catch((err) => {
+    //   setLoading(false);
+    //   toast.error(err.message);
+    // });
+  };
+  const checkImageSize = (e) => {
+    const selectedImage = e.target.files[0];
+    const maxSizeInKB = 300;
+    if (selectedImage.size / 1024 > maxSizeInKB) {
+      setError(true);
+    } else {
+      setError(false);
     }
   };
 
@@ -65,13 +95,20 @@ const SignUp = () => {
                     placeholder="Enter Your Name Here"
                     className="w-full px-3 py-2 border rounded-md focus:outline-none  focus:border-pink-500  focus:transition-colors focus:duration-500  bg-gray-300 text-gray-900"
                     data-temp-mail-org="0"
+                    required
                   />
                 </div>
                 <div>
                   <label htmlFor="image" className="block mb-2 text-sm">
                     Select Image:
                   </label>
-                  <input required type="file" name="image" accept="image/*" />
+                  <input
+                    required
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    onChange={checkImageSize}
+                  />
                 </div>
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm">
