@@ -131,9 +131,7 @@ export default function RestaurantDetails({
                       </div>
                     </div>
                   )}
-                  {showGreeting && (
-                    <Greeting message="Thank you for add this restaurant to your site!" />
-                  )}
+                  {showGreeting && <Greeting message="Thank a you!" />}
                 </div>
               </Dialog.Panel>
             </Transition.Child>

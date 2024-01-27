@@ -41,7 +41,6 @@ export default function ApprovedTableRow({ data }) {
       closeModal();
     }, 4000);
     refetch();
-    console.log(data);
   };
   const handleCancel = async (email) => {
     Swal.fire({
@@ -52,13 +51,16 @@ export default function ApprovedTableRow({ data }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, remove it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
+        const { data } = await axiosSecure.delete(`/restaurants/${email}`);
+        if (data.deletedCount > 0) {
+          setShowGreeting(true);
+          setTimeout(() => {
+            closeModal();
+          }, 4000);
+          refetch();
+        }
       }
     });
   };

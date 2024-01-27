@@ -8,7 +8,7 @@ export default function SellerRequestTable({ requestedList, refetch }) {
   const axiosSecure = useAxiosSecure();
   const handleAction = async (email, statusToChange) => {
     Swal.fire({
-      title: `Are you sure ${statusToChange}?`,
+      title: `Are you want to sure ${statusToChange}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

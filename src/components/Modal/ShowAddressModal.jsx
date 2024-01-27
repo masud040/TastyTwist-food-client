@@ -106,20 +106,7 @@ export default function ShowAddressModal({
                           readOnly
                         />
                       </div>
-                      {!sellerRequest && (
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
-                            Delivery Place
-                          </label>
-                          <input
-                            className="readonly_input"
-                            value={place}
-                            readOnly
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
+
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">City</label>
                         <input
@@ -129,6 +116,8 @@ export default function ShowAddressModal({
                           readOnly
                         />
                       </div>
+                    </div>
+                    <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
                       <div className="flex-1 relative">
                         <label className="text-xs mb-1 block">Area</label>
                         <input
@@ -138,17 +127,30 @@ export default function ShowAddressModal({
                           readOnly
                         />
                       </div>
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">
+                          Landmark(Optional)
+                        </label>
+                        <input
+                          className="readonly_input"
+                          value={landmark}
+                          readOnly
+                        />
+                      </div>
                     </div>
-                    <div className="flex-1 relative">
-                      <label className="text-xs mb-1 block">
-                        Landmark(Optional)
-                      </label>
-                      <input
-                        className="readonly_input"
-                        value={landmark}
-                        readOnly
-                      />
-                    </div>
+
+                    {!sellerRequest && (
+                      <div className="flex-1 relative">
+                        <label className="text-xs mb-1 block">
+                          Delivery Place
+                        </label>
+                        <input
+                          className="readonly_input"
+                          value={place}
+                          readOnly
+                        />
+                      </div>
+                    )}
                   </form>
                 </div>
               </Dialog.Panel>
