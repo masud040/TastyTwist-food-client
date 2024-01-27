@@ -13,15 +13,15 @@ export default function SellerRequestTableRow({ user }) {
         <p className="text-gray-900 whitespace-no-wrap">{status}</p>
       </td>
       <td className="px-3  py-5 text-xs">
-        <button className="text-gray-900 whitespace-no-wrap bg-primary  px-2 py-[2px] rounded-xl ">
+        <button className=" whitespace-no-wrap bg-blue-500 px-2 py-[2px] rounded-xl  text-white/[85%]  ">
           details
         </button>
       </td>
-      <td className="px-3 flex justify-center text-gray-900  gap-4 py-5 text-xs  ">
-        <button className="bg-indigo-500  px-2 py-[2px] rounded-xl">
+      <td className="px-3 flex justify-center gap-4 py-5 text-xs  ">
+        <button className="bg- px-2 py-[2px] bg-green-500 text-white/[85%] rounded-xl ">
           Approve
         </button>
-        <button className="bg-[#e74c3c] px-2 py-[2px] rounded-xl">
+        <button className="bg-gray-700 text-white/[85%] px-2 py-[2px] rounded-xl ">
           Cancel
         </button>
       </td>

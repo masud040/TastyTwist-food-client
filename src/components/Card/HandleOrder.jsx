@@ -76,7 +76,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
             <button
               onClick={() => setIsOpen(true)}
               title="Show customer information"
-              className="text-xs bg-primary  text-white p-1 w-20 text-center rounded-xl px-2 hover:outline outline-purple-800 transition-color outline-2"
+              className="text-xs  bg-blue-500 px-2 py-[2px] rounded-xl  text-white/[85%] "
             >
               Details
             </button>
@@ -85,7 +85,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
             <button
               onClick={() => handleStatus(id)}
               title="Change Order Status"
-              className="text-xs bg-primary hover:outline outline-purple-800 transition-color text-white p-1 w-20 text-center rounded-xl px-2 disabled:bg-gray-400"
+              className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2 disabled:bg-gray-400"
               disabled={status === "delivered" || status === "cancelled"}
             >
               {status}
