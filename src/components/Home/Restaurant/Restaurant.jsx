@@ -1,7 +1,7 @@
 import RestaurantCard from "../../Card/RestaurantCard";
 
-import Spinner from "../../Spinner/Spinner";
 import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
+import Spinner from "../../Spinner/Spinner";
 
 const Restaurant = () => {
   const [restaurants, isLoading] = useGetAllRestaurant();
@@ -16,7 +16,7 @@ const Restaurant = () => {
       <div className="grid  grid-cols-2 md:grid-cols-3 gap-6 mt-6">
         {restaurants &&
           restaurants
-            .slice(0, 3)
+            .slice(0, 4)
             ?.map((restaurant) => (
               <RestaurantCard key={restaurant._id} restaurant={restaurant} />
             ))}

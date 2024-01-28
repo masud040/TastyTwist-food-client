@@ -12,7 +12,7 @@ const RestaurantCard = ({ restaurant }) => {
       <div className="text-dark-gray rounded-t-2xl border shadow-md rounded-b-xl">
         <img
           src={image_url}
-          className="h-[91px] md:h-[150px] lg:h-[204px] rounded-t-2xl w-full"
+          className="h-[120px] md:h-[150px] lg:h-[204px] rounded-t-2xl w-full"
           alt=""
         />
         <div className="p-2">

@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import CloseModal from "../../Button/CloseModal";
 import Greeting from "../../GreetingMessage/Greeting";
+import ModalTitle from "../../Title/ModalTitle";
 export default function RestaurantDetails({
   details,
   showModal,
@@ -53,12 +54,7 @@ export default function RestaurantDetails({
             >
               <Dialog.Panel className="w-full min-h-[150px] max-w-xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative ">
                 <CloseModal onClose={onClose} />
-                <Dialog.Title
-                  as="h3"
-                  className="text-xl font-semibold text-center leading-6 text-primary absolute inset-0 bg-white bg-opacity-70 h-12 flex justify-center items-center hover:bg-transparent transition duration-700 ease-in-out hover:text-white"
-                >
-                  {name}
-                </Dialog.Title>
+                <ModalTitle title={name} />
                 <div className="w-full">
                   <img className="w-full h-60" src={image_url} alt="" />
                   {!showGreeting && (

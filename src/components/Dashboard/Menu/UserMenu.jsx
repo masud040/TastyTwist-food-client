@@ -92,14 +92,16 @@ const UserMenu = ({ handleToggle }) => {
         address="/dashboard/payment-history"
         handleToggle={handleToggle}
       />
-      <div
-        onClick={openModal}
-        className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
-      >
-        <MdFoodBank className="w-5 h-5" />
+      {userData?.status !== "Checked" && (
+        <div
+          onClick={openModal}
+          className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+        >
+          <MdFoodBank className="w-5 h-5" />
 
-        <span className="mx-4 font-medium text-sm">Become A Seller</span>
-      </div>
+          <span className="mx-4 font-medium text-sm">Become A Seller</span>
+        </div>
+      )}
 
       {userData?.status === "Approved" && (
         <div

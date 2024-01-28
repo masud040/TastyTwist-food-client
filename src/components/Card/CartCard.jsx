@@ -83,20 +83,20 @@ const CartCard = ({ order, isSelected, handleChange }) => {
           <div className="flex justify-between gap-1 items-center">
             <button
               onClick={() => moveToWishList(_id)}
-              className="p-1 text-lg text-gray-600"
+              className="p-[5px] text-lg text-gray-600"
             >
               <FaRegHeart />
             </button>
             <button
               onClick={() => deleteFromFavorite(_id)}
-              className="p-1 text-lg text-gray-600"
+              className="p-[5px] text-lg text-gray-600"
             >
               <RiDeleteBin6Line />
             </button>
             <div className="flex items-center">
               <button
                 onClick={() => handleDecrement(_id)}
-                className="bg-primary p-[2px] rounded-l-sm"
+                className="bg-primary p-[5px] rounded-l-sm"
               >
                 <IoIosRemove />
               </button>
@@ -105,12 +105,12 @@ const CartCard = ({ order, isSelected, handleChange }) => {
                 max="5"
                 min="0"
                 value={totalCount}
-                className="w-8  border text-center rounded-sm bg-gray-200 focus:outline-none ps-1 focus:border-pink-300 "
+                className="w-8 border text-center rounded-sm bg-gray-200 focus:outline-none  ps-1 border-pink-300 "
                 readOnly
               />
               <button
                 onClick={() => handleIncrement(_id)}
-                className="bg-primary p-[2px] rounded-r-sm"
+                className="bg-primary p-[5px] rounded-r-sm"
               >
                 <IoMdAdd />
               </button>
