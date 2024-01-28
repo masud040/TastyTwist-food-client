@@ -1,9 +1,26 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import CloseModal from "../../Button/CloseModal";
 import ModalTitle from "../../Title/ModalTitle";
-export default function FoodDetailsModal({ showModal, onClose, item }) {
+import HandleItemCount from "../../Utils/HandleItemCount";
+export default function FoodDetailsModal({
+  showModal,
+  onClose,
+  item,
+  onAddToCart,
+}) {
   const { name, price, description, image_url } = item || {};
+  const [totalCount, setTotalCount] = useState(1);
+  const handleDecrement = async () => {
+    if (totalCount > 1) {
+      setTotalCount(totalCount - 1);
+    }
+  };
+  const handleIncrement = async () => {
+    if (totalCount < 5) {
+      setTotalCount(totalCount + 1);
+    }
+  };
   return (
     <Transition appear show={showModal} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -46,8 +63,17 @@ export default function FoodDetailsModal({ showModal, onClose, item }) {
                     <div className="mt-3 text-sm">
                       <p className="font-semibold">Reviews</p>
                     </div>
-                    <div>
-                      <button className="p-2 px-5 bg-primary rounded-lg text-white hover:scale-105 transition duration-500 ">
+                    <div className="flex justify-between gap-7">
+                      <HandleItemCount
+                        onIncrement={handleIncrement}
+                        onDecrement={handleDecrement}
+                        value={totalCount}
+                        details={true}
+                      />
+                      <button
+                        onClick={onAddToCart}
+                        className="p-2 w-full bg-primary rounded-lg text-white hover:scale-105 transition duration-500 "
+                      >
                         Add To Cart
                       </button>
                     </div>

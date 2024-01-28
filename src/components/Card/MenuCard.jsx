@@ -83,6 +83,7 @@ const MenuCard = ({ item }) => {
           showModal={showDetailsModal}
           onClose={handleCloseModal}
           item={selectedItem}
+          onAddToCart={addToCart}
         />
       )}
       <div

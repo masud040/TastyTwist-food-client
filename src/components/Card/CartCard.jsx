@@ -1,12 +1,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaRegHeart } from "react-icons/fa";
-import { IoIosRemove, IoMdAdd } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
+import HandleItemCount from "../Utils/HandleItemCount";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
   const [, refetch] = useGetCartItem();
@@ -93,28 +93,12 @@ const CartCard = ({ order, isSelected, handleChange }) => {
             >
               <RiDeleteBin6Line />
             </button>
-            <div className="flex items-center">
-              <button
-                onClick={() => handleDecrement(_id)}
-                className="bg-primary p-[5px] rounded-l-sm"
-              >
-                <IoIosRemove />
-              </button>
-              <input
-                type="number"
-                max="5"
-                min="0"
-                value={totalCount}
-                className="w-8 border text-center rounded-sm bg-gray-200 focus:outline-none  ps-1 border-pink-300 "
-                readOnly
-              />
-              <button
-                onClick={() => handleIncrement(_id)}
-                className="bg-primary p-[5px] rounded-r-sm"
-              >
-                <IoMdAdd />
-              </button>
-            </div>
+            <HandleItemCount
+              onIncrement={() => handleIncrement(_id)}
+              onDecrement={() => handleDecrement(_id)}
+              value={totalCount}
+              details={false}
+            />
           </div>
         </div>
       </div>
