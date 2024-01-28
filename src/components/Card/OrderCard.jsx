@@ -27,6 +27,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       }
     });
   };
+
   const closeModal = () => {
     setIsFeedbackOpen(false);
     setShowGreeting(false);

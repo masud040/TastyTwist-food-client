@@ -26,7 +26,6 @@ const MenuCard = ({ item }) => {
       price: price,
       image: image_url,
       sellerEmail: email,
-
       count: 1,
     };
     const { data } = await axiosSecure.post(
@@ -35,6 +34,7 @@ const MenuCard = ({ item }) => {
     );
     if (data.insertedId) {
       refetch();
+      setShowDetailsModal(false);
       Swal.fire({
         position: "center",
         icon: "success",

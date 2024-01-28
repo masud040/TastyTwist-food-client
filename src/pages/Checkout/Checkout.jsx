@@ -1,10 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import BillingAddress from "../../components/Checkout/BillingAddress";
-import ProductsDetails from "../../components/Checkout/ProductsDetails";
 import OrderSummary from "../../components/Checkout/OrderSummary";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import ProductsDetails from "../../components/Checkout/ProductsDetails";
 import useAuth from "../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Checkout = () => {
   const location = useLocation();
@@ -25,7 +25,6 @@ const Checkout = () => {
       return data;
     },
   });
-
   return (
     <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
       <div className=" md:col-span-2 text-gray-700">

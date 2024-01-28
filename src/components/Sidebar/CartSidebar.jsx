@@ -1,12 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useGetAddress from "../../hooks/useGetAddress";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import CartCard from "../Card/CartCard";
-import { useState } from "react";
 import OrderSummary from "../OrderSummary/OrderSummary";
-import useGetAddress from "../../hooks/useGetAddress";
 
 const CartSidebar = ({ showCart, setShowCart }) => {
   const [carts] = useGetCartItem();
+
   const [selectedItems, setSelectedItems] = useState([]);
   const [discount, setDiscount] = useState(0);
   const [userAddress] = useGetAddress();
