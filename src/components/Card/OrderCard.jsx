@@ -23,13 +23,13 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       menuId,
       sellerEmail,
     };
+    setShowGreeting(true);
     const { data } = await axiosSecure.post(`/feedback/${id}`, feedbackData);
     if (data.insertedId) {
-      refetch();
-      setShowGreeting(true);
       setTimeout(() => {
-        setShowGreeting(false);
-      }, 4000);
+        refetch();
+        closeModal();
+      }, 2000);
     }
   };
   const handleCancel = async (id) => {
@@ -48,10 +48,10 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
     });
   };
 
-  const closeModal = () => {
+  function closeModal() {
     setIsFeedbackOpen(false);
     setShowGreeting(false);
-  };
+  }
 
   return (
     <>
