@@ -1,17 +1,36 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useGetOrderItem from "../../hooks/useGetOrderItem";
 import FeedbackModal from "../Modal/FeebackModal/FeedbackModal";
 import OrderCardBody from "./OrderCardBody";
 
 const OrderCard = ({ item, estimatedDate, status, id }) => {
   const { name, image, count, menuId, sellerEmail } = item || {};
 
+  const { user } = useAuth();
   const [isFeebackOpen, setIsFeedbackOpen] = useState(false);
-  const [showGreeting, setShowGreeting] = useState(true);
-  const handleSaveFeeback = (event, feedback) => {
-    setShowGreeting(true);
+  const [showGreeting, setShowGreeting] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const [, refetch] = useGetOrderItem();
+  const handleSaveFeeback = async (event, feedback) => {
     event.preventDefault();
-    console.log(feedback);
+    const feedbackData = {
+      ...feedback,
+      userName: user?.displayName || "Anonymous",
+      photo: user?.photoURL,
+      menuId,
+      sellerEmail,
+    };
+    const { data } = await axiosSecure.post(`/feedback/${id}`, feedbackData);
+    if (data.insertedId) {
+      refetch();
+      setShowGreeting(true);
+      setTimeout(() => {
+        setShowGreeting(false);
+      }, 4000);
+    }
   };
   const handleCancel = async (id) => {
     Swal.fire({
