@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Rating from "react-rating";
 import CloseModal from "../../Button/CloseModal";
@@ -9,7 +9,12 @@ export default function FeedbackModal({
   onSave,
   greeting,
 }) {
+  const [isDisable, setIsDisable] = useState(true);
   const [feedback, setFeedback] = useState({ rating: 0, message: "" });
+  useEffect(() => {
+    const areAllFieldsValid = Object.values(feedback).every((value) => value);
+    setIsDisable(!areAllFieldsValid);
+  }, [feedback]);
 
   return (
     <Transition appear show={isFeebackOpen} as={Fragment}>
@@ -85,7 +90,8 @@ export default function FeedbackModal({
 
                       <button
                         type="submit"
-                        className="w-full mt-6 bg-primary p-2 rounded-lg text-white font-semibold"
+                        disabled={isDisable}
+                        className="w-full mt-6 bg-primary p-2 rounded-lg text-white font-semibold disabled:bg-gray-400/40 disabled:cursor-not-allowed"
                       >
                         Submit
                       </button>

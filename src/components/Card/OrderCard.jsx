@@ -4,9 +4,10 @@ import FeedbackModal from "../Modal/FeebackModal/FeedbackModal";
 import OrderCardBody from "./OrderCardBody";
 
 const OrderCard = ({ item, estimatedDate, status, id }) => {
-  const { name, image, count } = item || {};
+  const { name, image, count, menuId, sellerEmail } = item || {};
+
   const [isFeebackOpen, setIsFeedbackOpen] = useState(false);
-  const [showGreeting, setShowGreeting] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(true);
   const handleSaveFeeback = (event, feedback) => {
     setShowGreeting(true);
     event.preventDefault();
@@ -32,6 +33,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
     setIsFeedbackOpen(false);
     setShowGreeting(false);
   };
+
   return (
     <>
       {isFeebackOpen && (

@@ -22,7 +22,6 @@ const UserMenu = ({ handleToggle }) => {
   const [userAddress] = useGetAddress();
   const navigate = useNavigate();
   const { pathname } = useNavigate();
-
   const closeModal = () => {
     setIsOpen(false);
   };
@@ -92,7 +91,7 @@ const UserMenu = ({ handleToggle }) => {
         address="/dashboard/payment-history"
         handleToggle={handleToggle}
       />
-      {userData?.status !== "Checked" && (
+      {userData?.role === "user" && !userData?.status && (
         <div
           onClick={openModal}
           className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
@@ -113,13 +112,11 @@ const UserMenu = ({ handleToggle }) => {
           <button className="mx-4 font-medium text-sm"> Add Restaurant</button>
         </div>
       )}
-
       <SellerRequestModal
         modalHandler={modalHandler}
         closeModal={closeModal}
         isOpen={isOpen}
       />
-
       <AddRestaurantModal
         closeModal={closeRestaurantModal}
         isOpen={isResModalOpen}
