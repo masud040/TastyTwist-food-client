@@ -26,6 +26,10 @@ const UserMenu = ({ handleToggle }) => {
     setIsOpen(false);
   };
   const openModal = () => {
+    if (!userAddress) {
+      toast.error("Please complete your profile before requesting a seller.");
+      return setIsOpen(false);
+    }
     setIsOpen(true);
     handleToggle();
   };

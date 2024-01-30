@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { imageUpload } from "../../../api/auth";
@@ -27,7 +27,6 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const [isDisable, setIsDisable] = useState(true);
   const [showGreeting, setShowGreeting] = useState(false);
   const [checkData, setCheckData] = useState({
     name: "",
@@ -42,10 +41,9 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
     address: "",
     message: "",
   });
-  useEffect(() => {
-    const areAllFieldsValid = Object.values(checkData).every((value) => value);
-    setIsDisable(!areAllFieldsValid);
-  }, [checkData]);
+
+  const isDisable = Object.values(checkData).every((value) => value);
+
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target?.value;
@@ -470,7 +468,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
 
                       <input
                         disabled={
-                          isDisable || !areaName || areaName === "default"
+                          !isDisable || !areaName || areaName === "default"
                         }
                         type="submit"
                         value="Submit"

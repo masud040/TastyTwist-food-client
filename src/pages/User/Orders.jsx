@@ -4,7 +4,6 @@ import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const Orders = () => {
   const [orderItems] = useGetOrderItem();
-  console.log(orderItems);
 
   return (
     <>

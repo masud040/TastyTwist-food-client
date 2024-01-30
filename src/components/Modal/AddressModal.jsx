@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -26,16 +26,15 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [isDisable, setIsDisable] = useState(true);
+
   const [checkData, setCheckData] = useState({
     fullName: "",
     mobile: "",
     address: "",
   });
-  useEffect(() => {
-    const areAllFieldsValid = Object.values(checkData).every((value) => value);
-    setIsDisable(!areAllFieldsValid);
-  }, [checkData]);
+
+  const isDisable = Object.values(checkData).every((value) => value);
+
   const { data: city } = useQuery({
     enabled: !loading && !!divisionName,
     queryKey: ["city", divisionName],
@@ -284,7 +283,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                       type="submit"
                       value="Save"
                       disabled={
-                        isDisable || !areaName || areaName === "default"
+                        !isDisable || !areaName || areaName === "default"
                       }
                       className="btn"
                     />

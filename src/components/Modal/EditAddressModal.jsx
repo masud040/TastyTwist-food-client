@@ -24,7 +24,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [isDisable, setIsDisable] = useState(true);
+
   const {
     name,
     address,
@@ -55,13 +55,13 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
   const selectedPlace = place === "Home" ? false : true;
   const area = city?.find((data) => data.district === cityName)?.upazilla;
   useEffect(() => {
-    const areAllFieldsValid = Object.values(checkData).every((value) => value);
-    setIsDisable(!areAllFieldsValid);
     setDivisionName(division);
     setCityName(district);
     setAreaName(upazilla);
-  }, [district, division, upazilla, checkData]);
+  }, [district, division, upazilla]);
+  const isDisable = Object.values(checkData).every((value) => value);
 
+  // setIsDisable(!areAllFieldsValid);
   const handleDivision = (e) => {
     setDivisionName(e.target.value);
     setCityName("default");
@@ -306,7 +306,7 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
                       type="submit"
                       value="Update"
                       disabled={
-                        isDisable || !areaName || areaName === "default"
+                        !isDisable || !areaName || areaName === "default"
                       }
                       className="btn"
                     />
