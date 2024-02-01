@@ -10,7 +10,7 @@ const useGetOrderItem = () => {
     queryKey: ["orderItems", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/orders/${user?.email}`);
-      return data;
+      return data.filter((order) => order?.status !== "success");
     },
   });
   return [orderItems, refetch];

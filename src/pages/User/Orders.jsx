@@ -8,7 +8,7 @@ const Orders = () => {
   return (
     <>
       <div>
-        <h1 className="text-xl">My Orders</h1>
+        <h1 className="text-md">My Orders</h1>
       </div>
       <div>
         {orderItems?.length > 0 ? (
