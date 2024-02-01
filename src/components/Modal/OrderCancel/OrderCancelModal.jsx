@@ -36,18 +36,34 @@ export default function OrderCancelModal({ isOpen, closeModal }) {
                   as="h3"
                   className=" mb-1 font-normal leading-6 text-gray-900"
                 >
-                  Email
+                  Why Are You Canceling?
                 </Dialog.Title>
                 <hr />
-                <p className="text-xs mt-4 text-indigo-600">Email</p>
+
                 <div className="mt-2 w-full">
                   <form>
-                    <input
-                      className="block w-full p-2 rounded-md border focus:outline-none focus:border-indigo-500 transition-colors duration-500"
-                      type="email"
-                      name="email"
-                    />
-
+                    <select className="border p-2 w-full focus:outline-none rounded-lg border-gray-300 focus:border-primary/70 transition duration-300 ease-in-out text-sm">
+                      <option value="choose_your_reason">
+                        Choose Your Reason
+                      </option>
+                      <option value="Found a Better Deal">
+                        Found a Better Deal
+                      </option>
+                      <option value="Product Unavailability">
+                        Product Unavailability
+                      </option>
+                      <option value="Delivery Time Concerns">
+                        Delivery Time Concerns
+                      </option>
+                      <option value="Quality Concerns">Quality Concerns</option>
+                      <option value="Financial Reasons">Changed Mind</option>
+                      <option value="Shipping Cost Issues">
+                        Shipping Cost Issues
+                      </option>
+                      <option value="Wrong Product Ordered">
+                        Wrong Product Ordered
+                      </option>
+                    </select>
                     <button
                       type="submit"
                       className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold"

@@ -58,7 +58,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
   const closeCancelModal = () => {
     setIsOpen(false);
   };
-  console.log(isOpen);
+
   function closeModal() {
     setIsFeedbackOpen(false);
     setShowGreeting(false);
