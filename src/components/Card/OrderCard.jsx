@@ -4,11 +4,12 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 import FeedbackModal from "../Modal/FeebackModal/FeedbackModal";
+import OrderCancelModal from "../Modal/OrderCancel/OrderCancelModal";
 import OrderCardBody from "./OrderCardBody";
 
 const OrderCard = ({ item, estimatedDate, status, id }) => {
   const { name, image, count, menuId, sellerEmail } = item || {};
-
+  const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
   const [isFeebackOpen, setIsFeedbackOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
@@ -41,13 +42,23 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(id);
+        // const toastId = toast.loading("Deleting...");
+        // const { data } = await axiosSecure.delete(`/orders/${id}`);
+        // if (data.deletedCount > 0) {
+        //   toast.success("Deleted", {
+        //     id: toastId,
+        //   });
+        //   refetch();
+        // }
       }
     });
   };
-
+  const closeCancelModal = () => {
+    setIsOpen(false);
+  };
+  console.log(isOpen);
   function closeModal() {
     setIsFeedbackOpen(false);
     setShowGreeting(false);
@@ -62,6 +73,9 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
           onSave={handleSaveFeeback}
           greeting={showGreeting}
         />
+      )}
+      {isOpen && (
+        <OrderCancelModal isOpen={isOpen} closeModal={closeCancelModal} />
       )}
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
         <div className=" flex gap-6 justify-between  items-center  text-sm">
@@ -78,7 +92,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
               Share Your Feedback
             </button>
           )}
-          <button onClick={() => handleCancel(id)} className="text-primary">
+          <button onClick={() => setIsOpen(true)} className="text-primary">
             Cancel
           </button>
         </div>

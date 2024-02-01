@@ -6,7 +6,7 @@ import CloseModal from "../../Button/CloseModal";
 const BillingAddressModal = ({ isBillingOpen, closeModal }) => {
   return (
     <Transition appear show={isBillingOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

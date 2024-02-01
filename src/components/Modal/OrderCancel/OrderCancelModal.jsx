@@ -1,26 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import toast from "react-hot-toast";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CloseModal from "../../Button/CloseModal";
 
-const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
-  const axiosSecure = useAxiosSecure();
-  const handleEditEmail = async (e) => {
-    e.preventDefault();
-    const userEmail = e.target.email.value;
-    const { data } = await axiosSecure.patch(
-      `/email/${email}?email=${userEmail}`
-    );
-
-    if (data.modifiedCount > 0) {
-      toast.success("Email updated successfully");
-      refetch();
-      closeModal();
-    }
-  };
+export default function OrderCancelModal({ isOpen, closeModal }) {
   return (
-    <Transition appear show={isEmailOpen} as={Fragment}>
+    <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
@@ -57,12 +41,11 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
                 <hr />
                 <p className="text-xs mt-4 text-indigo-600">Email</p>
                 <div className="mt-2 w-full">
-                  <form onSubmit={handleEditEmail}>
+                  <form>
                     <input
                       className="block w-full p-2 rounded-md border focus:outline-none focus:border-indigo-500 transition-colors duration-500"
                       type="email"
                       name="email"
-                      defaultValue={email}
                     />
 
                     <button
@@ -80,6 +63,4 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
       </Dialog>
     </Transition>
   );
-};
-
-export default EditEmailModal;
+}
