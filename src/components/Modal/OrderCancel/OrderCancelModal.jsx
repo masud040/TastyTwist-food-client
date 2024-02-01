@@ -1,8 +1,41 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 import CloseModal from "../../Button/CloseModal";
 
-export default function OrderCancelModal({ isOpen, closeModal }) {
+export default function OrderCancelModal({ isOpen, closeModal, id }) {
+  const { user } = useAuth();
+  const [cancelReason, setCancelReason] = useState({
+    name: user.displayName,
+    email: user.email,
+    image: user.photoURL,
+    reason: "",
+  });
+  const handleCancel = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Are you sure want to cancel this order?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // const toastId = toast.loading("Deleting...");
+        // const { data } = await axiosSecure.delete(`/orders/${id}`);
+        // if (data.deletedCount > 0) {
+        //   toast.success("Deleted", {
+        //     id: toastId,
+        //   });
+        //   refetch();
+        // }
+      }
+    });
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
@@ -41,9 +74,18 @@ export default function OrderCancelModal({ isOpen, closeModal }) {
                 <hr />
 
                 <div className="mt-2 w-full">
-                  <form>
-                    <select className="border p-2 w-full focus:outline-none rounded-lg border-gray-300 focus:border-primary/70 transition duration-300 ease-in-out text-sm">
-                      <option value="choose_your_reason">
+                  <form onSubmit={handleCancel}>
+                    <select
+                      onChange={(e) =>
+                        setCancelReason({
+                          ...cancelReason,
+                          reason: e.target.value,
+                        })
+                      }
+                      defaultValue={"choose_your_reason"}
+                      className="border p-2 w-full focus:outline-none rounded-lg border-gray-300 focus:border-primary/70 transition duration-300 ease-in-out text-sm"
+                    >
+                      <option value="choose_your_reason" disabled>
                         Choose Your Reason
                       </option>
                       <option value="Found a Better Deal">
@@ -66,7 +108,8 @@ export default function OrderCancelModal({ isOpen, closeModal }) {
                     </select>
                     <button
                       type="submit"
-                      className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold"
+                      className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold disabled:bg-gray-400"
+                      disabled={!cancelReason?.reason}
                     >
                       Confirm
                     </button>

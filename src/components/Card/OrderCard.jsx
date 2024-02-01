@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
@@ -33,28 +32,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       }, 2000);
     }
   };
-  const handleCancel = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        // const toastId = toast.loading("Deleting...");
-        // const { data } = await axiosSecure.delete(`/orders/${id}`);
-        // if (data.deletedCount > 0) {
-        //   toast.success("Deleted", {
-        //     id: toastId,
-        //   });
-        //   refetch();
-        // }
-      }
-    });
-  };
+
   const closeCancelModal = () => {
     setIsOpen(false);
   };
@@ -75,7 +53,12 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
         />
       )}
       {isOpen && (
-        <OrderCancelModal isOpen={isOpen} closeModal={closeCancelModal} />
+        <OrderCancelModal
+          isOpen={isOpen}
+          closeModal={closeCancelModal}
+          refetch={refetch}
+          id={id}
+        />
       )}
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
         <div className=" flex gap-6 justify-between  items-center  text-sm">
