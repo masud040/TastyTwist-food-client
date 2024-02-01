@@ -58,6 +58,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
           closeModal={closeCancelModal}
           refetch={refetch}
           id={id}
+          menuId={menuId}
         />
       )}
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">

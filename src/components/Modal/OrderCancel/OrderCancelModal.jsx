@@ -1,17 +1,23 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CloseModal from "../../Button/CloseModal";
 
-export default function OrderCancelModal({ isOpen, closeModal, id }) {
+export default function OrderCancelModal({
+  isOpen,
+  closeModal,
+  id,
+  menuId,
+  refetch,
+}) {
   const { user } = useAuth();
   const [cancelReason, setCancelReason] = useState({
-    name: user.displayName,
-    email: user.email,
-    image: user.photoURL,
     reason: "",
   });
+  const axiosSecure = useAxiosSecure();
   const handleCancel = (e) => {
     e.preventDefault();
     Swal.fire({
@@ -24,14 +30,16 @@ export default function OrderCancelModal({ isOpen, closeModal, id }) {
       confirmButtonText: "Yes, cancel it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        // const toastId = toast.loading("Deleting...");
-        // const { data } = await axiosSecure.delete(`/orders/${id}`);
-        // if (data.deletedCount > 0) {
-        //   toast.success("Deleted", {
-        //     id: toastId,
-        //   });
-        //   refetch();
-        // }
+        const toastId = toast.loading("Cancelling...");
+        const { data } = await axiosSecure.delete(
+          `/orders/${id}?name=${user?.displayName}&email=${user?.email}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}`
+        );
+        if (data.insertedId) {
+          toast.success("Cancelled", {
+            id: toastId,
+          });
+          refetch();
+        }
       }
     });
   };
