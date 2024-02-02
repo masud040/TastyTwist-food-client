@@ -1,5 +1,5 @@
 import AdminProfile from "../../components/Dashboard/Profile/AdminProfile";
-import SellerProfile from "../../components/Dashboard/Profile/SellerProfile";
+import SellerProfile from "../../components/Dashboard/Profile/SellerProfile/SellerProfile";
 import UserProfile from "../../components/Dashboard/Profile/UserProfile/UserProfile";
 
 import useGetUserRole from "../../hooks/useGetUserRole";
