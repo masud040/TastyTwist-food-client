@@ -1,13 +1,17 @@
 import { useState } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import useGetAddress from "../../../../hooks/useGetAddress";
+import useGetUserRole from "../../../../hooks/useGetUserRole";
 import ProfileEditModal from "../../../Modal/Profile/ProfileEditModal";
 
 const PersonalProfile = () => {
-  const [userAddress] = useGetAddress();
-
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { user } = useAuth();
+  const [userAddress] = useGetAddress();
+  const [userData] = useGetUserRole();
+  const date = new Date(userData?.timeStamp);
+  const dateStr = date?.toDateString();
+
   const { name, email } = userAddress || {};
   const openProfileModal = () => {
     setIsProfileOpen(true);
@@ -34,7 +38,9 @@ const PersonalProfile = () => {
             alt=""
           />
           <p>Name: {name}</p>
+          <p>Role: {userData?.role}</p>
           <p>Email: {email}</p>
+          <p>Created On: {dateStr}</p>
         </div>
       </div>
       <ProfileEditModal isProfileOpen={isProfileOpen} closeModal={closeModal} />

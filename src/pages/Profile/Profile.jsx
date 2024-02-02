@@ -5,15 +5,15 @@ import UserProfile from "../../components/Dashboard/Profile/UserProfile/UserProf
 import useGetUserRole from "../../hooks/useGetUserRole";
 
 const Profile = () => {
-  const [role, isLoading] = useGetUserRole();
+  const [userData, isLoading] = useGetUserRole();
 
-  if (!isLoading && role?.role === "user") {
+  if (!isLoading && userData?.role === "user") {
     return <UserProfile />;
   }
-  if (!isLoading && role?.role === "seller") {
+  if (!isLoading && userData?.role === "seller") {
     return <SellerProfile />;
   }
-  if (!isLoading && role?.role === "admin") {
+  if (!isLoading && userData?.role === "admin") {
     return <AdminProfile />;
   }
 };
