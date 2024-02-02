@@ -14,7 +14,8 @@ import Analytics from "../pages/Admin/Analytics";
 import CustomerSupport from "../pages/Admin/CustomerSupport";
 import ManageCoupon from "../pages/Admin/ManageCoupon";
 import ManageRestaurant from "../pages/Admin/ManageRestaurant";
-import ManageUsers from "../pages/Admin/MangeUsers";
+
+import ManageSellerRequest from "../pages/Admin/MangeSellerRequest";
 import Checkout from "../pages/Checkout/Checkout";
 import ConfirmOrder from "../pages/Confirmation/ConfirmOrder";
 import Profile from "../pages/Profile/Profile";
@@ -204,7 +205,7 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminRoute>
-              <ManageUsers />
+              <ManageSellerRequest />
             </AdminRoute>
           </PrivateRoute>
         ),

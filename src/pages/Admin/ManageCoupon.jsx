@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import CouponModal from "../../components/Modal/Coupon/CouponModal";
 import CouponTable from "../../components/Table/CouponTable";
 import useGetCoupons from "../../hooks/useGetCoupons";
@@ -17,6 +18,9 @@ export default function ManageCoupon() {
   };
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Manage Coupons</title>
+      </Helmet>
       <div className="text-gray-700">
         <h1 className="text-center mb-6 text-xl font-bold">Manage Coupon</h1>
         {coupon ? (
