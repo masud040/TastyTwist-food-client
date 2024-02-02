@@ -1,3 +1,12 @@
+import { Helmet } from "react-helmet-async";
+
 export default function Analytics() {
-  return <div></div>;
+  return (
+    <>
+      <Helmet>
+        <title>TastyTwistOnline | Analytics</title>
+      </Helmet>
+      <div></div>;
+    </>
+  );
 }

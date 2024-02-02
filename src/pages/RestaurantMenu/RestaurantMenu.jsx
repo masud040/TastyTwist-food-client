@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 
-import { getOneRestaurant } from "../../utils/getOneRestaurant";
-import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
+import { Helmet } from "react-helmet-async";
 import Categories from "../../components/RestaurantMenu/Categories/Categories";
 import Menu from "../../components/RestaurantMenu/Menu/Menu";
+import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
+import { getOneRestaurant } from "../../utils/getOneRestaurant";
 
 const RestaurantMenu = () => {
   const { email } = useParams();
@@ -16,15 +17,21 @@ const RestaurantMenu = () => {
   });
 
   return (
-    <div>
-      <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
-      <Categories
-        email={email}
-        currentCategory={category ? category : "popular"}
-      />
+    <>
+      <Helmet>
+        <title>TastyTwistOnline | Menu</title>
+      </Helmet>
 
-      <Menu email={email} />
-    </div>
+      <div>
+        <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
+        <Categories
+          email={email}
+          currentCategory={category ? category : "popular"}
+        />
+
+        <Menu email={email} />
+      </div>
+    </>
   );
 };
 

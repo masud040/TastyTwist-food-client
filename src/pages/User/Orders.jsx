@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import AllOrders from "../../components/AllOrders/AllOrders";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
@@ -7,6 +8,9 @@ const Orders = () => {
 
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Orders</title>
+      </Helmet>
       <div>
         <h1 className="text-md">My Orders</h1>
       </div>

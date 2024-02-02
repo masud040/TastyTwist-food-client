@@ -1,3 +1,12 @@
+import { Helmet } from "react-helmet-async";
+
 export default function ManageRestaurant() {
-  return <div></div>;
+  return (
+    <>
+      <Helmet>
+        <title>TastyTwistOnline | Manage Restaurant</title>
+      </Helmet>
+      <div></div>{" "}
+    </>
+  );
 }

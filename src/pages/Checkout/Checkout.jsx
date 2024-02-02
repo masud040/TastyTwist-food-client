@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import BillingAddress from "../../components/Checkout/BillingAddress";
 import OrderSummary from "../../components/Checkout/OrderSummary";
@@ -26,24 +27,29 @@ const Checkout = () => {
     },
   });
   return (
-    <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
-      <div className=" md:col-span-2 text-gray-700">
-        <BillingAddress />
+    <>
+      <Helmet>
+        <title>TastyTwistOnline | Checkout</title>
+      </Helmet>
+      <div className="my-8 md:grid grid-cols-3 gap-8 space-y-8 md:space-y-0">
+        <div className=" md:col-span-2 text-gray-700">
+          <BillingAddress />
 
-        <div>
-          <ProductsDetails cartItems={cartItems} />
+          <div>
+            <ProductsDetails cartItems={cartItems} />
+          </div>
+        </div>
+        <div className=" md:col-span-1">
+          <OrderSummary
+            subTotal={subTotal}
+            discount={discount}
+            shippingCost={shippingCost}
+            total={total}
+            cartItems={cartItems}
+          />
         </div>
       </div>
-      <div className=" md:col-span-1">
-        <OrderSummary
-          subTotal={subTotal}
-          discount={discount}
-          shippingCost={shippingCost}
-          total={total}
-          cartItems={cartItems}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

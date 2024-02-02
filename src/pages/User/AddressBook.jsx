@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { Helmet } from "react-helmet-async";
 import { IoMdAdd } from "react-icons/io";
 import AddressModal from "../../components/Modal/AddressModal";
 import EditAddressModal from "../../components/Modal/EditAddressModal";
@@ -26,6 +27,9 @@ const AddressBook = () => {
 
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Address</title>
+      </Helmet>
       {!userAddress && (
         <>
           <div className="flex justify-end">

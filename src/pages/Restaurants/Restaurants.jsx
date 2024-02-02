@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import RestaurantCard from "../../components/Card/RestaurantCard";
 import useGetAllRestaurant from "../../hooks/useGetAllRestaurant";
 
@@ -5,6 +6,9 @@ const Restaurants = () => {
   const [restaurants] = useGetAllRestaurant();
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Restaurant</title>
+      </Helmet>
       <div className="text-xl text-center font-semibold mt-4">
         <h1>Here Our All Restaurants</h1>
       </div>

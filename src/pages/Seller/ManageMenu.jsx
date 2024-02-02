@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { Helmet } from "react-helmet-async";
 import ManageMenuCard from "../../components/Card/ManageMenuCard";
 import ManageMenuModal from "../../components/Modal/ManageMenuModal";
 import useGetMenu from "../../hooks/useGetMenu";
@@ -19,6 +20,9 @@ const ManageMenu = () => {
   }
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Manage Menu</title>
+      </Helmet>
       <div className="text-center">
         <h1 className=" inline-block bg-gradient-to-r from-pink-600 via-purple-500 to-indigo-400 text-transparent bg-clip-text text-2xl font-semibold">
           Manage Menu

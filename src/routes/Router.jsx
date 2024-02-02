@@ -150,6 +150,16 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "analytics-report",
+        element: (
+          <PrivateRoute>
+            <SellerRoute>
+              <Analytics />
+            </SellerRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "admin/analytics",
         element: (
           <PrivateRoute>

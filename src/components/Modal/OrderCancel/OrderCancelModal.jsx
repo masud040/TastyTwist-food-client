@@ -39,6 +39,9 @@ export default function OrderCancelModal({
             id: toastId,
           });
           refetch();
+          setTimeout(() => {
+            closeModal();
+          }, 2000);
         }
       }
     });
@@ -106,7 +109,7 @@ export default function OrderCancelModal({
                         Delivery Time Concerns
                       </option>
                       <option value="Quality Concerns">Quality Concerns</option>
-                      <option value="Financial Reasons">Changed Mind</option>
+                      <option value="Changed Mind">Changed Mind</option>
                       <option value="Shipping Cost Issues">
                         Shipping Cost Issues
                       </option>

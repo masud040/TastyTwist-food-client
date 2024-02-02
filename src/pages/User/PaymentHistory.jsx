@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import NoData from "../../components/NoData/NoData";
 import HistoryTableRow from "../../components/Table/HistoryTableRow";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
@@ -7,6 +8,9 @@ const PaymentHistory = () => {
 
   return (
     <>
+      <Helmet>
+        <title>TastyTwistOnline | Payment History</title>
+      </Helmet>
       <div>
         <h1 className="text-center text-gray-800 text-2xl font-semibold mb-8">
           Payment History
