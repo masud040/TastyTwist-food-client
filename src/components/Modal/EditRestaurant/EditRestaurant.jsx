@@ -4,7 +4,6 @@ import axios from "axios";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { imageUpload } from "../../../api/auth";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
@@ -13,13 +12,22 @@ import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
 import CloseModal from "../../Button/CloseModal";
 import Greeting from "../../GreetingMessage/Greeting";
 
-export default function EditRestaurant({ isOpen, closeModal, refetch }) {
+export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+  const {
+    _id,
+    cuisine,
+    delivery_fee,
+    delivery_time,
+    minimum_delivery_range,
+    menu,
+    location,
+  } = restaurant || {};
   const [divisions] = useGetAllDivision();
   const [divisionName, setDivisionName] = useState("");
   const [cityName, setCityName] = useState("");
@@ -28,30 +36,21 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
   const axiosSecure = useAxiosSecure();
 
   const [showGreeting, setShowGreeting] = useState(false);
-  const [checkData, setCheckData] = useState({
-    name: "",
-    image: "",
-    delivery_fee: "",
-    delivery_time: "",
-    minimum_delivery_range: "",
-    cuisine: "",
-    email: "",
-    mobile: "",
-    menu: "",
-    address: "",
-    message: "",
+  const [restaurantData, setRestaurantData] = useState({
+    delivery_time: delivery_time,
+    minimum_delivery_range: minimum_delivery_range,
+    cuisine: cuisine,
+    menu: menu,
+    address: location,
   });
 
-  const isDisable = Object.values(checkData).every((value) => value);
+  const isDisable = Object.values(restaurantData).every((value) => value);
 
   const handleChange = (e) => {
     const name = e.target.name;
     let value = e.target?.value;
-    if (name === "image") {
-      value = e.target.files[0].name;
-    }
-    setCheckData({
-      ...checkData,
+    setRestaurantData({
+      ...restaurantData,
       [name]: value,
     });
   };
@@ -81,21 +80,12 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
   };
   const handleAddRestaurant = async (data) => {
     try {
-      const toastId = toast.loading("Restaurant Adding...");
-      const { url } = await imageUpload(data?.image[0]);
-      const restaurantData = {
-        name: capitalizeFirstLetter(data.name),
-        image_url: url,
-        delivery_fee: parseFloat(data.delivery_fee),
+      //   const toastId = toast.loading("Restaurant Adding...");
+      const restaurantDetails = {
         delivery_time: data.delivery_time,
         minimum_delivery_range: parseFloat(data.minimum_delivery_range),
         cuisine: capitalizeFirstLetter(data.cuisine),
-        restaurantEmail: data.email,
-        email: user?.email,
-        mobile: data.mobile,
         menu: data.menu.split(","),
-        rating: 4.5,
-        message: data.message,
         location: {
           address: data.address,
           division: data.division,
@@ -103,10 +93,11 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
           area: data.area,
         },
       };
+      console.log(restaurantDetails);
 
       //   const { data: details } = await axiosSecure.post(
       //     `/requested/restaurants?email=${user?.email}`,
-      //     restaurantData
+      //     restaurantDetails
       //   );
       //   if (details.insertedId) {
       //     toast.success("Restaurant added successfully", {
@@ -118,11 +109,11 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
       //     }, 4000);
       //     refetch();
       //   }
-      setDivisionName("default");
-      setCityName("default");
-      setAreaName("default");
+      //   setDivisionName("default");
+      //   setCityName("default");
+      //   setAreaName("default");
 
-      reset();
+      //   reset();
     } catch (err) {
       toast.error(err.message);
     }
@@ -159,68 +150,33 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900 mb-3"
                 >
-                  Edit Your Restaurant.
+                  Edit Your Restaurant
                 </Dialog.Title>
 
                 <div className="mt-6">
                   {!showGreeting && (
                     <form
                       className="space-y-5"
-                      //   onSubmit={handleSubmit(handleAddRestaurant)}
+                      onSubmit={handleSubmit(handleAddRestaurant)}
                     >
                       <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                         <div className="flex-1 relative">
                           <label className="text-xs mb-1 block">
-                            Restaurant Name
-                          </label>
-                          <input
-                            placeholder="Restaurant Name"
-                            {...register("name", { required: true })}
-                            className="input"
-                            name="name"
-                            onChange={handleChange}
-                          />
-
-                          {errors.name && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
-                            Restaurant Image
-                          </label>
-                          <input
-                            type="file"
-                            {...register("image", { required: true })}
-                            className="input"
-                            name="image"
-                            onChange={handleChange}
-                          />
-
-                          {errors.image && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
-                            Delivery Fee
+                            Minimum Delivery Range
                           </label>
                           <input
                             type="number"
-                            placeholder="Delivery fee"
-                            {...register("delivery_fee", { required: true })}
+                            placeholder="Minimum Delivery Range"
+                            {...register("minimum_delivery_range", {
+                              required: true,
+                            })}
                             className="input"
-                            name="delivery_fee"
+                            name="minimum_delivery_range"
+                            value={restaurantData.minimum_delivery_range}
                             onChange={handleChange}
                           />
 
-                          {errors.delivery_fee && (
+                          {errors.minimum_delivery_range && (
                             <p className="text-primary text-xs absolute">
                               You can not leave this empty.
                             </p>
@@ -235,6 +191,7 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             {...register("delivery_time", { required: true })}
                             className="input"
                             name="delivery_time"
+                            value={restaurantData.delivery_time}
                             onChange={handleChange}
                           />
 
@@ -247,33 +204,13 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                       </div>
                       <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                         <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
-                            Minimum Delivery Range
-                          </label>
-                          <input
-                            type="number"
-                            placeholder="Minimum Delivery Range"
-                            {...register("minimum_delivery_range", {
-                              required: true,
-                            })}
-                            className="input"
-                            name="minimum_delivery_range"
-                            onChange={handleChange}
-                          />
-
-                          {errors.minimum_delivery_range && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex-1 relative">
                           <label className="text-xs mb-1 block">Cuisine</label>
                           <input
                             placeholder="name of the cuisine"
                             {...register("cuisine", { required: true })}
                             className="input"
                             name="cuisine"
+                            value={restaurantData.cuisine}
                             onChange={handleChange}
                           />
 
@@ -283,8 +220,6 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             </p>
                           )}
                         </div>
-                      </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                         <div className="flex-1 relative">
                           <label className="text-xs mb-1 block">
                             Menu name
@@ -295,6 +230,7 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             {...register("menu", { required: true })}
                             className="input"
                             name="menu"
+                            value={restaurantData.menu}
                             onChange={handleChange}
                           />
 
@@ -304,28 +240,8 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
-                            Restaurant Email
-                          </label>
-                          <input
-                            placeholder="Restaurant email"
-                            {...register("email", {
-                              required: true,
-                            })}
-                            type="email"
-                            className="input"
-                            name="email"
-                            onChange={handleChange}
-                          />
-
-                          {errors.email && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
                       </div>
+
                       <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                         <div className="flex-1 relative">
                           <label className="text-xs mb-1 block">
@@ -411,24 +327,6 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             </p>
                           )}
                         </div>
-
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">Mobile</label>
-                          <input
-                            placeholder="Your mobile number"
-                            {...register("mobile", { required: true })}
-                            className="input"
-                            name="mobile"
-                            onChange={handleChange}
-                          />
-                          {errors.mobile && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
                         <div className="flex-1 pb-4 relative">
                           <label className="text-xs mb-1 block">Address</label>
                           <input
@@ -436,22 +334,7 @@ export default function EditRestaurant({ isOpen, closeModal, refetch }) {
                             {...register("address", { required: true })}
                             className="input"
                             name="address"
-                            onChange={handleChange}
-                          />
-                          {errors.address && (
-                            <p className="text-primary text-xs absolute">
-                              You can not leave this empty.
-                            </p>
-                          )}
-                        </div>
-                        <div className="flex-1 pb-4 relative">
-                          <label className="text-xs mb-1 block">Message</label>
-                          <textarea
-                            placeholder="Message"
-                            {...register("message", { required: true })}
-                            className="input"
-                            rows={4}
-                            name="message"
+                            value={restaurantData.address}
                             onChange={handleChange}
                           />
                           {errors.address && (

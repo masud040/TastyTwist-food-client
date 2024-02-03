@@ -28,7 +28,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
   const axiosSecure = useAxiosSecure();
 
   const [showGreeting, setShowGreeting] = useState(false);
-  const [checkData, setCheckData] = useState({
+  const [restaurantData, setRestaurantData] = useState({
     name: "",
     image: "",
     delivery_fee: "",
@@ -42,7 +42,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
     message: "",
   });
 
-  const isDisable = Object.values(checkData).every((value) => value);
+  const isDisable = Object.values(restaurantData).every((value) => value);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -50,8 +50,8 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
     if (name === "image") {
       value = e.target.files[0].name;
     }
-    setCheckData({
-      ...checkData,
+    setRestaurantData({
+      ...restaurantData,
       [name]: value,
     });
   };
@@ -83,7 +83,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
     try {
       const toastId = toast.loading("Restaurant Adding...");
       const { url } = await imageUpload(data?.image[0]);
-      const restaurantData = {
+      const restaurantDetails = {
         name: capitalizeFirstLetter(data.name),
         image_url: url,
         delivery_fee: parseFloat(data.delivery_fee),
@@ -106,7 +106,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
 
       const { data: details } = await axiosSecure.post(
         `/requested/restaurants?email=${user?.email}`,
-        restaurantData
+        restaurantDetails
       );
       if (details.insertedId) {
         toast.success("Restaurant added successfully", {
@@ -458,7 +458,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                             name="message"
                             onChange={handleChange}
                           />
-                          {errors.address && (
+                          {errors.message && (
                             <p className="text-primary text-xs absolute">
                               You can not leave this empty.
                             </p>

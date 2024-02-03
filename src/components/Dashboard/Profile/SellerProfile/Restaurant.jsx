@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { MdEdit } from "react-icons/md";
+import EditRestaurant from "../../../Modal/EditRestaurant/EditRestaurant";
 export default function Restaurant({ restaurant }) {
   const {
     _id,
@@ -13,8 +15,20 @@ export default function Restaurant({ restaurant }) {
 
     location,
   } = restaurant || {};
+  const [isOpen, setIsOpen] = useState(false);
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <>
+      {isOpen && (
+        <EditRestaurant
+          isOpen={isOpen}
+          closeModal={closeModal}
+          restaurant={restaurant}
+        />
+      )}
       <div className="lg:flex justify-center items-center gap-8">
         <div className="mb-6 lg:mb-0 ">
           <p className="text-sm mb-5 text-center">Restaurant Image</p>
@@ -44,7 +58,10 @@ export default function Restaurant({ restaurant }) {
         </div>
       </div>
       <div className="flex justify-end mt-4">
-        <button className="bg-primary/80 p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-primary/80 p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1"
+        >
           Edit Details
           <MdEdit />
         </button>
