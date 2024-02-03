@@ -26,7 +26,11 @@ const CartCard = ({ order, isSelected, handleChange }) => {
     if (totalCount < 5) {
       setTotalCount(totalCount + 1);
       const itemCount = totalCount + 1;
-      await axiosSecure.patch(`/carts/${id}`, { itemCount });
+
+      const { data } = await axiosSecure.patch(`/carts/${id}`, { itemCount });
+      if (data.modifiedCount > 0) {
+        refetch();
+      }
     }
   };
   const moveToWishList = async (id) => {

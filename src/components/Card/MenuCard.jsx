@@ -15,6 +15,7 @@ const MenuCard = ({ item }) => {
   const [, favRefetch] = useGetFavoriteItem();
   const axiosSecure = useAxiosSecure();
   const { _id, name, email, price, description, image_url } = item || {};
+
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const addToCart = async (e) => {
@@ -32,7 +33,7 @@ const MenuCard = ({ item }) => {
       "/carts-favorite?items=carts",
       orderInfo
     );
-    if (data.insertedId) {
+    if (data.insertedId || data.count > 1) {
       refetch();
       setShowDetailsModal(false);
       Swal.fire({
