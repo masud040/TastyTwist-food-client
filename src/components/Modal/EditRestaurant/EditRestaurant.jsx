@@ -9,7 +9,6 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
 import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
 
-import confirmEditRestaurant from "../../../utils/comfirmEditRestaurant";
 import CloseModal from "../../Button/CloseModal";
 import Greeting from "../../GreetingMessage/Greeting";
 
@@ -104,25 +103,22 @@ export default function AddRestaurantModal({
         },
       };
 
-      const { confirm } = await confirmEditRestaurant();
+      const toastId = toast.loading("Restaurant Adding...");
+      const { data: response } = await axiosSecure.patch(
+        `/restaurants/${_id}`,
+        restaurantDetails
+      );
 
-      if (confirm) {
-        const toastId = toast.loading("Restaurant Adding...");
-        const { data } = await axiosSecure.patch(
-          `/restaurants/${_id}`,
-          restaurantDetails
-        );
+      if (response.modifiedCount > 0) {
+        toast.success("Restaurant added successfully", {
+          id: toastId,
+        });
+        setShowGreeting(true);
+        setTimeout(() => {
+          closeModal();
+        }, 4000);
+        refetch();
 
-        if (data.modifiedCount > 0) {
-          toast.success("Restaurant added successfully", {
-            id: toastId,
-          });
-          setShowGreeting(true);
-          setTimeout(() => {
-            closeModal();
-          }, 4000);
-          refetch();
-        }
         setDivisionName("default");
         setCityName("default");
         setAreaName("default");

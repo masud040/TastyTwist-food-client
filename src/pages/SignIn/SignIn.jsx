@@ -14,6 +14,7 @@ import useAuth from "../../hooks/useAuth";
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  const [pass, setPass] = useState("");
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -85,13 +86,16 @@ const SignIn = () => {
                           required
                           placeholder="*******"
                           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500 bg-gray-300 text-gray-900"
+                          onChange={(e) => setPass(e.target.value)}
                         />
-                        <p
-                          onClick={() => setShow((s) => !s)}
-                          className="absolute top-2.5 right-1 text-2xl"
-                        >
-                          {show ? <BiSolidHide /> : <BiSolidShow />}
-                        </p>
+                        {pass && (
+                          <p
+                            onClick={() => setShow((s) => !s)}
+                            className="absolute top-2.5 right-1 text-2xl text-gray-700"
+                          >
+                            {show ? <BiSolidHide /> : <BiSolidShow />}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

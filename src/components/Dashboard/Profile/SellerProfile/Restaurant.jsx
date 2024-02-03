@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
+import confirmEditRestaurant from "../../../../utils/comfirmEditRestaurant";
 import EditRestaurant from "../../../Modal/EditRestaurant/EditRestaurant";
 export default function Restaurant({ restaurant, refetch }) {
   const {
@@ -17,6 +18,12 @@ export default function Restaurant({ restaurant, refetch }) {
   const [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
+  }
+  async function openModal() {
+    const { confirm } = await confirmEditRestaurant();
+    if (confirm) {
+      setIsOpen(true);
+    }
   }
 
   return (
@@ -59,7 +66,7 @@ export default function Restaurant({ restaurant, refetch }) {
       </div>
       <div className="flex justify-end mt-4">
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={openModal}
           className="bg-primary p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1"
         >
           Edit Details

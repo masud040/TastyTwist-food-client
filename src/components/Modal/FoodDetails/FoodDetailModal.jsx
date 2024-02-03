@@ -10,7 +10,8 @@ export default function FoodDetailsModal({
   item,
   onAddToCart,
 }) {
-  const { name, price, description, image_url } = item || {};
+  const { _id, name, price, description, image_url } = item || {};
+  console.log(_id);
   const [totalCount, setTotalCount] = useState(1);
   const handleDecrement = async () => {
     if (totalCount > 1) {
