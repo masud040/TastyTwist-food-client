@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetCartItem from "../../hooks/useGetCartItem";
 import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
-import HandleItemCount from "../Utils/HandleItemCount";
+import HandleItemCount from "../HandleItemCout/HandleItemCount";
 
 const CartCard = ({ order, isSelected, handleChange }) => {
   const [, refetch] = useGetCartItem();

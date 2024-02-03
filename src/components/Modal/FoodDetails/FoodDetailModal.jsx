@@ -1,8 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import CloseModal from "../../Button/CloseModal";
+import HandleItemCount from "../../HandleItemCout/HandleItemCount";
 import ModalTitle from "../../Title/ModalTitle";
-import HandleItemCount from "../../Utils/HandleItemCount";
+
 export default function FoodDetailsModal({
   showModal,
   onClose,

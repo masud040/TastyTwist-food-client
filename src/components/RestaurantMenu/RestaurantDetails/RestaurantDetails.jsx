@@ -1,6 +1,6 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
-import Rating from "react-rating";
 import { MdDeliveryDining } from "react-icons/md";
+import Rating from "react-rating";
 
 import { AiTwotoneShopping } from "react-icons/ai";
 import Spinner from "../../Spinner/Spinner";

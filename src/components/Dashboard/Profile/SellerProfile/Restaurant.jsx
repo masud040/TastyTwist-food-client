@@ -44,7 +44,7 @@ export default function Restaurant({ restaurant }) {
             <div>
               <AddLabel label="Name" text={name} name={true} />
               <AddLabel label="Email" text={email} />
-              <AddLabel label="Location" text={location} />
+              <AddLabel label="Location" text={location?.address} />
 
               <AddLabel label="Rating" text={rating} />
             </div>

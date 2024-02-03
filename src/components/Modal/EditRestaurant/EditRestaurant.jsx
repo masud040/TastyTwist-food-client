@@ -9,6 +9,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
 import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
 
+import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
+import confirmEditRestaurant from "../../../utils/comfirmEditRestaurant";
 import CloseModal from "../../Button/CloseModal";
 import Greeting from "../../GreetingMessage/Greeting";
 
@@ -22,7 +24,6 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
   const {
     _id,
     cuisine,
-    delivery_fee,
     delivery_time,
     minimum_delivery_range,
     menu,
@@ -34,6 +35,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [, , refetch] = useGetAllRestaurant();
 
   const [showGreeting, setShowGreeting] = useState(false);
   const [restaurantData, setRestaurantData] = useState({
@@ -80,7 +82,6 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
   };
   const handleAddRestaurant = async (data) => {
     try {
-      //   const toastId = toast.loading("Restaurant Adding...");
       const restaurantDetails = {
         delivery_time: data.delivery_time,
         minimum_delivery_range: parseFloat(data.minimum_delivery_range),
@@ -93,27 +94,30 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
           area: data.area,
         },
       };
-      console.log(restaurantDetails);
+      const { confirm } = await confirmEditRestaurant();
 
-      //   const { data: details } = await axiosSecure.post(
-      //     `/requested/restaurants?email=${user?.email}`,
-      //     restaurantDetails
-      //   );
-      //   if (details.insertedId) {
-      //     toast.success("Restaurant added successfully", {
-      //       id: toastId,
-      //     });
-      //     setShowGreeting(true);
-      //     setTimeout(() => {
-      //       closeModal();
-      //     }, 4000);
-      //     refetch();
-      //   }
-      //   setDivisionName("default");
-      //   setCityName("default");
-      //   setAreaName("default");
-
-      //   reset();
+      if (confirm) {
+        const toastId = toast.loading("Restaurant Adding...");
+        const { data } = await axiosSecure.patch(
+          `/restaurants/${_id}`,
+          restaurantDetails
+        );
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Restaurant added successfully", {
+            id: toastId,
+          });
+          setShowGreeting(true);
+          setTimeout(() => {
+            closeModal();
+          }, 4000);
+          refetch();
+        }
+        setDivisionName("default");
+        setCityName("default");
+        setAreaName("default");
+        reset();
+      }
     } catch (err) {
       toast.error(err.message);
     }
@@ -334,7 +338,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
                             {...register("address", { required: true })}
                             className="input"
                             name="address"
-                            value={restaurantData.address}
+                            value={restaurantData?.address}
                             onChange={handleChange}
                           />
                           {errors.address && (
@@ -356,7 +360,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
                     </form>
                   )}
                   {showGreeting && (
-                    <Greeting message="Thanks for submitting!" />
+                    <Greeting message="Your Restaurant Edit Successfully!" />
                   )}
                 </div>
               </Dialog.Panel>

@@ -6,11 +6,12 @@ import Menu from "../../components/RestaurantMenu/Menu/Menu";
 import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
 import useGetRestaurant from "../../hooks/useGetRestaurant";
 
-const RestaurantMenu = () => {
+export default function RestaurantMenu() {
   const { email } = useParams();
   const [params, setParams] = useSearchParams();
+
   const category = params.get("category");
-  const { restaurant, isLoading } = useGetRestaurant(email);
+  const [restaurant, isLoading] = useGetRestaurant(email);
 
   return (
     <>
@@ -29,6 +30,4 @@ const RestaurantMenu = () => {
       </div>
     </>
   );
-};
-
-export default RestaurantMenu;
+}

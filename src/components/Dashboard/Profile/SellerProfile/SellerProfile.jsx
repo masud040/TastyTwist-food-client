@@ -4,7 +4,7 @@ import Restaurant from "./Restaurant";
 
 const SellerProfile = () => {
   const { user } = useAuth();
-  const [restaurant, isLoading] = useGetRestaurant(user.email);
+  const [restaurant] = useGetRestaurant(user.email);
 
   return (
     <>
