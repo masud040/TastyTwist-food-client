@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -33,7 +34,7 @@ const MenuCard = ({ item }) => {
       "/carts-favorite?items=carts",
       orderInfo
     );
-    if (data.insertedId || data.count > 1) {
+    if (data.insertedId) {
       refetch();
       setShowDetailsModal(false);
       Swal.fire({
@@ -42,6 +43,10 @@ const MenuCard = ({ item }) => {
         title: `${name} is added`,
         showConfirmButton: false,
         timer: 1500,
+      });
+    } else {
+      toast(data?.message, {
+        position: "top-right",
       });
     }
   };
