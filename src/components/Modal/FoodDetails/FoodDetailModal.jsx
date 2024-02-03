@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { IoIosArrowUp } from "react-icons/io";
 import useGetReviews from "../../../hooks/useGetReviews";
 import CloseModal from "../../Button/CloseModal";
 import FoodReviewCard from "../../Card/FoodReviewCard";
@@ -13,6 +14,7 @@ export default function FoodDetailsModal({
   onAddToCart,
 }) {
   const { _id, name, price, description, image_url } = item || {};
+  const [showReviews, setShowReviews] = useState(false);
   const [reviews] = useGetReviews(_id, "id");
 
   const [totalCount, setTotalCount] = useState(1);
@@ -66,10 +68,28 @@ export default function FoodDetailsModal({
                     </h3>
                     <hr className="border-t-2 border-primary/70" />
                     <div className="mt-3 text-sm my-6">
-                      <p className="font-semibold mb-3">Reviews</p>
-                      {reviews?.map((review) => (
-                        <FoodReviewCard key={review._id} review={review} />
-                      ))}
+                      <div className="mb-4 flex justify-between items-center">
+                        <p className="font-semibold ">Reviews</p>
+                        <button
+                          className="bg-primary/90 flex items-center text-white/90 px-2 rounded-md transition-all transform "
+                          onClick={() => setShowReviews((s) => !s)}
+                        >
+                          <p>see reviews</p>
+                          <span
+                            className={`text-lg ${
+                              showReviews
+                                ? "rotate-0 transition duration-500"
+                                : "rotate-180 transition duration-500"
+                            }`}
+                          >
+                            <IoIosArrowUp />
+                          </span>
+                        </button>
+                      </div>
+                      {showReviews &&
+                        reviews?.map((review) => (
+                          <FoodReviewCard key={review._id} review={review} />
+                        ))}
                     </div>
                     <div className="flex justify-between gap-7">
                       <HandleItemCount
@@ -80,7 +100,7 @@ export default function FoodDetailsModal({
                       />
                       <button
                         onClick={onAddToCart}
-                        className="p-2 w-full bg-primary rounded-lg text-white hover:scale-105 transition duration-500 "
+                        className="p-2 w-full bg-primary rounded-lg text-white/90 hover:scale-105 transition duration-500 "
                       >
                         Add To Cart
                       </button>
