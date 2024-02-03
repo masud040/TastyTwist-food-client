@@ -41,12 +41,12 @@ const CartCard = ({ order, isSelected, handleChange }) => {
     refetch();
     wishListRefetch();
   };
-  const deleteFromFavorite = async (id) => {
+  const deleteFromCart = async (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
-      showCancel: true,
+      showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
@@ -88,7 +88,7 @@ const CartCard = ({ order, isSelected, handleChange }) => {
               <FaRegHeart />
             </button>
             <button
-              onClick={() => deleteFromFavorite(_id)}
+              onClick={() => deleteFromCart(_id)}
               className="p-[5px] text-lg text-gray-600"
             >
               <RiDeleteBin6Line />

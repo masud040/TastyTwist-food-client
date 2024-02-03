@@ -71,12 +71,12 @@ export default function FoodDetailsModal({
                       <div className="mb-4 flex justify-between items-center">
                         <p className="font-semibold ">Reviews</p>
                         <button
-                          className="bg-primary/90 flex items-center text-white/90 px-2 rounded-md transition-all transform "
+                          className="bg-primary/90 flex items-center text-xs text-white/90 px-2 rounded-md transition-all transform "
                           onClick={() => setShowReviews((s) => !s)}
                         >
-                          <p>see reviews</p>
+                          <p>{showReviews ? "hide reviews" : "show reviews"}</p>
                           <span
-                            className={`text-lg ${
+                            className={`text-base ${
                               showReviews
                                 ? "rotate-0 transition duration-500"
                                 : "rotate-180 transition duration-500"

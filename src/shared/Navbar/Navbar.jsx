@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { FaRegHeart } from "react-icons/fa";
 import CartSidebar from "../../components/Sidebar/CartSidebar";
 import FavoriteSidebar from "../../components/Sidebar/FavoriteSidebar";
+import useGetCartItem from "../../hooks/useGetCartItem";
 
 const navLinks = [
   {
@@ -24,6 +25,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showCart, setShowCart] = useState(true);
   const [showFavorite, setShowFavorite] = useState(true);
+  const [carts] = useGetCartItem();
+
   const { user } = useAuth();
   const handleCartShow = () => {
     setShowCart(!showCart);
@@ -72,9 +75,12 @@ const Navbar = () => {
 
           <button
             onClick={handleCartShow}
-            className="bg-rose-50 rounded-md text-primary text-2xl"
+            className="bg-rose-50 relative rounded-md text-primary text-2xl"
           >
             <FaShoppingCart />
+            <p className="text-xs font-normal absolute -top-1.5 -right-2 text-white bg-green-500/80 h-[15px] w-[15px] rounded-full">
+              {(carts && carts?.length) || 0}
+            </p>
           </button>
 
           <div className="relative">
