@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import useGetReviews from "../../../hooks/useGetReviews";
 import CloseModal from "../../Button/CloseModal";
+import FoodReviewCard from "../../Card/FoodReviewCard";
 import HandleItemCount from "../../HandleItemCout/HandleItemCount";
 import ModalTitle from "../../Title/ModalTitle";
 
@@ -12,8 +13,8 @@ export default function FoodDetailsModal({
   onAddToCart,
 }) {
   const { _id, name, price, description, image_url } = item || {};
-  const reviews = useGetReviews(_id, "id");
-  console.log(reviews);
+  const [reviews] = useGetReviews(_id, "id");
+
   const [totalCount, setTotalCount] = useState(1);
   const handleDecrement = async () => {
     if (totalCount > 1) {
@@ -64,8 +65,11 @@ export default function FoodDetailsModal({
                       Tk {price}
                     </h3>
                     <hr className="border-t-2 border-primary/70" />
-                    <div className="mt-3 text-sm">
-                      <p className="font-semibold">Reviews</p>
+                    <div className="mt-3 text-sm my-6">
+                      <p className="font-semibold mb-3">Reviews</p>
+                      {reviews?.map((review) => (
+                        <FoodReviewCard key={review._id} review={review} />
+                      ))}
                     </div>
                     <div className="flex justify-between gap-7">
                       <HandleItemCount
