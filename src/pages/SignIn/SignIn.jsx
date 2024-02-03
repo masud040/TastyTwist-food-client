@@ -4,14 +4,17 @@ import Lottie from "lottie-react";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
+import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { TbFidgetSpinner } from "react-icons/tb";
 import LoginAnimation from "../../animation/LoginAnimation.json";
 import Container from "../../components/Container/Container";
 import Social from "../../components/Social/Social";
 import useAuth from "../../hooks/useAuth";
+
 const SignIn = () => {
-  const { signIn } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -70,19 +73,27 @@ const SignIn = () => {
                     />
                   </div>
                   <div>
-                    <div className="flex justify-between">
-                      <label htmlFor="password" className="text-sm mb-2">
+                    <div>
+                      <label htmlFor="password" className="block mb-2 text-sm">
                         Password
                       </label>
+                      <div className="relative">
+                        <input
+                          type={`${show ? "text" : "password"}`}
+                          name="password"
+                          autoComplete="current-password"
+                          required
+                          placeholder="*******"
+                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500 bg-gray-300 text-gray-900"
+                        />
+                        <p
+                          onClick={() => setShow((s) => !s)}
+                          className="absolute top-2.5 right-1 text-2xl"
+                        >
+                          {show ? <BiSolidHide /> : <BiSolidShow />}
+                        </p>
+                      </div>
                     </div>
-                    <input
-                      type="password"
-                      name="password"
-                      autoComplete="current-password"
-                      required
-                      placeholder="*******"
-                      className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500 bg-gray-300 text-gray-900"
-                    />
                   </div>
                 </div>
 

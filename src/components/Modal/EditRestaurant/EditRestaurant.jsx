@@ -46,14 +46,14 @@ export default function AddRestaurantModal({
     minimum_delivery_range: minimum_delivery_range,
     cuisine: cuisine,
     menu: menu,
-    address: location.address,
+    address: location?.address,
   });
 
   useEffect(() => {
-    setDivisionName(location.division);
-    setCityName(location.city);
-    setAreaName(location.area);
-  }, [location.division, location.city, location.area]);
+    setDivisionName(location?.division);
+    setCityName(location?.city);
+    setAreaName(location?.area);
+  }, [location]);
 
   const isDisable = Object.values(restaurantData).every((value) => value);
 
