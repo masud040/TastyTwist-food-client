@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
@@ -9,12 +9,16 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllDivision from "../../../hooks/useGetAllDivision";
 import { capitalizeFirstLetter } from "../../../utils/capitalizerFirstLetter";
 
-import useGetAllRestaurant from "../../../hooks/useGetAllRestaurant";
 import confirmEditRestaurant from "../../../utils/comfirmEditRestaurant";
 import CloseModal from "../../Button/CloseModal";
 import Greeting from "../../GreetingMessage/Greeting";
 
-export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
+export default function AddRestaurantModal({
+  isOpen,
+  closeModal,
+  restaurant,
+  refetch,
+}) {
   const {
     register,
     handleSubmit,
@@ -33,9 +37,8 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
   const [divisionName, setDivisionName] = useState("");
   const [cityName, setCityName] = useState("");
   const [areaName, setAreaName] = useState("");
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [, , refetch] = useGetAllRestaurant();
 
   const [showGreeting, setShowGreeting] = useState(false);
   const [restaurantData, setRestaurantData] = useState({
@@ -43,8 +46,14 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
     minimum_delivery_range: minimum_delivery_range,
     cuisine: cuisine,
     menu: menu,
-    address: location,
+    address: location.address,
   });
+
+  useEffect(() => {
+    setDivisionName(location.division);
+    setCityName(location.city);
+    setAreaName(location.area);
+  }, [location.division, location.city, location.area]);
 
   const isDisable = Object.values(restaurantData).every((value) => value);
 
@@ -94,6 +103,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
           area: data.area,
         },
       };
+
       const { confirm } = await confirmEditRestaurant();
 
       if (confirm) {
@@ -102,7 +112,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
           `/restaurants/${_id}`,
           restaurantDetails
         );
-        console.log(data);
+
         if (data.modifiedCount > 0) {
           toast.success("Restaurant added successfully", {
             id: toastId,
@@ -122,6 +132,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
       toast.error(err.message);
     }
   };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
@@ -254,7 +265,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
                           <select
                             {...register("division", { required: true })}
                             className="input bg-gray-200"
-                            defaultValue="default"
+                            value={divisionName}
                             onChange={handleDivision}
                           >
                             {divisions?.map((division) => (
@@ -338,7 +349,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, restaurant }) {
                             {...register("address", { required: true })}
                             className="input"
                             name="address"
-                            value={restaurantData?.address}
+                            value={location?.address}
                             onChange={handleChange}
                           />
                           {errors.address && (

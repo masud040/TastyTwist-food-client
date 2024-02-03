@@ -5,7 +5,11 @@ import useAxiosSecure from "./useAxiosSecure";
 export default function useGetRestaurant(email) {
   const { loading } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: restaurant, isLoading } = useQuery({
+  const {
+    data: restaurant,
+    isLoading,
+    refetch,
+  } = useQuery({
     enabled: !loading && !!email,
     queryKey: [email, "restaurant"],
     queryFn: async () => {
@@ -13,5 +17,5 @@ export default function useGetRestaurant(email) {
       return data;
     },
   });
-  return [restaurant, isLoading];
+  return [restaurant, isLoading, refetch];
 }

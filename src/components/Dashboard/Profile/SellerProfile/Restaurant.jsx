@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import EditRestaurant from "../../../Modal/EditRestaurant/EditRestaurant";
-export default function Restaurant({ restaurant }) {
+export default function Restaurant({ restaurant, refetch }) {
   const {
-    _id,
     name,
     cuisine,
     rating,
@@ -27,6 +26,7 @@ export default function Restaurant({ restaurant }) {
           isOpen={isOpen}
           closeModal={closeModal}
           restaurant={restaurant}
+          refetch={refetch}
         />
       )}
       <div className="lg:flex justify-center items-center gap-8">
@@ -60,7 +60,7 @@ export default function Restaurant({ restaurant }) {
       <div className="flex justify-end mt-4">
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-primary/80 p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1"
+          className="bg-primary p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1"
         >
           Edit Details
           <MdEdit />

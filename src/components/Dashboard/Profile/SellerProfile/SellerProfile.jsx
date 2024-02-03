@@ -4,11 +4,11 @@ import Restaurant from "./Restaurant";
 
 const SellerProfile = () => {
   const { user } = useAuth();
-  const [restaurant] = useGetRestaurant(user.email);
+  const [restaurant, , refetch] = useGetRestaurant(user.email);
 
   return (
     <>
-      <Restaurant restaurant={restaurant} />
+      <Restaurant restaurant={restaurant} refetch={refetch} />
     </>
   );
 };
