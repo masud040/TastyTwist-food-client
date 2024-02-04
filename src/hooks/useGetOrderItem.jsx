@@ -15,9 +15,10 @@ const useGetOrderItem = (role) => {
       if (role === "seller") {
         return data.filter(
           (order) =>
-            order.status !== "cancelled" && order.status !== "delivered"
+            order?.status === "cancelled" || order?.status === "delivered"
         );
-      } else {
+      }
+      if (role === "user") {
         return data.filter((order) => order?.isFeedback !== true);
       }
     },

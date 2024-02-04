@@ -4,7 +4,8 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useGetSellerOrderItem from "../../hooks/useGetSellerOrder";
+
+import useGetOrderItem from "../../hooks/useGetOrderItem";
 import ShowAddressModal from "../Modal/ShowAddressModal";
 import OrderCardBody from "./OrderCardBody";
 
@@ -12,7 +13,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
   const { name, image, count } = item || {};
   const { loading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [, refetch] = useGetSellerOrderItem();
+  const [, refetch] = useGetOrderItem();
   const axiosSecure = useAxiosSecure();
   const { data: customerDetails } = useQuery({
     enabled: !loading && !!email,
