@@ -15,7 +15,8 @@ const MenuCard = ({ item }) => {
   const [, refetch] = useGetCartItem();
   const [, favRefetch] = useGetFavoriteItem();
   const axiosSecure = useAxiosSecure();
-  const { _id, name, email, price, description, image_url } = item || {};
+  const { _id, name, email, price, description, image_url, category } =
+    item || {};
 
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -29,6 +30,7 @@ const MenuCard = ({ item }) => {
       image: image_url,
       sellerEmail: email,
       count: 1,
+      category,
     };
     const { data } = await axiosSecure.post(
       "/carts-favorite?items=carts",
