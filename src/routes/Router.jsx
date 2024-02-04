@@ -10,10 +10,10 @@ import SignUp from "../pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../layouts/DashboardLayout";
-import Analytics from "../pages/Admin/Analytics";
 import CustomerSupport from "../pages/Admin/CustomerSupport";
 import ManageCoupon from "../pages/Admin/ManageCoupon";
 import ManageRestaurant from "../pages/Admin/ManageRestaurant";
+import Analytics from "../pages/Analytics/Analytics";
 
 import ManageSellerRequest from "../pages/Admin/MangeSellerRequest";
 import Checkout from "../pages/Checkout/Checkout";
