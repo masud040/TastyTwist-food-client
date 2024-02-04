@@ -9,7 +9,7 @@ export default function useGetSellerStates() {
     enabled: !loading && !!user?.email,
     queryKey: ["states"],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/seller/states/${user?.email}`);
+      const { data } = await axiosSecure(`/seller/stats/${user?.email}`);
       return data;
     },
   });

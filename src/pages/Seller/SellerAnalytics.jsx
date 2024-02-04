@@ -17,7 +17,7 @@ export default function SellerAnalytics() {
   return (
     <div>
       <h3 className="text-center mb-5 text-primary">
-        Your Restaurant States & Analytics
+        Your Restaurant Stats & Analytics
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         <GenerateCard
