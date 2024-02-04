@@ -5,9 +5,6 @@ import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const ManageOrder = () => {
   const [orderItems] = useGetOrderItem("seller");
-  const filleredOrder = orderItems?.filter(
-    (order) => order?.isFeedback !== true && order?.status !== "delivered"
-  );
 
   return (
     <>
@@ -16,8 +13,8 @@ const ManageOrder = () => {
       </Helmet>
 
       <div>
-        {filleredOrder?.length > 0 ? (
-          filleredOrder?.map((order) => (
+        {orderItems?.length > 0 ? (
+          orderItems?.map((order) => (
             <TotalOrder key={order._id} order={order} />
           ))
         ) : (

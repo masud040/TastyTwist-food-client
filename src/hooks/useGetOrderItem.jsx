@@ -15,7 +15,7 @@ const useGetOrderItem = (role) => {
       if (role === "seller") {
         return data.filter(
           (order) =>
-            order?.status === "cancelled" || order?.status === "delivered"
+            order?.status !== "cancelled" && order.status !== "delivered"
         );
       }
       if (role === "user") {
@@ -23,6 +23,7 @@ const useGetOrderItem = (role) => {
       }
     },
   });
+  console.log(orderItems);
 
   return [orderItems, refetch];
 };
