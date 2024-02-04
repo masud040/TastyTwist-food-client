@@ -103,8 +103,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
           </button>
         </div>
         <p className="text-green-500">
-          Estimated Delivery Date
-          {estimatedDate}
+          Estimated Delivery Date {estimatedDate}
         </p>
       </div>
       <ShowAddressModal

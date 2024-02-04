@@ -8,7 +8,7 @@ export default function SellerRoute({ children }) {
   const [data, isLoading] = useGetUserRole();
   if (loading || isLoading) return <Spinner />;
   if (data?.role !== "seller" && !isLoading) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard/profile" />;
   }
   return children;
 }

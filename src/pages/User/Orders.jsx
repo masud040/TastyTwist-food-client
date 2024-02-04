@@ -4,7 +4,7 @@ import AllOrders from "../../components/AllOrders/AllOrders";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
 
 const Orders = () => {
-  const [orderItems] = useGetOrderItem();
+  const [orderItems] = useGetOrderItem("user");
 
   return (
     <>

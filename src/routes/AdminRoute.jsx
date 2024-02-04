@@ -8,7 +8,7 @@ export default function AdminRoute({ children }) {
   const [data, isLoading] = useGetUserRole();
   if (loading || isLoading) return <Spinner />;
   if (data?.role !== "admin" && !isLoading) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard/profile" />;
   }
   return children;
 }
