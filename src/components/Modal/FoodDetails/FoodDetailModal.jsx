@@ -86,10 +86,15 @@ export default function FoodDetailsModal({
                           </span>
                         </button>
                       </div>
-                      {showReviews &&
+                      {showReviews && reviews?.length > 0 ? (
                         reviews?.map((review) => (
                           <FoodReviewCard key={review._id} review={review} />
-                        ))}
+                        ))
+                      ) : (
+                        <p className="text-center text-sm">
+                          no review for this product
+                        </p>
+                      )}
                     </div>
                     <div className="flex justify-between gap-7">
                       <HandleItemCount

@@ -67,7 +67,7 @@ const PlaceOrder = ({ total, cartItems }) => {
       if (paymentIntent.status === "succeeded") {
         const payment = {
           email: user.email,
-          total,
+          total: parseFloat(total),
           orderId,
           transactionId: paymentIntent.id,
           date: Date(),

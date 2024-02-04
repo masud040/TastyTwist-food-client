@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-import useGetOrderItem from "../../hooks/useGetOrderItem";
+import useGetSellerOrders from "../../hooks/useGetSellerOrders";
 import ShowAddressModal from "../Modal/ShowAddressModal";
 import OrderCardBody from "./OrderCardBody";
 
@@ -13,7 +13,7 @@ const HandleOrder = ({ item, estimatedDate, status, id, email }) => {
   const { name, image, count } = item || {};
   const { loading } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [, refetch] = useGetOrderItem();
+  const [, refetch] = useGetSellerOrders();
   const axiosSecure = useAxiosSecure();
   const { data: customerDetails } = useQuery({
     enabled: !loading && !!email,

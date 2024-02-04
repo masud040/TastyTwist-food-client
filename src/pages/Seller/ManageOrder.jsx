@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import NoData from "../../components/NoData/NoData";
 import TotalOrder from "../../components/Seller/TotalOrder";
-import useGetOrderItem from "../../hooks/useGetOrderItem";
+import useGetSellerOrders from "../../hooks/useGetSellerOrders";
 
 const ManageOrder = () => {
-  const [orderItems] = useGetOrderItem("seller");
+  const [orderItems] = useGetSellerOrders();
 
   return (
     <>
