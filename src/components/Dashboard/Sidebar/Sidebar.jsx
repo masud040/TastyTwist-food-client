@@ -26,7 +26,7 @@ const Sidebar = () => {
           closeModal={() => setShowModal(false)}
         />
       )}
-      <div className=" fixed w-full bg-gray-400 bg-opacity-60 text-gray-800 flex justify-between md:hidden z-10">
+      <div className=" fixed w-full bg-gray-300 bg-opacity-60 text-gray-800 flex justify-between md:hidden z-10">
         <div>
           <div className="block cursor-pointer ps-4 py-[14px] font-bold">
             <Link to="/" className=" text-xl font-bold text-primary">

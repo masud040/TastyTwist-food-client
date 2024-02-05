@@ -34,7 +34,7 @@ export default function StatsPieChart({ chartInfo }) {
   });
   return (
     <div className="text-xs">
-      <PieChart width={500} height={300}>
+      <PieChart width={400} height={300}>
         <Pie
           data={pieChartData}
           cx="50%"
