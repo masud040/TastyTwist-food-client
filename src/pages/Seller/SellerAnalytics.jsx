@@ -20,8 +20,8 @@ export default function SellerAnalytics() {
   });
   return (
     <div>
-      <h2 className="text-3xl text-primary font-semibold mb-6 ">
-        Hi, Welcome {(user && user.displayName) || "Back!"}
+      <h2 className="text-3xl text-indigo-500 font-semibold mb-6 ">
+        Hi, Welcome {(user && user.displayName) || "Back! "} 😍
       </h2>
       <StatsCard stats={stats} />
       <div className="flex flex-col justify-between items-center lg:flex-row lg:mt-7 space-y-8">
