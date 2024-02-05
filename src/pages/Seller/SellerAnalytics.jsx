@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import StatsBarChart from "../../components/SellerStats/StatsBarChart";
 import StatsCard from "../../components/SellerStats/StatsCard";
+import StatsPieChart from "../../components/SellerStats/StatsPieChart";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetSellerStats from "../../hooks/useGetSellerStats";
@@ -23,8 +24,9 @@ export default function SellerAnalytics() {
         Hi, Welcome {(user && user.displayName) || "Back!"}
       </h2>
       <StatsCard stats={stats} />
-      <div>
+      <div className="flex flex-col justify-between items-center lg:flex-row lg:mt-7 space-y-8">
         <StatsBarChart chartInfo={sellerStats} />
+        <StatsPieChart chartInfo={sellerStats} />
       </div>
     </div>
   );
