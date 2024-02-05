@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
-export default function useGetSellerStates() {
+export default function useGetSellerStats() {
   const { loading, user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: states, refetch } = useQuery({

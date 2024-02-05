@@ -9,6 +9,7 @@ import useGetMenu from "../../hooks/useGetMenu";
 import CloseModal from "../Button/CloseModal";
 export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
   const [isAdd, setIsAdd] = useState(Object.is(menuToUpdate, null));
+
   useEffect(() => {
     setIsAdd(Object.is(menuToUpdate, null));
   }, [menuToUpdate]);
@@ -183,7 +184,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                           <option value="burger">Burger</option>
                           <option value="biryani">Biryani</option>
                           <option value="soup">Soup</option>
-                          <option value="drink">Drink</option>
+                          <option value="drinks">Drink</option>
                         </select>
                       </div>
                     </div>
