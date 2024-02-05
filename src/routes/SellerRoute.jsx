@@ -5,6 +5,7 @@ import useGetUserRole from "../hooks/useGetUserRole";
 
 export default function SellerRoute({ children }) {
   const { loading } = useAuth();
+
   const [data, isLoading] = useGetUserRole();
   if (loading || isLoading) return <Spinner />;
   if (data?.role !== "seller" && !isLoading) {

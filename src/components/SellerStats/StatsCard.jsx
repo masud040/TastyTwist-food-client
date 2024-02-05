@@ -21,18 +21,14 @@ export default function StatsCard({ stats }) {
         itemName="Total Sales"
         color="primary"
       />
-      <GenerateCard
-        Icon={BiFoodMenu}
-        item={totalItem}
-        itemName="Total Item"
-        color="indigo"
-      />
+
       <GenerateCard
         Icon={BiSolidPurchaseTag}
         item={totalOrder}
         itemName="Total Order"
-        color="primary"
+        color="indigo"
       />
+
       <GenerateCard
         Icon={TbShoppingCartCancel}
         item={cancelOrder}
@@ -44,6 +40,12 @@ export default function StatsCard({ stats }) {
         item={totalFeedback}
         itemName="Total Feedback"
         color="blue"
+      />
+      <GenerateCard
+        Icon={BiFoodMenu}
+        item={totalItem}
+        itemName="Total Item"
+        color="primary"
       />
       <GenerateCard
         Icon={FaUsers}
