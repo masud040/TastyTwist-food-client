@@ -20,6 +20,7 @@ export default function FoodReviewCard1({ review, refetch }) {
         toast.success("Deleted", {
           id: toastId,
         });
+        refetch();
       }
     }
   }

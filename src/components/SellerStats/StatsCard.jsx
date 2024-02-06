@@ -59,6 +59,8 @@ export default function StatsCard({ stats }) {
 function GenerateCard({ Icon, item, itemName, color }) {
   return (
     <div
+      data-aos="fade-up"
+      data-aos-duration="3000"
       title={itemName}
       className={`
         text-sm text-gray-100 

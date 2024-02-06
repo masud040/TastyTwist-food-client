@@ -28,7 +28,11 @@ const ManageMenuCard = ({ item, onEditMenu }) => {
     }
   };
   return (
-    <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">
+    <div
+      data-aos="zoom-in-up"
+      data-aos-duration="1500"
+      className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group "
+    >
       <MenuCardBody name={name} description={description} price={price} />
       <div className="relative">
         <img
