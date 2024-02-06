@@ -5,7 +5,7 @@ import useGetReviews from "../../hooks/useGetReviews";
 
 export default function CustomerFeedback() {
   const { user } = useAuth();
-  const [reviews] = useGetReviews("email", user?.email);
+  const [reviews, refetch] = useGetReviews("email", user?.email);
 
   return (
     <>
@@ -19,7 +19,11 @@ export default function CustomerFeedback() {
 
         <div className="grid gap-8 lg:grid-cols-2 mt-7 ">
           {reviews?.map((review) => (
-            <FoodReviewCard1 key={review._id} review={review} />
+            <FoodReviewCard1
+              key={review._id}
+              review={review}
+              refetch={refetch}
+            />
           ))}
         </div>
       </div>
