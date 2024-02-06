@@ -3,6 +3,7 @@ import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetMenu from "../../hooks/useGetMenu";
+import comfirmAction from "../../utils/comfirmAction";
 import MenuCardBody from "./MenuCardBody";
 const ManageMenuCard = ({ item, onEditMenu }) => {
   const { _id, name, price, description, image_url } = item || {};
@@ -10,27 +11,21 @@ const ManageMenuCard = ({ item, onEditMenu }) => {
   const axiosSecure = useAxiosSecure();
   const { refetch } = useGetMenu();
   const handleDelete = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(`/menu/${id}`);
-        if (data.deletedCount > 0) {
-          refetch();
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your item has been deleted.",
-            icon: "success",
-          });
-        }
+    const { confirm } = await comfirmAction(
+      "Are you sure want to delete this item?",
+      "Delete"
+    );
+    if (confirm) {
+      const { data } = await axiosSecure.delete(`/menu/${id}`);
+      if (data.deletedCount > 0) {
+        refetch();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your item has been deleted.",
+          icon: "success",
+        });
       }
-    });
+    }
   };
   return (
     <div className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group ">

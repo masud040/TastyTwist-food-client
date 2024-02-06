@@ -17,9 +17,11 @@ export default function CustomerFeedback() {
           All Feedback
         </h1>
 
-        {reviews?.map((review) => (
-          <FoodReviewCard1 key={review._id} review={review} />
-        ))}
+        <div className="grid gap-8 lg:grid-cols-2 mt-7 ">
+          {reviews?.map((review) => (
+            <FoodReviewCard1 key={review._id} review={review} />
+          ))}
+        </div>
       </div>
       ;
     </>

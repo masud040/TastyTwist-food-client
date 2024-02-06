@@ -1,10 +1,10 @@
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaCartPlus } from "react-icons/fa";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
-import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { FaCartPlus } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetCartItem from "../../hooks/useGetCartItem";
+import useGetFavoriteItem from "../../hooks/useGetFavoriteItem";
+import comfirmAction from "../../utils/comfirmAction";
 
 const FavoriteCard = ({ favorite }) => {
   const { _id, name, price, image } = favorite || {};
@@ -25,28 +25,22 @@ const FavoriteCard = ({ favorite }) => {
     cartRefetch();
   };
   const deleteFromFavorite = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const toastId = toast.loading("Deleting...");
-        const { data } = await axiosSecure.delete(
-          `/carts-favorite/${id}?items=favorite`
-        );
-        refetch();
-        if (data.deletedCount > 0) {
-          toast.success("Deleted Successfully", {
-            id: toastId,
-          });
-        }
+    const { confirm } = await comfirmAction(
+      "Are you sure want to delete this item?",
+      "Delete"
+    );
+    if (confirm) {
+      const toastId = toast.loading("Deleting...");
+      const { data } = await axiosSecure.delete(
+        `/carts-favorite/${id}?items=favorite`
+      );
+      refetch();
+      if (data.deletedCount > 0) {
+        toast.success("Deleted Successfully", {
+          id: toastId,
+        });
       }
-    });
+    }
   };
 
   return (

@@ -23,7 +23,7 @@ export default function OrderCancelModal({
     e.preventDefault();
     const toastId = toast.loading("Cancelling...");
     const { data } = await axiosSecure.delete(
-      `/orders/${id}?name=${user?.displayName}&email=${user?.email}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}&sellerEmail=${sellerEmail}`
+      `/orders/${id}?name=${user?.displayName}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}&sellerEmail=${sellerEmail}`
     );
     if (data.insertedId) {
       toast.success("Cancelled", {
