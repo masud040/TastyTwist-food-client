@@ -91,9 +91,13 @@ export default function FoodDetailsModal({
                           <FoodReviewCard key={review._id} review={review} />
                         ))
                       ) : (
-                        <p className="text-center text-sm">
-                          no review for this product
-                        </p>
+                        <>
+                          {showReviews && (
+                            <p className="text-center text-sm">
+                              no review for this product
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                     <div className="flex justify-between gap-7">

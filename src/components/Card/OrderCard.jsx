@@ -2,12 +2,14 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useGetOrderItem from "../../hooks/useGetOrderItem";
+import comfirmAction from "../../utils/comfirmAction";
 import FeedbackModal from "../Modal/FeebackModal/FeedbackModal";
 import OrderCancelModal from "../Modal/OrderCancel/OrderCancelModal";
 import OrderCardBody from "./OrderCardBody";
 
 const OrderCard = ({ item, estimatedDate, status, id }) => {
   const { name, image, count, menuId, sellerEmail } = item || {};
+
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
   const [isFeebackOpen, setIsFeedbackOpen] = useState(false);
@@ -32,6 +34,15 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       }, 2000);
     }
   };
+  async function openModal() {
+    const { confirm } = await comfirmAction(
+      "Are you sure want to cancel this order?",
+      "Cancel"
+    );
+    if (confirm) {
+      setIsOpen(true);
+    }
+  }
 
   const closeCancelModal = () => {
     setIsOpen(false);
@@ -59,6 +70,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
           refetch={refetch}
           id={id}
           menuId={menuId}
+          sellerEmail={sellerEmail}
         />
       )}
       <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
@@ -76,7 +88,11 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
               Share Your Feedback
             </button>
           )}
-          <button onClick={() => setIsOpen(true)} className="text-primary">
+          <button
+            hidden={status === "delivered"}
+            onClick={openModal}
+            className="text-primary"
+          >
             Cancel
           </button>
         </div>

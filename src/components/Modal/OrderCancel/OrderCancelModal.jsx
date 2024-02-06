@@ -1,7 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
-import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import CloseModal from "../../Button/CloseModal";
@@ -12,39 +11,29 @@ export default function OrderCancelModal({
   id,
   menuId,
   refetch,
+  sellerEmail,
 }) {
   const { user } = useAuth();
   const [cancelReason, setCancelReason] = useState({
     reason: "",
   });
+
   const axiosSecure = useAxiosSecure();
-  const handleCancel = (e) => {
+  const handleCancel = async (e) => {
     e.preventDefault();
-    Swal.fire({
-      title: "Are you sure want to cancel this order?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, cancel it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const toastId = toast.loading("Cancelling...");
-        const { data } = await axiosSecure.delete(
-          `/orders/${id}?name=${user?.displayName}&email=${user?.email}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}`
-        );
-        if (data.insertedId) {
-          toast.success("Cancelled", {
-            id: toastId,
-          });
-          refetch();
-          setTimeout(() => {
-            closeModal();
-          }, 2000);
-        }
-      }
-    });
+    const toastId = toast.loading("Cancelling...");
+    const { data } = await axiosSecure.delete(
+      `/orders/${id}?name=${user?.displayName}&email=${user?.email}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}&sellerEmail=${sellerEmail}`
+    );
+    if (data.insertedId) {
+      toast.success("Cancelled", {
+        id: toastId,
+      });
+      refetch();
+      setTimeout(() => {
+        closeModal();
+      }, 3000);
+    }
   };
 
   return (

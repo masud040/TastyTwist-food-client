@@ -1,12 +1,27 @@
 import { Helmet } from "react-helmet-async";
+import FoodReviewCard1 from "../../components/Card/FoodReviewCard1";
+import useAuth from "../../hooks/useAuth";
+import useGetReviews from "../../hooks/useGetReviews";
 
 export default function CustomerFeedback() {
+  const { user } = useAuth();
+  const [reviews] = useGetReviews("email", user?.email);
+
   return (
     <>
       <Helmet>
         <title>TastyTwistOnline | Feedback</title>
       </Helmet>
-      <div></div>;
+      <div>
+        <h1 className="text-center text-indigo-500 text-xl font-semibold">
+          All Feedback
+        </h1>
+
+        {reviews?.map((review) => (
+          <FoodReviewCard1 key={review._id} review={review} />
+        ))}
+      </div>
+      ;
     </>
   );
 }

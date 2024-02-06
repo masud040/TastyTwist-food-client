@@ -3,6 +3,7 @@ import OrderCard from "../Card/OrderCard";
 const AllOrders = ({ orderItem }) => {
   const { _id, total, orderId, date, estimatedDate, cartItems, status } =
     orderItem || {};
+
   const formatDate = date.split(":")[0]?.split(" ")?.slice(0, 3)?.join(" ");
 
   return (

@@ -1,8 +1,13 @@
+import Aos from "aos";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 
 const DashboardLayout = () => {
+  useEffect(() => {
+    Aos.init();
+  }, []);
   return (
     <>
       <Helmet>

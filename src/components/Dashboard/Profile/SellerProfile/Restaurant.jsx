@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
-import confirmEditRestaurant from "../../../../utils/comfirmEditRestaurant";
+import comfirmAction from "../../../../utils/comfirmAction";
 import EditRestaurant from "../../../Modal/EditRestaurant/EditRestaurant";
 export default function Restaurant({ restaurant, refetch }) {
   const {
@@ -20,7 +20,10 @@ export default function Restaurant({ restaurant, refetch }) {
     setIsOpen(false);
   }
   async function openModal() {
-    const { confirm } = await confirmEditRestaurant();
+    const { confirm } = await comfirmAction(
+      "Are you sure want to edit this restaurant?",
+      "Edit"
+    );
     if (confirm) {
       setIsOpen(true);
     }
