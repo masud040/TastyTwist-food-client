@@ -1,12 +1,14 @@
-import { useState } from "react";
-import categories from "../../../data/Category.json";
-import { FaSearch } from "react-icons/fa";
-import InputModal from "../../Modal/InputModal";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import queryString from "query-string";
-
+import { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { TbAdjustmentsSearch } from "react-icons/tb";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import categories from "../../../data/Category.json";
+import InputModal from "../../Modal/InputModal";
+import FilterSidebar from "../../Sidebar/FilterSidebar";
 const Categories = ({ email, currentCategory }) => {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [showFilterBar, setShowFilterBar] = useState(false);
   const [params] = useSearchParams();
   const navigate = useNavigate();
 
@@ -33,9 +35,15 @@ const Categories = ({ email, currentCategory }) => {
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="text-lg hover:bg-pink-50 rounded-lg text-center  transition-all delay-200 px-2 py-4"
+          className="text-lg hover:bg-pink-50 rounded-lg text-center  transition-all sm:hidden md:flex delay-200 px-2 py-4"
         >
           <FaSearch />
+        </button>
+        <button
+          onClick={() => setShowFilterBar((s) => !s)}
+          className="text-lg  md:hidden hover:bg-pink-50 rounded-lg text-center  transition-all delay-200 px-2 py-4"
+        >
+          <TbAdjustmentsSearch />
         </button>
 
         <div
@@ -58,6 +66,7 @@ const Categories = ({ email, currentCategory }) => {
         </div>
       </div>
       <InputModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <FilterSidebar isShow={showFilterBar} />
     </>
   );
 };

@@ -10,7 +10,7 @@ const InputModal = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-50" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -34,13 +34,12 @@ const InputModal = ({ isOpen, setIsOpen }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all relative">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all relative">
                   <div className="absolute bg-white rounded-full top-0 z-30 right-1  hover:scale-110  transition-all">
                     <span onClick={closeModal}>
-                      <IoIosClose className="text-3xl   text-primary" />
+                      <IoIosClose className="text-3xl text-primary" />
                     </span>
                   </div>
-                  {/* <CloseModal onClose={closeModal} /> */}
 
                   <div className="w-full">
                     <Input size="lg" label="Search Food" />

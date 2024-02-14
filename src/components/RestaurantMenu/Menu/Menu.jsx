@@ -1,6 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 
 import { useState } from "react";
 import Select from "react-select";
@@ -11,7 +11,7 @@ const options = [
 ];
 
 const Menu = ({ email }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("");
   const [params] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const category = params.get("category");
@@ -29,7 +29,7 @@ const Menu = ({ email }) => {
     <div className="grid grid-cols-5 gap-6  mt-6">
       <div className="hidden md:block min-h-[30px] col-span-1 text-dark-gray ">
         <h1 className="text-xl font-semibold  mb-4">Filter</h1>
-        <h4 className="lg font-bold">Price</h4>
+        <p className="lg font-bold">Price</p>
         <Select
           defaultValue={selectedOption}
           onChange={(e) => setSelectedOption(e.value)}
