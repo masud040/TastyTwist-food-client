@@ -21,7 +21,7 @@ const Menu = ({ email }) => {
     queryKey: ["menu", email, category],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
-        `/menu/${email}?category=${category ? category : "popular"}`
+        `/menu/${email}?category=${category ? category : "popular"}&&order=asc`
       );
       return data;
     },

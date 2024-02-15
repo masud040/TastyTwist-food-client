@@ -1,29 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
+import { useSearchParams } from "react-router-dom";
+import { FilterContext } from "../../context";
 import useDebounce from "../../hooks/useDebounce";
 import "./rangeStyle.css";
-export default function ControlRange() {
+export default function ControlRange({ email, order }) {
+  const [params] = useSearchParams();
+  const category = params?.get("category");
+  const { filteredMenu, fetchFilteredData } = useContext(FilterContext);
+  console.log(filteredMenu);
   const [priceRange, setPriceRange] = useState({
     min: 60,
     max: 500,
   });
-  const doSearch = useDebounce((price) => {
-    let ignore = false;
-    if (!ignore) {
-      setPriceRange({
-        min: price[0],
-        max: price[1],
-      });
-    }
-    return () => {
-      ignore = true;
-    };
+  const doSearch = useDebounce((minPrice, maxPrice) => {
+    fetchFilteredData(email, category, order, minPrice, maxPrice);
   }, 1000);
 
   function handleChange(e) {
-    doSearch(e);
+    doSearch(e[0], e[1]);
+    setPriceRange({
+      min: e[0],
+      max: e[1],
+    });
   }
   return (
     <div>

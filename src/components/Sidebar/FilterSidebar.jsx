@@ -1,11 +1,11 @@
+import { useState } from "react";
 import "react-range-slider-input/dist/style.css";
-import { useSearchParams } from "react-router-dom";
 import ControlRange from "../FilterController/ControlRange";
 import SearchField from "../FilterController/SearchField";
 import SelectByLevel from "../FilterController/SelectByLevel";
 export default function FilterSidebar({ isShow, email }) {
-  const [params] = useSearchParams();
-  const category = params?.get("category");
+  const [selectedOption, setSelectedOption] = useState("asc");
+
   return (
     <div
       className={`${
@@ -15,8 +15,11 @@ export default function FilterSidebar({ isShow, email }) {
       <h1 className="text-lg font-semibold  mb-3">Filter</h1>
       <div className="text-dark-gray flex flex-col gap-4 ">
         <SearchField />
-        <ControlRange email={email} />
-        <SelectByLevel email={email} category={category} />
+        <ControlRange email={email} order={selectedOption} />
+        <SelectByLevel
+          email={email}
+          onSelect={(e) => setSelectedOption(e.value)}
+        />
       </div>
     </div>
   );
