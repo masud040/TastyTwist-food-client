@@ -4,12 +4,14 @@ import { FaSearch } from "react-icons/fa";
 import { TbAdjustmentsSearch } from "react-icons/tb";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import categories from "../../../data/Category.json";
+import { FilterItemProvider } from "../../../provider";
 import InputModal from "../../Modal/InputModal";
 import FilterSidebar from "../../Sidebar/FilterSidebar";
 const Categories = ({ email, currentCategory }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showFilterBar, setShowFilterBar] = useState(false);
   const [params] = useSearchParams();
+  const category = params.get("category");
   const navigate = useNavigate();
 
   const handleSetQuery = (label) => {
@@ -66,7 +68,13 @@ const Categories = ({ email, currentCategory }) => {
         </div>
       </div>
       <InputModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <FilterSidebar isShow={showFilterBar} />
+      <FilterItemProvider>
+        <FilterSidebar
+          isShow={showFilterBar}
+          email={email}
+          category={category}
+        />
+      </FilterItemProvider>
     </>
   );
 };

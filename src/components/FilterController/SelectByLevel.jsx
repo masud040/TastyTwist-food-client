@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Select from "react-select";
-import useGetMenu from "../../hooks/useGetMenu";
+import { FilterItemContext } from "../../context";
 const options = [
   { value: "desc", label: "Low To High" },
   { value: "asc", label: "High to Low" },
 ];
 export default function SelectByLevel() {
-  const [selectedOption, setSelectedOption] = useState("desc");
-  const { refetch } = useGetMenu(selectedOption);
+  const { selectedOption, setSelectedOption } = useContext(FilterItemContext);
+
   function handleChange(e) {
     setSelectedOption(e.value);
-    refetch();
   }
 
   return (

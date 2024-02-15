@@ -8,7 +8,7 @@ import useGetRestaurant from "../../hooks/useGetRestaurant";
 
 export default function RestaurantMenu() {
   const { email } = useParams();
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const category = params.get("category");
   const [restaurant, isLoading] = useGetRestaurant(email);
 

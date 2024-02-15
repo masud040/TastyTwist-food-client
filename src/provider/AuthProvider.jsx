@@ -8,10 +8,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { AuthContext } from "../context";
 import auth from "../firebase/firebase.config";
 
-export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

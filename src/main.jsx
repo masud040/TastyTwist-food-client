@@ -7,7 +7,7 @@ import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
-import AuthProvider from "./provider/AuthProvider";
+import { AuthProvider } from "./provider";
 import router from "./routes/Router";
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
