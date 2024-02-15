@@ -19,9 +19,9 @@ export default function RestaurantMenu() {
 
       <div>
         <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
-        <Categories email={email} />
 
         <FilterItemProvider>
+          <Categories email={email} />
           <Menu email={email} />
         </FilterItemProvider>
       </div>
