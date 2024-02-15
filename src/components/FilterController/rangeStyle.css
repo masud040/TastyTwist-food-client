@@ -1,11 +1,13 @@
 #range-slider-gradient {
-  height: 14px;
+  height: 10px;
   border-radius: 10px;
   background: #353644;
 }
 
 #range-slider-gradient .range-slider__thumb {
-  border: 5px solid #fff;
+  border: 3px solid #fff;
+  height: 19px;
+  width: 19px;
   box-sizing: border-box;
 }
 
@@ -28,6 +30,10 @@
   .range-slider__thumb[data-active]
   ~ .range-slider__range {
   animation: move-bg 0.75s infinite linear;
+}
+.box {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), #edf1f4);
+  box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1), -15px -15px 20px #fff;
 }
 
 @keyframes move-bg {
