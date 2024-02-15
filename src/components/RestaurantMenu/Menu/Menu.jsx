@@ -13,8 +13,9 @@ const options = [
 const Menu = ({ email }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [params] = useSearchParams();
-  const axiosSecure = useAxiosSecure();
   const category = params.get("category");
+  const axiosSecure = useAxiosSecure();
+
   const { data: menu } = useQuery({
     queryKey: ["menu", email, category],
     queryFn: async () => {
@@ -26,22 +27,24 @@ const Menu = ({ email }) => {
   });
 
   return (
-    <div className="grid grid-cols-5 gap-6  mt-6">
-      <div className="hidden md:block min-h-[30px] col-span-1 text-dark-gray ">
-        <h1 className="text-xl font-semibold  mb-4">Filter</h1>
-        <p className="lg font-bold">Price</p>
-        <Select
-          defaultValue={selectedOption}
-          onChange={(e) => setSelectedOption(e.value)}
-          options={options}
-        />
+    <>
+      <div className="grid grid-cols-5 gap-6  mt-6">
+        <div className="hidden md:block min-h-[30px] col-span-1 text-dark-gray ">
+          <h1 className="text-xl font-semibold  mb-4">Filter</h1>
+          <p className="lg font-bold">Price</p>
+          <Select
+            defaultValue={selectedOption}
+            onChange={(e) => setSelectedOption(e.value)}
+            options={options}
+          />
+        </div>
+        <div className=" min-h-[200px] col-span-5 md:col-span-4 space-y-4 lg:space-y-0 lg:grid grid-cols-2   gap-6">
+          {menu?.map((item) => (
+            <MenuCard key={item._id} item={item} />
+          ))}
+        </div>
       </div>
-      <div className=" min-h-[200px] col-span-5 md:col-span-4 space-y-4 lg:space-y-0 lg:grid grid-cols-2   gap-6">
-        {menu?.map((item) => (
-          <MenuCard key={item._id} item={item} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,17 +1,24 @@
 import { useState } from "react";
 import Select from "react-select";
+import useGetMenu from "../../hooks/useGetMenu";
 const options = [
-  { value: "asc", label: "Low To High" },
-  { value: "desc", label: "High to Low" },
+  { value: "desc", label: "Low To High" },
+  { value: "asc", label: "High to Low" },
 ];
 export default function SelectByLevel() {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("desc");
+  const { refetch } = useGetMenu(selectedOption);
+  function handleChange(e) {
+    setSelectedOption(e.value);
+    refetch();
+  }
+
   return (
     <div>
       <p className="text-sm mb-1 font-bold">Price</p>
       <Select
         defaultValue={selectedOption}
-        onChange={(e) => setSelectedOption(e.value)}
+        onChange={handleChange}
         options={options}
       />
     </div>

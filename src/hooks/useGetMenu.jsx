@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useGetMenu = () => {
+const useGetMenu = (order, minValue, maxValue) => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -13,7 +13,9 @@ const useGetMenu = () => {
     enabled: !loading && !!user?.email,
     queryKey: ["menuItem", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/menu/${user?.email}`);
+      const { data } = await axiosSecure.get(
+        `/menu/${user?.email}?order=${order}&&minValue=${minValue}&&maxValue=${maxValue}`
+      );
       return data;
     },
   });

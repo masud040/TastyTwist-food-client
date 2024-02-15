@@ -11,8 +11,8 @@ export default function ControlRange() {
   return (
     <div>
       <p className="text-sm mb-1  font-bold">Price range</p>
-      <div className="flex items-center box gap-2 text-sm p-2 text-indigo-500/90 font-semibold ">
-        <p>{value?.startValue}</p>
+      <div className="flex items-center box gap-1 text-sm py-2 text-indigo-500/90 font-semibold rounded-md">
+        <p className="w-10 text-center">{value?.startValue}</p>
         <RangeSlider
           onInput={(e) => {
             setValue({
@@ -26,7 +26,7 @@ export default function ControlRange() {
           min={60}
           max={500}
         />
-        <p>{value?.endValue}</p>
+        <p className="w-10 text-center">{value?.endValue}</p>
       </div>
     </div>
   );
