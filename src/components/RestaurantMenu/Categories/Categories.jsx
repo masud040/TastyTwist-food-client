@@ -35,7 +35,7 @@ const Categories = ({ email, currentCategory }) => {
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="text-lg hover:bg-pink-50 rounded-lg text-center  transition-all sm:hidden md:flex delay-200 px-2 py-4"
+          className="text-lg hover:bg-pink-50 rounded-lg text-center  transition-all hidden md:flex delay-200 px-2 py-4"
         >
           <FaSearch />
         </button>

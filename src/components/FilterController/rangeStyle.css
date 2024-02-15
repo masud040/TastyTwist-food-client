@@ -1,13 +1,11 @@
 #range-slider-gradient {
   height: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #353644;
 }
 
 #range-slider-gradient .range-slider__thumb {
-  border: 3px solid #fff;
-  height: 19px;
-  width: 19px;
+  border: 4px solid #fff;
   box-sizing: border-box;
 }
 

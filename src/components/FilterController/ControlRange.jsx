@@ -11,9 +11,21 @@ export default function ControlRange() {
   return (
     <div>
       <p className="text-sm mb-1  font-bold">Price range</p>
-      <div className="flex items-center box gap-2 text-sm p-2 text-indigo-500/90 font-semibold rounded-md">
+      <div className="flex items-center box gap-2 text-sm p-2 text-indigo-500/90 font-semibold ">
         <p>{value?.startValue}</p>
-        <RangeSlider id="range-slider-gradient" className="margin-lg" />
+        <RangeSlider
+          onInput={(e) => {
+            setValue({
+              startValue: e[0],
+              endValue: e[1],
+            });
+          }}
+          id="range-slider-gradient"
+          className="margin-lg"
+          value={[value?.startValue, value?.endValue]}
+          min={60}
+          max={500}
+        />
         <p>{value?.endValue}</p>
       </div>
     </div>
