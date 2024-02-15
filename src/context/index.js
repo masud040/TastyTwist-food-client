@@ -1,5 +1,4 @@
 import { createContext } from "react";
-
-const FilterItemContext = createContext("");
-const AuthContext = createContext(null);
-export { AuthContext, FilterItemContext };
+const FilterContext = createContext("");
+const AuthContext = createContext("");
+export { AuthContext, FilterContext };

@@ -1,19 +1,28 @@
-import { useContext } from "react";
+import { useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { FilterItemContext } from "../../context";
+
 import useDebounce from "../../hooks/useDebounce";
 import "./rangeStyle.css";
 export default function ControlRange() {
-  const { priceRange, setPriceRange } = useContext(FilterItemContext);
+  const [priceRange, setPriceRange] = useState({
+    min: 60,
+    max: 500,
+  });
   const doSearch = useDebounce((price) => {
-    setPriceRange({
-      min: price[0],
-      max: price[1],
-    });
+    let ignore = false;
+    if (!ignore) {
+      setPriceRange({
+        min: price[0],
+        max: price[1],
+      });
+    }
+    return () => {
+      ignore = true;
+    };
   }, 1000);
+
   function handleChange(e) {
-    console.log(e);
     doSearch(e);
   }
   return (
@@ -25,6 +34,7 @@ export default function ControlRange() {
           onInput={handleChange}
           id="range-slider-gradient"
           className="margin-lg"
+          value={[priceRange.min, priceRange.max]}
           min={60}
           max={500}
         />

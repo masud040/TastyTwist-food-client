@@ -1,20 +1,11 @@
-import { useContext } from "react";
 import "react-range-slider-input/dist/style.css";
-import { FilterItemContext } from "../../context";
-import useGetMenuByUser from "../../hooks/useGetMenuByUser";
+import { useSearchParams } from "react-router-dom";
 import ControlRange from "../FilterController/ControlRange";
 import SearchField from "../FilterController/SearchField";
 import SelectByLevel from "../FilterController/SelectByLevel";
-export default function FilterSidebar({ isShow, email, category }) {
-  const { priceRange, setPriceRange, selectedOption, setSelectedOption } =
-    useContext(FilterItemContext);
-  const { restaurantMenu, refetch } = useGetMenuByUser(
-    email,
-    category,
-    selectedOption,
-    priceRange
-  );
-
+export default function FilterSidebar({ isShow, email }) {
+  const [params] = useSearchParams();
+  const category = params?.get("category");
   return (
     <div
       className={`${
@@ -24,8 +15,8 @@ export default function FilterSidebar({ isShow, email, category }) {
       <h1 className="text-lg font-semibold  mb-3">Filter</h1>
       <div className="text-dark-gray flex flex-col gap-4 ">
         <SearchField />
-        <ControlRange />
-        <SelectByLevel />
+        <ControlRange email={email} />
+        <SelectByLevel email={email} category={category} />
       </div>
     </div>
   );

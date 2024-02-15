@@ -1,12 +1,11 @@
-import { useContext } from "react";
+import { useState } from "react";
 import Select from "react-select";
-import { FilterItemContext } from "../../context";
 const options = [
-  { value: "desc", label: "Low To High" },
-  { value: "asc", label: "High to Low" },
+  { value: "asc", label: "Low To High" },
+  { value: "desc", label: "High to Low" },
 ];
-export default function SelectByLevel() {
-  const { selectedOption, setSelectedOption } = useContext(FilterItemContext);
+export default function SelectByLevel({ email, category }) {
+  const [selectedOption, setSelectedOption] = useState("asc");
 
   function handleChange(e) {
     setSelectedOption(e.value);

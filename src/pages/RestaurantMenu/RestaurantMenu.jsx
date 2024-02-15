@@ -1,15 +1,14 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { Helmet } from "react-helmet-async";
 import Categories from "../../components/RestaurantMenu/Categories/Categories";
 import Menu from "../../components/RestaurantMenu/Menu/Menu";
 import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
 import useGetRestaurant from "../../hooks/useGetRestaurant";
+import FilterItemProvider from "../../provider/FilterItemProvider";
 
 export default function RestaurantMenu() {
   const { email } = useParams();
-  const [params] = useSearchParams();
-  const category = params.get("category");
   const [restaurant, isLoading] = useGetRestaurant(email);
 
   return (
@@ -20,12 +19,11 @@ export default function RestaurantMenu() {
 
       <div>
         <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
-        <Categories
-          email={email}
-          currentCategory={category ? category : "popular"}
-        />
+        <Categories email={email} />
 
-        <Menu email={email} />
+        <FilterItemProvider>
+          <Menu email={email} />
+        </FilterItemProvider>
       </div>
     </>
   );

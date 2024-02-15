@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Select from "react-select";
-import useGetMenuByUser from "../../../hooks/useGetMenuByUser";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import MenuCard from "../../Card/MenuCard";
 const options = [
   { value: "asc", label: "Low To High" },
@@ -10,12 +12,21 @@ const options = [
 
 const Menu = ({ email }) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [category, setCategory] = useState("");
+  const { loading } = useAuth();
   const [params] = useSearchParams();
-  const { restaurantMenu } = useGetMenuByUser(email, category);
-  useEffect(() => {
-    setCategory(params.get("category"));
-  }, [params]);
+  const category = params?.get("category");
+  const axiosSecure = useAxiosSecure();
+  const { data: restaurantMenu } = useQuery({
+    enabled: !loading && !!email,
+    queryKey: ["menu", email, category],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/menu/${email}?category=${category ? category : "popular"}`
+      );
+      return data;
+    },
+  });
+
   return (
     <>
       <div className="grid grid-cols-5 gap-6  mt-6">
