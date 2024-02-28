@@ -5,7 +5,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import comfirmAction from "../../utils/comfirmAction";
 
 export default function FoodReviewCard1({ review, refetch }) {
-  const { _id, rating, message, userName, photo, reason } = review || {};
+  const { _id, rating, message, userName, userEmail, photo, reason } =
+    review || {};
   const axiosSecure = useAxiosSecure();
 
   async function deleteFeedback(id) {
@@ -30,11 +31,11 @@ export default function FoodReviewCard1({ review, refetch }) {
       data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="1500"
-      className="flex items-center gap-4  bg-indigo-100 p-2 rounded-lg"
+      className="flex items-center h-20 gap-4 p-2 bg-indigo-100 rounded-lg"
     >
-      <img src={photo} alt="" className="h-8 w-8 rounded-full" />
-      <div>
-        <p className="text-xs text-center">{userName}</p>
+      <img src={photo} alt="" className="w-8 h-8 rounded-full" />
+      <div className="text-xs text-center">
+        <p>{userName}</p>
         {rating ? (
           <Rating
             initialRating={rating}
@@ -42,14 +43,19 @@ export default function FoodReviewCard1({ review, refetch }) {
             emptySymbol={<FaRegStar className="text-gray-600" />}
           />
         ) : (
-          <p className="text-xs">Cancelled</p>
+          <p>Cancelled</p>
         )}
       </div>
       <p className="text-xs">{message || reason}</p>
-      <div className="flex-1 flex justify-end">
+      <div className="flex justify-end flex-1 gap-5">
+        <div className="text-xs">
+          <p>{_id}</p>
+          <p>{userEmail}</p>
+        </div>
+
         <button
           onClick={() => deleteFeedback(_id)}
-          className="text-xs text-end bg-primary p-1 rounded-lg text-white/80"
+          className="p-1 text-xs rounded-lg text-end bg-primary text-white/80"
         >
           Delete
         </button>

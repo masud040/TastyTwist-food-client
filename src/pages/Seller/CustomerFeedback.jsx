@@ -13,7 +13,7 @@ export default function CustomerFeedback() {
         <title>TastyTwistOnline | Feedback</title>
       </Helmet>
       <div>
-        <h1 className="text-center text-indigo-500 text-xl font-semibold">
+        <h1 className="text-xl font-semibold text-center text-indigo-500">
           All Feedback
         </h1>
 
