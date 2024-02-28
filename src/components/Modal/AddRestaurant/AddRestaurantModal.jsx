@@ -115,7 +115,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
         setShowGreeting(true);
         setTimeout(() => {
           closeModal();
-        }, 4000);
+        }, 3000);
         refetch();
       }
       setDivisionName("default");
@@ -143,7 +143,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center ">
+          <div className="flex items-center justify-center min-h-full p-4 text-center ">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -153,11 +153,11 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative  ">
+              <Dialog.Panel className="relative w-full max-w-3xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl ">
                 <CloseModal onClose={closeModal} />
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium text-center leading-6 text-gray-900 mb-3"
+                  className="mb-3 text-lg font-medium leading-6 text-center text-gray-900"
                 >
                   Fill this form for your restaurant.
                 </Dialog.Title>
@@ -172,9 +172,9 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                       className="space-y-5"
                       onSubmit={handleSubmit(handleAddRestaurant)}
                     >
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Restaurant Name
                           </label>
                           <input
@@ -186,13 +186,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.name && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Restaurant Image
                           </label>
                           <input
@@ -204,15 +204,15 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.image && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Delivery Fee
                           </label>
                           <input
@@ -225,13 +225,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.delivery_fee && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Delivery Time
                           </label>
                           <input
@@ -243,15 +243,15 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.delivery_time && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Minimum Delivery Range
                           </label>
                           <input
@@ -266,13 +266,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.minimum_delivery_range && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">Cuisine</label>
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">Cuisine</label>
                           <input
                             placeholder="name of the cuisine"
                             {...register("cuisine", { required: true })}
@@ -282,15 +282,15 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.cuisine && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Menu name
                           </label>
                           <input
@@ -303,13 +303,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.menu && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Restaurant Email
                           </label>
                           <input
@@ -324,20 +324,20 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           />
 
                           {errors.email && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Select Division
                           </label>
                           <select
                             {...register("division", { required: true })}
-                            className="input bg-gray-200"
+                            className="bg-gray-200 input"
                             defaultValue="default"
                             onChange={handleDivision}
                           >
@@ -352,13 +352,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           </select>
 
                           {errors.division && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Select City
                           </label>
                           <select
@@ -366,7 +366,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                               !divisionName || divisionName === "default"
                             }
                             {...register("city", { required: true })}
-                            className="input bg-gray-200 disabled:cursor-not-allowed"
+                            className="bg-gray-200 input disabled:cursor-not-allowed"
                             value={cityName || "default"}
                             onChange={handleAddCity}
                           >
@@ -381,21 +381,21 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           </select>
 
                           {errors.city && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">
                             Select Area
                           </label>
                           <select
                             disabled={!cityName || cityName === "default"}
                             {...register("area", { required: true })}
-                            className="input bg-gray-200 disabled:cursor-not-allowed"
+                            className="bg-gray-200 input disabled:cursor-not-allowed"
                             value={areaName || "default"}
                             onChange={handleAddArea}
                           >
@@ -410,14 +410,14 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                           </select>
 
                           {errors.area && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
 
-                        <div className="flex-1 relative">
-                          <label className="text-xs mb-1 block">Mobile</label>
+                        <div className="relative flex-1">
+                          <label className="block mb-1 text-xs">Mobile</label>
                           <input
                             placeholder="Your mobile number"
                             {...register("mobile", { required: true })}
@@ -426,15 +426,15 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                             onChange={handleChange}
                           />
                           {errors.mobile && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
                       </div>
-                      <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                        <div className="flex-1 pb-4 relative">
-                          <label className="text-xs mb-1 block">Address</label>
+                      <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                        <div className="relative flex-1 pb-4">
+                          <label className="block mb-1 text-xs">Address</label>
                           <input
                             placeholder="Your restaurant address"
                             {...register("address", { required: true })}
@@ -443,13 +443,13 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                             onChange={handleChange}
                           />
                           {errors.address && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
                         </div>
-                        <div className="flex-1 pb-4 relative">
-                          <label className="text-xs mb-1 block">Message</label>
+                        <div className="relative flex-1 pb-4">
+                          <label className="block mb-1 text-xs">Message</label>
                           <textarea
                             placeholder="Message"
                             {...register("message", { required: true })}
@@ -459,7 +459,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                             onChange={handleChange}
                           />
                           {errors.message && (
-                            <p className="text-primary text-xs absolute">
+                            <p className="absolute text-xs text-primary">
                               You can not leave this empty.
                             </p>
                           )}
@@ -472,7 +472,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
                         }
                         type="submit"
                         value="Submit"
-                        className="bg-primary px-12 py-1 rounded-md text-white disabled:bg-gray-400 "
+                        className="px-12 py-1 text-white rounded-md bg-primary disabled:bg-gray-400 "
                       />
                     </form>
                   )}

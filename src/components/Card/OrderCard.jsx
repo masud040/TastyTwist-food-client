@@ -22,6 +22,7 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       ...feedback,
       userName: user?.displayName || "Anonymous",
       photo: user?.photoURL,
+      userEmail: user?.email,
       menuId,
       sellerEmail,
     };
@@ -73,17 +74,17 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
           sellerEmail={sellerEmail}
         />
       )}
-      <div className=" text-gray-800 bg-gray-100 px-2 py-3 rounded-md drop-shadow-lg space-y-2 overflow-x-auto">
-        <div className=" flex gap-6 justify-between  items-center  text-sm">
+      <div className="px-2 py-3 space-y-2 overflow-x-auto text-gray-800 bg-gray-100 rounded-md drop-shadow-lg">
+        <div className="flex items-center justify-between gap-6 text-sm ">
           <OrderCardBody image={image} name={name} count={count} />
           {status !== "delivered" ? (
-            <p className="text-xs bg-primary text-white p-1 w-20 text-center rounded-xl px-2">
+            <p className="w-20 p-1 px-2 text-xs text-center text-white bg-primary rounded-xl">
               {status}
             </p>
           ) : (
             <button
               onClick={() => setIsFeedbackOpen(true)}
-              className="text-xs bg-primary text-white p-1 px-2 text-center rounded-xl"
+              className="p-1 px-2 text-xs text-center text-white bg-primary rounded-xl"
             >
               Share Your Feedback
             </button>
