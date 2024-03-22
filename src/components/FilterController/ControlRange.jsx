@@ -1,24 +1,33 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 
 import { useSearchParams } from "react-router-dom";
-import { FilterContext } from "../../context";
+import actions from "../../actions";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useDebounce from "../../hooks/useDebounce";
+import useFilter from "../../hooks/useFilter";
 import "./rangeStyle.css";
 export default function ControlRange({ email, order }) {
   const [params] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const category = params?.get("category");
-  const { state, actions } = useContext(FilterContext);
+  const { dispatch } = useFilter();
+
   const fetchFilteredData = async (email, order, minPrice, maxPrice) => {
-    const { data } = await axiosSecure.get(
-      `/menu/${email}?category=${
-        category ? category : "popular"
-      }&&order=${order}&&minPrice=${minPrice}&&maxPrice=${maxPrice}`
-    );
-    console.log(data);
+    try {
+      dispatch({ type: actions.food.DATA_FETCHING });
+      const response = await axiosSecure.get(
+        `/menu/${email}?category=${
+          category ? category : "popular"
+        }&&order=${order}&&minPrice=${minPrice}&&maxPrice=${maxPrice}`
+      );
+      if (response.status === 200) {
+        dispatch({ type: actions.food.DATA_FETCHED, data: response.data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [priceRange, setPriceRange] = useState({

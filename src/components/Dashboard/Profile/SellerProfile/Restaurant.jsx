@@ -39,17 +39,17 @@ export default function Restaurant({ restaurant, refetch }) {
           refetch={refetch}
         />
       )}
-      <div className="lg:flex justify-center items-center gap-8">
+      <div className="items-center justify-center gap-8 lg:flex">
         <div className="mb-6 lg:mb-0 ">
-          <p className="text-sm mb-5 text-center">Restaurant Image</p>
+          <p className="mb-5 text-sm text-center">Restaurant Image</p>
           <img
             src={image_url}
             alt={name}
             className="rounded-lg md:h-[200px] min-w-full"
           />
         </div>
-        <div className="flex-1  lg:max-w-md">
-          <p className="text-center text-sm underline mb-5">Details</p>
+        <div className="flex-1 lg:max-w-md">
+          <p className="mb-5 text-sm text-center underline">Details</p>
           <div className="flex justify-evenly gap-8 border border-gray-400 rounded-lg lg:h-[200px] py-4 lg:py-0">
             <div>
               <AddLabel label="Name" text={name} name={true} />
@@ -70,7 +70,7 @@ export default function Restaurant({ restaurant, refetch }) {
       <div className="flex justify-end mt-4">
         <button
           onClick={openModal}
-          className="bg-primary p-2 text-white/95 rounded-lg flex justify-center text-xs items-center gap-1"
+          className="flex items-center justify-center gap-1 p-2 text-xs rounded-lg bg-primary text-white/95"
         >
           Edit Details
           <MdEdit />
@@ -82,7 +82,7 @@ export default function Restaurant({ restaurant, refetch }) {
 function AddLabel({ label, text, name }) {
   return (
     <>
-      <label className="text-xs block mt-2">{label}</label>
+      <label className="block mt-2 text-xs">{label}</label>
       <h4 className={`  ${name ? "text-xl text-primary font-bold" : ""}`}>
         {text}
       </h4>

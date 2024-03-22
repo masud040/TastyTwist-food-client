@@ -7,16 +7,20 @@ import CloseModal from "../../Button/CloseModal";
 const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const handleEditEmail = async (e) => {
-    e.preventDefault();
-    const userEmail = e.target.email.value;
-    const { data } = await axiosSecure.patch(
-      `/email/${email}?email=${userEmail}`
-    );
+    try {
+      e.preventDefault();
+      const userEmail = e.target.email.value;
+      const { data } = await axiosSecure.patch(
+        `/email/${email}?email=${userEmail}`
+      );
 
-    if (data.modifiedCount > 0) {
-      toast.success("Email updated successfully");
-      refetch();
-      closeModal();
+      if (data.modifiedCount > 0) {
+        toast.success("Email updated successfully");
+        refetch();
+        closeModal();
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
@@ -35,7 +39,7 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-center justify-center min-h-full text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -50,16 +54,16 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
 
                 <Dialog.Title
                   as="h3"
-                  className=" mb-1 font-normal leading-6 text-gray-900"
+                  className="mb-1 font-normal leading-6 text-gray-900 "
                 >
                   Email
                 </Dialog.Title>
                 <hr />
-                <p className="text-xs mt-4 text-indigo-600">Email</p>
-                <div className="mt-2 w-full">
+                <p className="mt-4 text-xs text-indigo-600">Email</p>
+                <div className="w-full mt-2">
                   <form onSubmit={handleEditEmail}>
                     <input
-                      className="block w-full p-2 rounded-md border focus:outline-none focus:border-indigo-500 transition-colors duration-500"
+                      className="block w-full p-2 transition-colors duration-500 border rounded-md focus:outline-none focus:border-indigo-500"
                       type="email"
                       name="email"
                       defaultValue={email}
@@ -67,7 +71,7 @@ const EditEmailModal = ({ isEmailOpen, closeModal, email, refetch }) => {
 
                     <button
                       type="submit"
-                      className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold"
+                      className="w-full p-2 mt-20 font-semibold text-white rounded-lg bg-primary"
                     >
                       Confirm
                     </button>

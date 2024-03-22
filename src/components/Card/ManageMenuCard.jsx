@@ -11,27 +11,31 @@ const ManageMenuCard = ({ item, onEditMenu }) => {
   const axiosSecure = useAxiosSecure();
   const { refetch } = useGetMenu();
   const handleDelete = async (id) => {
-    const { confirm } = await comfirmAction(
-      "Are you sure want to delete this item?",
-      "Delete"
-    );
-    if (confirm) {
-      const { data } = await axiosSecure.delete(`/menu/${id}`);
-      if (data.deletedCount > 0) {
-        refetch();
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your item has been deleted.",
-          icon: "success",
-        });
+    try {
+      const { confirm } = await comfirmAction(
+        "Are you sure want to delete this item?",
+        "Delete"
+      );
+      if (confirm) {
+        const { data } = await axiosSecure.delete(`/menu/${id}`);
+        if (data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your item has been deleted.",
+            icon: "success",
+          });
+        }
       }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
     <div
       data-aos="zoom-in-up"
       data-aos-duration="1500"
-      className="flex justify-between items-center text-dark-gray border gap-3 border-gray-300 rounded-lg p-2 group "
+      className="flex items-center justify-between gap-3 p-2 border border-gray-300 rounded-lg text-dark-gray group "
     >
       <MenuCardBody name={name} description={description} price={price} />
       <div className="relative">
@@ -41,16 +45,16 @@ const ManageMenuCard = ({ item, onEditMenu }) => {
       transition w-[120px]"
           alt=""
         />
-        <div className="absolute bottom-1 right-1 text-3xl flex gap-4">
+        <div className="absolute flex gap-4 text-3xl bottom-1 right-1">
           <button
             onClick={() => onEditMenu(item)}
-            className="  transition-all delay-100    rounded-full text-pink-400"
+            className="text-pink-400 transition-all delay-100 rounded-full "
           >
             <FaEdit />
           </button>
           <button
             onClick={() => handleDelete(_id)}
-            className="  transition-all delay-100     rounded-full text-red-800"
+            className="text-red-800 transition-all delay-100 rounded-full "
           >
             <MdDelete />
           </button>

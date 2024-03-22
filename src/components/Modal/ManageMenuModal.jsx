@@ -21,62 +21,66 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
     menuToUpdate || {};
 
   const handleProduct = async (event, isAdd) => {
-    event.preventDefault();
-    setLoading(true);
-    const form = event.target;
-    const name = form.name.value;
-    const price = parseFloat(form.price.value);
-    const category = form.category.value;
-    const description = form.description.value;
-    if (isAdd) {
-      const image = form.image.files[0];
-      const email = user?.email;
-      const { url } = await imageUpload(image);
-      const menuObj = {
-        name,
-        image_url: url,
-        price,
-        category,
-        description,
-        email,
-      };
-      const { data } = await axiosSecure.post("/menu", menuObj);
-      if (data?.insertedId) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Your item is Added",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        form.reset();
-        refetch();
-        setLoading(false);
-      }
-    } else {
-      const image = form.image.value;
-      const menuObj = {
-        name,
-        image_url: image,
-        price,
-        category,
-        description,
-      };
+    try {
+      event.preventDefault();
+      setLoading(true);
+      const form = event.target;
+      const name = form.name.value;
+      const price = parseFloat(form.price.value);
+      const category = form.category.value;
+      const description = form.description.value;
+      if (isAdd) {
+        const image = form.image.files[0];
+        const email = user?.email;
+        const { url } = await imageUpload(image);
+        const menuObj = {
+          name,
+          image_url: url,
+          price,
+          category,
+          description,
+          email,
+        };
+        const { data } = await axiosSecure.post("/menu", menuObj);
+        if (data?.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your item is Added",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          form.reset();
+          refetch();
+          setLoading(false);
+        }
+      } else {
+        const image = form.image.value;
+        const menuObj = {
+          name,
+          image_url: image,
+          price,
+          category,
+          description,
+        };
 
-      const { data } = await axiosSecure.patch(`/menu/edit/${_id}`, menuObj);
-      if (data.modifiedCount > 0) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Edit Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-        setLoading(false);
+        const { data } = await axiosSecure.patch(`/menu/edit/${_id}`, menuObj);
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Edit Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch();
+          setLoading(false);
+        }
       }
+      closeModal();
+    } catch (error) {
+      console.log(error.message);
     }
-    closeModal();
   };
 
   return (
@@ -95,7 +99,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex items-center justify-center min-h-full p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -105,11 +109,11 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-xl p-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <CloseModal onClose={closeModal} />
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium text-center leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-center text-gray-900"
                 >
                   {isAdd ? "Add New Item" : " Edit Existing Menu"}
                 </Dialog.Title>
@@ -118,7 +122,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                     onSubmit={() => handleProduct(event, isAdd)}
                     className="space-y-2"
                   >
-                    <div className="md:flex  justify-between md:gap-8 items-center space-y-2 md:space-y-0">
+                    <div className="items-center justify-between space-y-2 md:flex md:gap-8 md:space-y-0">
                       <div className="flex-1 w-full">
                         <label className="block mb-2 text-sm font-medium text-gray-900">
                           Name
@@ -126,7 +130,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                         <input
                           type="text"
                           name="name"
-                          className="block p-2  text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 w-full "
+                          className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:outline-none focus:border-purple-500 "
                           placeholder="Name"
                           defaultValue={name}
                           required
@@ -148,14 +152,14 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                           <input
                             type="url"
                             name="image"
-                            className="block p-2  text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 w-full "
+                            className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:outline-none focus:border-purple-500 "
                             defaultValue={image_url}
                             required
                           />
                         )}
                       </div>
                     </div>
-                    <div className="md:flex md:gap-8 justify-between items-center space-y-2 md:space-y-0 mt-2 md:mt-0 ">
+                    <div className="items-center justify-between mt-2 space-y-2 md:flex md:gap-8 md:space-y-0 md:mt-0 ">
                       <div className="flex-1 w-full">
                         <label className="block mb-2 text-sm font-medium text-gray-900">
                           Price
@@ -163,13 +167,13 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                         <input
                           name="price"
                           type="number"
-                          className="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300  focus:outline-none focus:border-purple-500 "
+                          className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:outline-none focus:border-purple-500 "
                           placeholder="Price"
                           defaultValue={price}
                           required
                         />
                       </div>
-                      <div className=" flex-1 w-full ">
+                      <div className="flex-1 w-full ">
                         <label className="block mb-2 text-sm font-medium text-gray-900">
                           Select category
                         </label>
@@ -207,7 +211,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
                         className="bg-gradient-to-r from-[#CA43E1] to-[#7111EB] p-2 w-full mt-4 rounded-md text-lg text-white"
                       >
                         {loading ? (
-                          <TbFidgetSpinner className="text-xl w-full animate-spin" />
+                          <TbFidgetSpinner className="w-full text-xl animate-spin" />
                         ) : isAdd ? (
                           "Add"
                         ) : (

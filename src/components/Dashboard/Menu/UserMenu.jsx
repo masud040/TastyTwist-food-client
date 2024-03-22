@@ -46,33 +46,37 @@ const UserMenu = ({ handleToggle }) => {
     setIsResModalOpen(false);
   };
   const modalHandler = async () => {
-    if (!userAddress) {
-      navigate("/dashboard/address-book", { state: pathname, replace: true });
-      return toast.error(
-        "Please complete your profile before requesting a seller."
+    try {
+      if (!userAddress) {
+        navigate("/dashboard/address-book", { state: pathname, replace: true });
+        return toast.error(
+          "Please complete your profile before requesting a seller."
+        );
+      }
+      const currentUser = {
+        email: user?.email,
+        status: "Requested",
+      };
+      const { data } = await axiosSecure.put(
+        `/users/${user?.email}`,
+        currentUser
       );
-    }
-    const currentUser = {
-      email: user?.email,
-      status: "Requested",
-    };
-    const { data } = await axiosSecure.put(
-      `/users/${user?.email}`,
-      currentUser
-    );
 
-    if (data.modifiedCount > 0) {
-      const toastId = toast.loading(
-        "Success!, Please wait for admin approval🥰"
-      );
-      toast.success("Success!, Please wait for admin approval🥰", {
-        id: toastId,
-      });
-    } else {
-      const toastId = toast.loading("Please wait for admin approval🥰");
-      toast.success("Please wait for admin approval🥰", {
-        id: toastId,
-      });
+      if (data.modifiedCount > 0) {
+        const toastId = toast.loading(
+          "Success!, Please wait for admin approval🥰"
+        );
+        toast.success("Success!, Please wait for admin approval🥰", {
+          id: toastId,
+        });
+      } else {
+        const toastId = toast.loading("Please wait for admin approval🥰");
+        toast.success("Please wait for admin approval🥰", {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
@@ -98,22 +102,22 @@ const UserMenu = ({ handleToggle }) => {
       {userData?.role === "user" && !userData?.status && (
         <div
           onClick={openModal}
-          className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+          className="flex items-center px-4 py-1 mt-5 text-gray-600 transition-colors duration-300 transform cursor-pointer hover:bg-gray-300 hover:text-gray-700"
         >
           <MdFoodBank className="w-5 h-5" />
 
-          <span className="mx-4 font-medium text-sm">Become A Seller</span>
+          <span className="mx-4 text-sm font-medium">Become A Seller</span>
         </div>
       )}
 
       {userData?.status === "Approved" && (
         <div
           onClick={openRestaurantModal}
-          className="flex items-center px-4 py-1 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+          className="flex items-center px-4 py-1 mt-5 text-gray-600 transition-colors duration-300 transform cursor-pointer hover:bg-gray-300 hover:text-gray-700"
         >
           <MdFoodBank className="w-5 h-5" />
 
-          <button className="mx-4 font-medium text-sm"> Add Restaurant</button>
+          <button className="mx-4 text-sm font-medium"> Add Restaurant</button>
         </div>
       )}
       <SellerRequestModal

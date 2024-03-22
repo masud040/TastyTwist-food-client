@@ -113,9 +113,7 @@ export default function AddRestaurantModal({ isOpen, closeModal, refetch }) {
           id: toastId,
         });
         setShowGreeting(true);
-        setTimeout(() => {
-          closeModal();
-        }, 3000);
+
         refetch();
       }
       setDivisionName("default");

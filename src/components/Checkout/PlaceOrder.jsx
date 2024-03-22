@@ -32,67 +32,71 @@ const PlaceOrder = ({ total, cartItems }) => {
   }, [axiosSecure, total, user]);
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
-    const card = elements.getElement(CardElement);
-    if (card == null) {
-      return;
-    }
+    try {
+      event.preventDefault();
+      if (!stripe || !elements) {
+        return;
+      }
+      const card = elements.getElement(CardElement);
+      if (card == null) {
+        return;
+      }
 
-    const { error } = await stripe.createPaymentMethod({
-      type: "card",
-      card,
-    });
-    if (error) {
-      setError(error.message);
-    } else {
-      setError("");
-    }
-    const { paymentIntent, error: confirmError } =
-      await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            email: user.email || "anonymous",
-            name: user.displayName || "anonymous",
-          },
-        },
+      const { error } = await stripe.createPaymentMethod({
+        type: "card",
+        card,
       });
+      if (error) {
+        setError(error.message);
+      } else {
+        setError("");
+      }
+      const { paymentIntent, error: confirmError } =
+        await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: card,
+            billing_details: {
+              email: user.email || "anonymous",
+              name: user.displayName || "anonymous",
+            },
+          },
+        });
 
-    if (confirmError) {
-      console.log("confirm error", confirmError);
-    } else {
-      if (paymentIntent.status === "succeeded") {
-        const payment = {
-          email: user.email,
-          total: parseFloat(total),
-          orderId,
-          transactionId: paymentIntent.id,
-          date: Date(),
-          estimatedDate: possibleDateGenerator(),
-          cartId,
-          menuId,
-          cartItems,
-          sellerEmail,
-          status: "processing",
-        };
-        const { data } = await axiosSecure.post("/orders", payment);
-        if (data.insertedId) {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your payment is successfully & order has been placed",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          refetch();
-          navigate(
-            `/confirm-order/${orderId}?email=${user?.email}&price=${total}`
-          );
+      if (confirmError) {
+        console.log("confirm error", confirmError);
+      } else {
+        if (paymentIntent.status === "succeeded") {
+          const payment = {
+            email: user.email,
+            total: parseFloat(total),
+            orderId,
+            transactionId: paymentIntent.id,
+            date: Date(),
+            estimatedDate: possibleDateGenerator(),
+            cartId,
+            menuId,
+            cartItems,
+            sellerEmail,
+            status: "processing",
+          };
+          const { data } = await axiosSecure.post("/orders", payment);
+          if (data.insertedId) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your payment is successfully & order has been placed",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            refetch();
+            navigate(
+              `/confirm-order/${orderId}?email=${user?.email}&price=${total}`
+            );
+          }
         }
       }
+    } catch (err) {
+      console.log(err.message);
     }
   };
 
@@ -116,13 +120,13 @@ const PlaceOrder = ({ total, cartItems }) => {
           }}
         />
         <button
-          className="mt-4 w-full text-base bg-primary text-white p-1 rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="w-full p-1 mt-4 text-base text-white rounded-md bg-primary disabled:bg-gray-300 disabled:cursor-not-allowed"
           type="submit"
           disabled={!stripe || !clientSecret}
         >
           Pay Now
         </button>
-        <p className="text-red-700 text-xs mt-1">{error}</p>
+        <p className="mt-1 text-xs text-red-700">{error}</p>
       </form>
     </div>
   );

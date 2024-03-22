@@ -32,37 +32,45 @@ export default function ApprovedTableRow({ data }) {
     setSelectedEmail("");
   };
   const handleConfirm = async (details) => {
-    const { data } = await axiosSecure.post(
-      `/restaurants/${details.email}`,
-      details
-    );
-    setShowGreeting(true);
-    setTimeout(() => {
-      closeModal();
-    }, 4000);
-    refetch();
+    console.log(details);
+    try {
+      const { data } = await axiosSecure.post(
+        `/restaurants/${details.email}`,
+        details
+      );
+      if (data.acknowledged) {
+        setShowGreeting(true);
+        refetch();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   const handleCancel = async (email) => {
-    Swal.fire({
-      title: "Are you sure want to remove this restaurant?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, remove it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const { data } = await axiosSecure.delete(`/restaurants/${email}`);
-        if (data.deletedCount > 0) {
-          setShowGreeting(true);
-          setTimeout(() => {
-            closeModal();
-          }, 4000);
-          refetch();
+    try {
+      Swal.fire({
+        title: "Are you sure want to remove this restaurant?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, remove it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const { data } = await axiosSecure.delete(`/restaurants/${email}`);
+          if (data.deletedCount > 0) {
+            setShowGreeting(true);
+            setTimeout(() => {
+              closeModal();
+            }, 4000);
+            refetch();
+          }
         }
-      }
-    });
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <>
@@ -77,13 +85,13 @@ export default function ApprovedTableRow({ data }) {
         />
       )}
       <tr className="text-sm text-center border-b border-gray-200">
-        <td className="px-3  py-5  ">
+        <td className="px-3 py-5 ">
           <p className="text-gray-900 whitespace-no-wrap">{name}</p>
         </td>
-        <td className="px-3  py-5 ">
+        <td className="px-3 py-5 ">
           <p className="text-gray-900 whitespace-no-wrap">{email}</p>
         </td>
-        <td className="px-3  py-5 ">
+        <td className="px-3 py-5 ">
           <button
             onClick={() => handleShowDetails(email)}
             className="bg-blue-500 px-2 py-[2px] rounded-xl text-white/[85%] text-xs"

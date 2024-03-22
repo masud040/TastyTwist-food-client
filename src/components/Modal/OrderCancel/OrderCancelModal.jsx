@@ -20,19 +20,20 @@ export default function OrderCancelModal({
 
   const axiosSecure = useAxiosSecure();
   const handleCancel = async (e) => {
-    e.preventDefault();
-    const toastId = toast.loading("Cancelling...");
-    const { data } = await axiosSecure.delete(
-      `/orders/${id}?name=${user?.displayName}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}&sellerEmail=${sellerEmail}`
-    );
-    if (data.insertedId) {
-      toast.success("Cancelled", {
-        id: toastId,
-      });
-      refetch();
-      setTimeout(() => {
-        closeModal();
-      }, 3000);
+    try {
+      e.preventDefault();
+      const toastId = toast.loading("Cancelling...");
+      const { data } = await axiosSecure.delete(
+        `/orders/${id}?name=${user?.displayName}&image=${user?.photoURL}&reason=${cancelReason?.reason}&menuId=${menuId}&sellerEmail=${sellerEmail}`
+      );
+      if (data.insertedId) {
+        toast.success("Cancelled", {
+          id: toastId,
+        });
+        refetch();
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -52,7 +53,7 @@ export default function OrderCancelModal({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-center justify-center min-h-full text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -67,13 +68,13 @@ export default function OrderCancelModal({
 
                 <Dialog.Title
                   as="h3"
-                  className=" mb-1 font-normal leading-6 text-gray-900"
+                  className="mb-1 font-normal leading-6 text-gray-900 "
                 >
                   Why Are You Canceling?
                 </Dialog.Title>
                 <hr />
 
-                <div className="mt-2 w-full">
+                <div className="w-full mt-2">
                   <form onSubmit={handleCancel}>
                     <select
                       onChange={(e) =>
@@ -83,7 +84,7 @@ export default function OrderCancelModal({
                         })
                       }
                       defaultValue={"choose_your_reason"}
-                      className="border p-2 w-full focus:outline-none rounded-lg border-gray-300 focus:border-primary/70 transition duration-300 ease-in-out text-sm"
+                      className="w-full p-2 text-sm transition duration-300 ease-in-out border border-gray-300 rounded-lg focus:outline-none focus:border-primary/70"
                     >
                       <option value="choose_your_reason" disabled>
                         Choose Your Reason
@@ -108,7 +109,7 @@ export default function OrderCancelModal({
                     </select>
                     <button
                       type="submit"
-                      className="w-full mt-20 bg-primary p-2 rounded-lg text-white font-semibold disabled:bg-gray-400"
+                      className="w-full p-2 mt-20 font-semibold text-white rounded-lg bg-primary disabled:bg-gray-400"
                       disabled={!cancelReason?.reason}
                     >
                       Confirm

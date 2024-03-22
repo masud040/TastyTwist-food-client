@@ -6,9 +6,13 @@ import CloseModal from "../../Button/CloseModal";
 export default function LogoutModal({ isOpen, closeModal }) {
   const { logOut } = useAuth();
   const handleLogout = async () => {
-    await logOut();
-    toast.success("Logout Successfully");
-    closeModal();
+    try {
+      await logOut();
+      toast.success("Logout Successfully");
+      closeModal();
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -26,7 +30,7 @@ export default function LogoutModal({ isOpen, closeModal }) {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-center justify-center min-h-full text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -40,16 +44,16 @@ export default function LogoutModal({ isOpen, closeModal }) {
                 <CloseModal onClose={closeModal} />
                 <Dialog.Title
                   as="h3"
-                  className=" mb-1 font-semibold leading-6 text-gray-900 text-lg"
+                  className="mb-1 text-lg font-semibold leading-6 text-gray-900 "
                 >
                   Logging out?
                 </Dialog.Title>
                 <hr />
-                <div className="mt-2 w-full">
-                  <p className="text-sm mt-4 text-dark-gray">
+                <div className="w-full mt-2">
+                  <p className="mt-4 text-sm text-dark-gray">
                     Thanks for stopping by. See you again soon!
                   </p>
-                  <div className="flex mt-6 justify-between items-center">
+                  <div className="flex items-center justify-between mt-6">
                     <button
                       onClick={closeModal}
                       className="p-2 px-5 border border-primary rounded-lg hover:bg-primary/[7%] hover:border-transparent transition duration-500 ease-in-out text-primary"
@@ -58,7 +62,7 @@ export default function LogoutModal({ isOpen, closeModal }) {
                     </button>
                     <button
                       onClick={handleLogout}
-                      className="p-2 px-5 bg-primary rounded-lg text-white hover:scale-105 transition duration-500 "
+                      className="p-2 px-5 text-white transition duration-500 rounded-lg bg-primary hover:scale-105 "
                     >
                       Logout
                     </button>

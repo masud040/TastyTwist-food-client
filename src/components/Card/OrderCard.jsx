@@ -27,21 +27,19 @@ const OrderCard = ({ item, estimatedDate, status, id }) => {
       sellerEmail,
     };
     setShowGreeting(true);
-    const { data } = await axiosSecure.post(`/feedback/${id}`, feedbackData);
-    if (data.insertedId) {
-      setTimeout(() => {
-        refetch();
-        closeModal();
-      }, 2000);
-    }
+    await axiosSecure.post(`/feedback/${id}`, feedbackData);
   };
   async function openModal() {
-    const { confirm } = await comfirmAction(
-      "Are you sure want to cancel this order?",
-      "Cancel"
-    );
-    if (confirm) {
-      setIsOpen(true);
+    try {
+      const { confirm } = await comfirmAction(
+        "Are you sure want to cancel this order?",
+        "Cancel"
+      );
+      if (confirm) {
+        setIsOpen(true);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 

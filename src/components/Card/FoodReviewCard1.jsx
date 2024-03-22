@@ -10,19 +10,23 @@ export default function FoodReviewCard1({ review, refetch }) {
   const axiosSecure = useAxiosSecure();
 
   async function deleteFeedback(id) {
-    const { confirm } = await comfirmAction(
-      "Are you sure want to delete this feedback?",
-      "Delete"
-    );
-    if (confirm) {
-      const toastId = toast.loading("Deleting...");
-      const { data } = await axiosSecure.delete(`/delete-feedback/${id}`);
-      if (data.deletedCount) {
-        toast.success("Deleted", {
-          id: toastId,
-        });
-        refetch();
+    try {
+      const { confirm } = await comfirmAction(
+        "Are you sure want to delete this feedback?",
+        "Delete"
+      );
+      if (confirm) {
+        const toastId = toast.loading("Deleting...");
+        const { data } = await axiosSecure.delete(`/delete-feedback/${id}`);
+        if (data.deletedCount) {
+          toast.success("Deleted", {
+            id: toastId,
+          });
+          refetch();
+        }
       }
+    } catch (error) {
+      console.log(error.message);
     }
   }
 

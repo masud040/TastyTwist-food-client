@@ -70,32 +70,36 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
     });
   };
   const handleAddAddress = async (data) => {
-    const toastId = toast.loading("Address Adding...");
-    const address = {
-      name: data.fullName,
-      email: user?.email,
-      address: data.address,
-      mobile: data.mobile,
-      landmark: data?.landmark || "N/A",
-      division: data.division,
-      place: placeRef.current?.checked ? "Office" : "Home",
-      city: data.city,
-      area: data.area,
-    };
-    const { data: details } = await axiosSecure.post("/address", address);
-    if (details.insertedId) {
-      toast.success("Address added successfully", {
-        id: toastId,
-      });
-      closeModal(false);
-      refetch();
-      navigate(state && state, { replace: true });
-    }
-    setDivisionName("default");
-    setCityName("default");
-    setAreaName("default");
+    try {
+      const toastId = toast.loading("Address Adding...");
+      const address = {
+        name: data.fullName,
+        email: user?.email,
+        address: data.address,
+        mobile: data.mobile,
+        landmark: data?.landmark || "N/A",
+        division: data.division,
+        place: placeRef.current?.checked ? "Office" : "Home",
+        city: data.city,
+        area: data.area,
+      };
+      const { data: details } = await axiosSecure.post("/address", address);
+      if (details.insertedId) {
+        toast.success("Address added successfully", {
+          id: toastId,
+        });
+        closeModal(false);
+        refetch();
+        navigate(state && state, { replace: true });
+      }
+      setDivisionName("default");
+      setCityName("default");
+      setAreaName("default");
 
-    reset();
+      reset();
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -113,7 +117,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex items-center justify-center min-h-full p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -123,11 +127,11 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative">
+              <Dialog.Panel className="relative w-full max-w-3xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <CloseModal onClose={closeModal} />
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium text-center leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-center text-gray-900"
                 >
                   Add Address
                 </Dialog.Title>
@@ -136,9 +140,9 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                     onSubmit={handleSubmit(handleAddAddress)}
                     className="space-y-5"
                   >
-                    <div className="md:flex justify-between gap-8 items-center space-y-6 md:space-y-0">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Full Name</label>
+                    <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0">
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">Full Name</label>
                         <input
                           placeholder="Input full Name"
                           {...register("fullName", { required: true })}
@@ -148,13 +152,13 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         />
 
                         {errors.firstName && (
-                          <p className="text-primary text-xs absolute">
+                          <p className="absolute text-xs text-primary">
                             You can not leave this empty.
                           </p>
                         )}
                       </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Address</label>
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">Address</label>
                         <input
                           placeholder="House no. / building / street / area"
                           {...register("address", { required: true })}
@@ -164,15 +168,15 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         />
 
                         {errors.address && (
-                          <p className="text-primary text-xs absolute">
+                          <p className="absolute text-xs text-primary">
                             You can not leave this empty.
                           </p>
                         )}
                       </div>
                     </div>
-                    <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
+                    <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0 ">
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">
                           Mobile Number
                         </label>
                         <input
@@ -185,13 +189,13 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         />
 
                         {errors.mobileNumber && (
-                          <p className="text-primary text-xs absolute">
+                          <p className="absolute text-xs text-primary">
                             You can not leave this empty.
                           </p>
                         )}
                       </div>
                       <div className="flex-1 ">
-                        <label className="text-xs mb-1 block">
+                        <label className="block mb-1 text-xs">
                           Landmark(Optional)
                         </label>
                         <input
@@ -201,12 +205,12 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         />
                       </div>
                     </div>
-                    <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Province</label>
+                    <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0 ">
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">Province</label>
                         <select
                           {...register("division", { required: true })}
-                          className="input bg-gray-200"
+                          className="bg-gray-200 input"
                           defaultValue="default"
                           onChange={handleDivision}
                         >
@@ -224,27 +228,27 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                         </select>
 
                         {errors.division && (
-                          <p className="text-primary text-xs absolute">
+                          <p className="absolute text-xs text-primary">
                             You can not leave this empty.
                           </p>
                         )}
                       </div>
                       <div className="flex-1">
-                        <label className="text-xs mb-1 block">
+                        <label className="block mb-1 text-xs">
                           Select a label for effective delivery
                         </label>
                         <ToggleBtn placeRef={placeRef} />
                       </div>
                     </div>
-                    <div className="md:flex space-y-6 md:space-y-0 justify-between gap-8 items-center ">
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">
+                    <div className="items-center justify-between gap-8 space-y-6 md:flex md:space-y-0 ">
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">
                           Please choose our city
                         </label>
                         <select
                           disabled={!divisionName || divisionName === "default"}
                           {...register("city", { required: true })}
-                          className="input bg-gray-200 disabled:cursor-not-allowed"
+                          className="bg-gray-200 input disabled:cursor-not-allowed"
                           value={cityName || "default"}
                           onChange={handleAddCity}
                         >
@@ -258,12 +262,12 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           ))}
                         </select>
                       </div>
-                      <div className="flex-1 relative">
-                        <label className="text-xs mb-1 block">Area</label>
+                      <div className="relative flex-1">
+                        <label className="block mb-1 text-xs">Area</label>
                         <select
                           disabled={!cityName || cityName === "default"}
                           {...register("area", { required: true })}
-                          className="input bg-gray-200 disabled:cursor-not-allowed"
+                          className="bg-gray-200 input disabled:cursor-not-allowed"
                           value={areaName || "default"}
                           onChange={handleAddArea}
                         >
