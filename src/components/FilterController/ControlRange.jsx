@@ -12,7 +12,8 @@ export default function ControlRange({ email, order }) {
   const [params] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const category = params?.get("category");
-  const { dispatch } = useFilter();
+  const { state, dispatch } = useFilter();
+  console.log(state);
 
   const fetchFilteredData = async (email, order, minPrice, maxPrice) => {
     try {
@@ -26,6 +27,7 @@ export default function ControlRange({ email, order }) {
         dispatch({ type: actions.food.DATA_FETCHED, data: response.data });
       }
     } catch (error) {
+      dispatch({ type: actions.food.DATA_FETCHED, error: error.message });
       console.log(error);
     }
   };
