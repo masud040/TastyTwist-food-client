@@ -1,6 +1,5 @@
-import { useParams } from "react-router-dom";
-
 import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router-dom";
 import Categories from "../../components/RestaurantMenu/Categories/Categories";
 import Menu from "../../components/RestaurantMenu/Menu/Menu";
 import RestaurantDetails from "../../components/RestaurantMenu/RestaurantDetails/RestaurantDetails";
@@ -21,8 +20,8 @@ export default function RestaurantMenu() {
         <RestaurantDetails restaurantData={restaurant} loading={isLoading} />
 
         <FilterItemProvider>
-          <Categories email={email} />
-          <Menu email={email} />
+          <Categories />
+          <Menu />
         </FilterItemProvider>
       </div>
     </>

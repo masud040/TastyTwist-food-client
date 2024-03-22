@@ -2,11 +2,12 @@ import queryString from "query-string";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { TbAdjustmentsSearch } from "react-icons/tb";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import categories from "../../../data/Category.json";
 import InputModal from "../../Modal/InputModal";
 import FilterSidebar from "../../Sidebar/FilterSidebar";
-const Categories = ({ email }) => {
+const Categories = () => {
+  const { email } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [showFilterBar, setShowFilterBar] = useState(false);
   const [params] = useSearchParams();
@@ -30,19 +31,16 @@ const Categories = ({ email }) => {
 
   return (
     <>
-      <div
-        className="flex items-center mt-8 bg-gray-50 rounded-xl
-   text-dark-gray px-4 overflow-x-auto "
-      >
+      <div className="flex items-center px-4 mt-8 overflow-x-auto bg-gray-50 rounded-xl text-dark-gray ">
         <button
           onClick={() => setIsOpen(true)}
-          className="text-lg hover:bg-pink-50 rounded-lg text-center  transition-all hidden md:flex delay-200 px-2 py-4"
+          className="hidden px-2 py-4 text-lg text-center transition-all delay-200 rounded-lg hover:bg-pink-50 md:flex"
         >
           <FaSearch />
         </button>
         <button
           onClick={() => setShowFilterBar((s) => !s)}
-          className="text-lg  md:hidden hover:bg-pink-50 rounded-lg text-center  transition-all delay-200 px-2 py-4"
+          className="px-2 py-4 text-lg text-center transition-all delay-200 rounded-lg md:hidden hover:bg-pink-50"
         >
           <TbAdjustmentsSearch />
         </button>
@@ -67,7 +65,7 @@ const Categories = ({ email }) => {
         </div>
       </div>
       <InputModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <FilterSidebar isShow={showFilterBar} email={email} />
+      <FilterSidebar isShow={showFilterBar} />
     </>
   );
 };

@@ -4,19 +4,29 @@ import "react-range-slider-input/dist/style.css";
 
 import { useSearchParams } from "react-router-dom";
 import { FilterContext } from "../../context";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useDebounce from "../../hooks/useDebounce";
 import "./rangeStyle.css";
 export default function ControlRange({ email, order }) {
   const [params] = useSearchParams();
+  const axiosSecure = useAxiosSecure();
   const category = params?.get("category");
-  const { filteredMenu, fetchFilteredData } = useContext(FilterContext);
-  console.log(filteredMenu);
+  const { state, actions } = useContext(FilterContext);
+  const fetchFilteredData = async (email, order, minPrice, maxPrice) => {
+    const { data } = await axiosSecure.get(
+      `/menu/${email}?category=${
+        category ? category : "popular"
+      }&&order=${order}&&minPrice=${minPrice}&&maxPrice=${maxPrice}`
+    );
+    console.log(data);
+  };
+
   const [priceRange, setPriceRange] = useState({
     min: 60,
     max: 500,
   });
   const doSearch = useDebounce((minPrice, maxPrice) => {
-    fetchFilteredData(email, category, order, minPrice, maxPrice);
+    fetchFilteredData(email, order, minPrice, maxPrice);
   }, 1000);
 
   function handleChange(e) {
@@ -28,8 +38,8 @@ export default function ControlRange({ email, order }) {
   }
   return (
     <div>
-      <p className="text-sm mb-1  font-bold">Price range</p>
-      <div className="flex items-center box gap-1 text-sm py-2 text-indigo-500/90 font-semibold rounded-md">
+      <p className="mb-1 text-sm font-bold">Price range</p>
+      <div className="flex items-center gap-1 py-2 text-sm font-semibold rounded-md box text-indigo-500/90">
         <p className="w-10 text-center">{priceRange?.min}</p>
         <RangeSlider
           onInput={handleChange}

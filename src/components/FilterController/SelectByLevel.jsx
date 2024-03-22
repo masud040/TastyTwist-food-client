@@ -6,18 +6,18 @@ const options = [
   { value: "asc", label: "Low To High" },
   { value: "desc", label: "High to Low" },
 ];
-export default function SelectByLevel({ email, onSelect }) {
+export default function SelectByLevel({ email }) {
   const { fetchFilteredData } = useContext(FilterContext);
   const [params] = useSearchParams();
   const category = params?.get("category");
   function handleChange(e) {
+    console.log(e);
     fetchFilteredData(email, category, e.value);
-    onSelect(e);
   }
 
   return (
     <div>
-      <p className="text-sm mb-1 font-bold">Price</p>
+      <p className="mb-1 text-sm font-bold">Price</p>
       <Select onChange={handleChange} options={options} />
     </div>
   );
