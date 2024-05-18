@@ -38,7 +38,10 @@ const CartSidebar = ({ showCart, setShowCart }) => {
       ]);
     }
   };
-
+  function handleProceed() {
+    setSelectedItems([]);
+    setShowCart(!showCart);
+  }
   const ordersItemId = selectedItems?.map((item) => item._id)?.join(",");
 
   return (
@@ -50,12 +53,12 @@ const CartSidebar = ({ showCart, setShowCart }) => {
       >
         <div>
           <div>
-            <div className="w-full px-4 py-2 shadow-xl rounded-lg justify-center items-center text-primary  text-center text-xl font-semibold bg-rose-100 mx-auto">
+            <div className="items-center justify-center w-full px-4 py-2 mx-auto text-xl font-semibold text-center rounded-lg shadow-xl text-primary bg-rose-100">
               Cart Items
             </div>
           </div>
 
-          <div className="flex flex-col justify-between flex-1 mt-5 gap-2 px-1">
+          <div className="flex flex-col justify-between flex-1 gap-2 px-1 mt-5">
             {carts && carts?.length > 0 ? (
               carts?.map((order) => (
                 <CartCard
@@ -68,7 +71,7 @@ const CartSidebar = ({ showCart, setShowCart }) => {
                 />
               ))
             ) : (
-              <h2 className="text-center mt-6 font-bold text-xl text-gray-900">
+              <h2 className="mt-6 text-xl font-bold text-center text-gray-900">
                 No Cart Item
               </h2>
             )}
@@ -96,8 +99,8 @@ const CartSidebar = ({ showCart, setShowCart }) => {
           >
             <button
               disabled={selectedItems?.length > 0 ? false : true}
-              onClick={() => setShowCart(!showCart)}
-              className="w-full px-4 py-2 mt-5 text-white rounded-md font-medium uppercase  transition-colors duration-300 text-center transform bg-primary  disabled:bg-gray-400"
+              onClick={handleProceed}
+              className="w-full px-4 py-2 mt-5 font-medium text-center text-white uppercase transition-colors duration-300 transform rounded-md bg-primary disabled:bg-gray-400"
             >
               proceed to checkout ({selectedItems?.length})
             </button>
