@@ -53,13 +53,21 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
       if (currentUser) {
-        axios.post("http://localhost:3000/jwt", loggedUser, {
-          withCredentials: true,
-        });
+        axios.post(
+          "https://tasty-twist-food-server.vercel.app/jwt",
+          loggedUser,
+          {
+            withCredentials: true,
+          }
+        );
       } else {
-        axios.post("http://localhost:3000/logout", loggedUser, {
-          withCredentials: true,
-        });
+        axios.post(
+          "https://tasty-twist-food-server.vercel.app/logout",
+          loggedUser,
+          {
+            withCredentials: true,
+          }
+        );
       }
     });
     return () => unSubscribe();

@@ -11,7 +11,6 @@ export default function SelectByLevel({ email }) {
   const [params] = useSearchParams();
   const category = params?.get("category");
   function handleChange(e) {
-    console.log(e);
     fetchFilteredData(email, category, e.value);
   }
 

@@ -14,22 +14,21 @@ const CouponTable = ({ coupon, onOpen }) => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log("Hekki");
       }
     });
   };
   return (
     <tr className="text-sm text-center border-b border-gray-200">
-      <td className="px-3  py-5  ">
+      <td className="px-3 py-5 ">
         <p className="text-gray-900 whitespace-no-wrap">{code}</p>
       </td>
-      <td className="px-3  py-5 ">
+      <td className="px-3 py-5 ">
         <p className="text-gray-900 whitespace-no-wrap">{discountPercentage}</p>
       </td>
-      <td className="px-3  py-5 ">
+      <td className="px-3 py-5 ">
         <p className="text-gray-900 whitespace-no-wrap">{expirationDate}</p>
       </td>
-      <td className="px-3 flex justify-center text-black  gap-4 py-5 text-xs  ">
+      <td className="flex justify-center gap-4 px-3 py-5 text-xs text-black ">
         <button
           onClick={() => onOpen(coupon)}
           className="bg-[#3498db] px-2 py-[2px] rounded-xl"

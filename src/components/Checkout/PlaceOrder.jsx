@@ -89,6 +89,12 @@ const PlaceOrder = ({ total, cartItems }) => {
               timer: 1500,
             });
             refetch();
+            await axiosSecure.post("/send-mail", {
+              user,
+              payment,
+              tackingUrl: `/confirm-order/${orderId}?email=${user?.email}&price=${total}`,
+            });
+
             navigate(
               `/confirm-order/${orderId}?email=${user?.email}&price=${total}`
             );

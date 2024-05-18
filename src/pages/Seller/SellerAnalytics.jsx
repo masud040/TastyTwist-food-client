@@ -33,11 +33,11 @@ export default function SellerAnalytics() {
   }, []);
   return (
     <div>
-      <h2 className="text-3xl text-indigo-500 font-semibold mb-6 ">
+      <h2 className="mb-6 text-3xl font-semibold text-indigo-500 ">
         Hi, Welcome {(user && user.displayName) || "Back! "} 😍
       </h2>
       <StatsCard stats={stats} />
-      <div className="flex flex-col justify-between items-center lg:flex-row lg:mt-7 space-y-8">
+      <div className="flex flex-col items-center justify-between space-y-8 lg:flex-row lg:mt-7">
         <StatsBarChart
           chartInfo={sellerStats}
           chartWidth={barCharInfo?.width}

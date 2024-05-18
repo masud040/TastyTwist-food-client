@@ -32,7 +32,6 @@ export default function ApprovedTableRow({ data }) {
     setSelectedEmail("");
   };
   const handleConfirm = async (details) => {
-    console.log(details);
     try {
       const { data } = await axiosSecure.post(
         `/restaurants/${details.email}`,

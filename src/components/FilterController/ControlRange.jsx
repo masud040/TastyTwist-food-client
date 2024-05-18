@@ -13,7 +13,6 @@ export default function ControlRange({ email, order }) {
   const axiosSecure = useAxiosSecure();
   const category = params?.get("category");
   const { state, dispatch } = useFilter();
-  console.log(state);
 
   const fetchFilteredData = async (email, order, minPrice, maxPrice) => {
     try {
