@@ -44,7 +44,7 @@ export default function FoodDetailsModal({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-center justify-center min-h-full text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -60,18 +60,18 @@ export default function FoodDetailsModal({
 
                 <div className="w-full text-dark-gray">
                   <img src={image_url} className="w-full h-52" alt="" />
-                  <div className="p-3">
-                    <h2 className="text-2xl font-semibold mb-1">{name}</h2>
+                  <div className="p-5">
+                    <h2 className="mb-1 text-2xl font-semibold">{name}</h2>
                     <p>{description}</p>
                     <h3 className="mt-3 mb-2 text-xl font-semibold">
                       Tk {price}
                     </h3>
                     <hr className="border-t-2 border-primary/70" />
-                    <div className="mt-3 text-sm my-6">
-                      <div className="mb-4 flex justify-between items-center">
+                    <div className="my-6 mt-3 text-sm">
+                      <div className="flex items-center justify-between mb-4">
                         <p className="font-semibold ">Reviews</p>
                         <button
-                          className="bg-primary/90 flex items-center text-xs text-white/90 px-2 rounded-md transition-all transform "
+                          className="flex items-center p-2 text-xs transition-all transform rounded-md bg-primary/90 text-white/90"
                           onClick={() => setShowReviews((s) => !s)}
                         >
                           <p>{showReviews ? "hide reviews" : "show reviews"}</p>
@@ -93,7 +93,7 @@ export default function FoodDetailsModal({
                       ) : (
                         <>
                           {showReviews && (
-                            <p className="text-center text-sm">
+                            <p className="text-sm text-center">
                               no review for this product
                             </p>
                           )}
@@ -109,7 +109,7 @@ export default function FoodDetailsModal({
                       />
                       <button
                         onClick={onAddToCart}
-                        className="p-2 w-full bg-primary rounded-lg text-white/90 hover:scale-105 transition duration-500 "
+                        className="w-full p-2 transition duration-500 rounded-lg bg-primary text-white/90 hover:scale-105 "
                       >
                         Add To Cart
                       </button>

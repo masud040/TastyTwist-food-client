@@ -71,7 +71,7 @@ export default function ManageMenuModal({ isOpen, closeModal, menuToUpdate }) {
             icon: "success",
             title: "Edit Successfully",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           });
           refetch();
           setLoading(false);

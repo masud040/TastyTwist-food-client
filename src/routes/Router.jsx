@@ -45,11 +45,7 @@ const router = createBrowserRouter([
 
       {
         path: "restaurant-menu/:email",
-        element: (
-          <PrivateRoute>
-            <RestaurantMenu />
-          </PrivateRoute>
-        ),
+        element: <RestaurantMenu />,
       },
       {
         path: "check-out",

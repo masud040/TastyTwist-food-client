@@ -86,7 +86,7 @@ const PlaceOrder = ({ total, cartItems }) => {
               icon: "success",
               title: "Your payment is successfully & order has been placed",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 1000,
             });
             refetch();
             await axiosSecure.post("/send-mail", {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
@@ -15,13 +16,21 @@ const MenuCard = ({ item }) => {
   const [, refetch] = useGetCartItem();
   const [, favRefetch] = useGetFavoriteItem();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { _id, name, email, price, description, image_url } = item || {};
 
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
   const addToCart = async (e) => {
     try {
       e.stopPropagation();
+
+      if (!user?.email) {
+        navigate("/signin", { state: { from: { pathname } } });
+        return;
+      }
       const orderInfo = {
         menuId: _id,
         email: user?.email,
@@ -43,7 +52,7 @@ const MenuCard = ({ item }) => {
           icon: "success",
           title: `${name} is added`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
       } else {
         toast(data?.message, {
@@ -57,6 +66,10 @@ const MenuCard = ({ item }) => {
   const addToFavorite = async (e) => {
     try {
       e.stopPropagation();
+      if (!user?.email) {
+        navigate("/signin", { state: { from: { pathname } } });
+        return;
+      }
       const orderInfo = {
         menuId: _id,
         email: user?.email,
@@ -67,6 +80,7 @@ const MenuCard = ({ item }) => {
         count: 1,
       };
       const { data } = await axiosSecure.post("/carts-favorite", orderInfo);
+
       if (data.insertedId) {
         favRefetch();
         Swal.fire({
@@ -74,7 +88,11 @@ const MenuCard = ({ item }) => {
           icon: "success",
           title: `${name} is added`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
+        });
+      } else {
+        toast(data?.message, {
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -102,7 +120,7 @@ const MenuCard = ({ item }) => {
       )}
       <div
         onClick={() => handleOpenModal(item)}
-        className="flex items-center justify-between gap-3 p-2 border border-gray-300 rounded-lg text-dark-gray group "
+        className="flex items-center justify-between gap-3 p-3 border border-gray-300 rounded-lg text-dark-gray group "
       >
         <MenuCardBody name={name} description={description} price={price} />
         <div className="relative">

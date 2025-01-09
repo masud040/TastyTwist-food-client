@@ -45,14 +45,14 @@ const SignIn = () => {
       </Helmet>
 
       <Container>
-        <div className="flex flex-col-reverse lg:flex-row justify-between items-center">
+        <div className="flex flex-col-reverse items-center justify-between lg:flex-row">
           <div className="flex-1">
             <Lottie animationData={LoginAnimation} loop={false} />
           </div>
-          <div className="flex-1 flex justify-center items-center min-h-screen">
-            <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100  border border-gray-300 text-gray-900">
+          <div className="flex items-center justify-center flex-1 min-h-screen">
+            <div className="flex flex-col max-w-md p-6 text-gray-900 bg-gray-100 border border-gray-300 rounded-md sm:p-10">
               <div className="mb-8 text-center">
-                <h1 className="my-3 text-4xl  font-bold">Log In</h1>
+                <h1 className="my-3 text-4xl font-bold">Log In</h1>
                 <p className="text-sm ">Sign in to access your account</p>
               </div>
               <form
@@ -69,7 +69,7 @@ const SignIn = () => {
                       name="email"
                       required
                       placeholder="Enter Your Email Here"
-                      className="w-full px-3 py-2 border rounded-md  focus:outline-none focus:border-pink-500  focus:transition-colors focus:duration-500 bg-gray-300 text-gray-900"
+                      className="w-full px-3 py-2 text-gray-900 bg-gray-300 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500"
                       data-temp-mail-org="0"
                     />
                   </div>
@@ -85,7 +85,7 @@ const SignIn = () => {
                           autoComplete="current-password"
                           required
                           placeholder="*******"
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500 bg-gray-300 text-gray-900"
+                          className="w-full px-3 py-2 text-gray-900 bg-gray-300 border rounded-md focus:outline-none focus:border-pink-500 focus:transition-colors focus:duration-500"
                           onChange={(e) => setPass(e.target.value)}
                         />
                         {pass && (
@@ -101,7 +101,7 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <button className=" justify-center items-center space-x-2  bg-pink-400 text-gray-200 font-semibold p-2 border-rounded cursor-pointer flex h-full rounded-md w-full back hover:shadow-xl">
+                <button className="flex items-center justify-center w-full h-full p-2 space-x-2 font-semibold text-gray-200 bg-pink-400 rounded-md cursor-pointer border-rounded back hover:shadow-xl">
                   {loading ? (
                     <TbFidgetSpinner className="text-3xl text-indigo-800 animate-spin" />
                   ) : (
@@ -110,12 +110,12 @@ const SignIn = () => {
                 </button>
               </form>
               <div className="space-y-1">
-                <button className="text-xs hover:underline hover:text-rose-500 text-blue-800">
+                <button className="text-xs text-blue-800 hover:underline hover:text-rose-500">
                   Forgot password?
                 </button>
               </div>
               <div className="flex items-center pt-4 space-x-1">
-                <div className="flex-1 h-px  bg-gray-700 sm:w-16 "></div>
+                <div className="flex-1 h-px bg-gray-700 sm:w-16 "></div>
                 <p className="px-3 text-sm ">Login with social accounts</p>{" "}
                 <div className="flex-1 h-px bg-gray-700 sm:w-16"></div>
               </div>
@@ -125,7 +125,7 @@ const SignIn = () => {
                 Don&apos;t have an account yet?{" "}
                 <Link
                   to="/signup"
-                  className="hover:underline hover:text-rose-500 text-indigo-500 font-semibold"
+                  className="font-semibold text-indigo-500 hover:underline hover:text-rose-500"
                 >
                   Sign up
                 </Link>
