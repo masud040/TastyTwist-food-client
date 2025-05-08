@@ -6,8 +6,9 @@ const useGetAllDivision = () => {
     queryKey: ["divisions"],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_bd_url}/divisions`
+        `${import.meta.env.VITE_bd_url}/division`
       );
+
       return data?.data;
     },
   });

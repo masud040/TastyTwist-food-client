@@ -20,9 +20,11 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
     reset,
   } = useForm();
   const [divisions] = useGetAllDivision();
+  const [divisionId, setDivisionId] = useState("");
   const [divisionName, setDivisionName] = useState("");
   const placeRef = useRef();
-  const [cityName, setCityName] = useState("");
+  const [districtId, setDistrictId] = useState("");
+  const [districtName, setDistrictName] = useState("");
   const [areaName, setAreaName] = useState("");
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -34,28 +36,52 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
   });
 
   const isDisable = Object.values(checkData).every((value) => value);
-
-  const { data: city } = useQuery({
-    enabled: !loading && !!divisionName,
-    queryKey: ["city", divisionName],
+  // get cites from selected division
+  const { data: cities } = useQuery({
+    enabled: !loading && !!divisionId,
+    queryKey: ["districts", divisionId],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_bd_url}/division/${divisionName}`
+        `${import.meta.env.VITE_bd_url}/district/${divisionId}`
       );
       return data?.data;
     },
   });
-  const area = city?.find((data) => data.district === cityName)?.upazilla;
+  // get all upazilas from the selected district
+  const { data: upazilas } = useQuery({
+    enabled: !loading && !!districtId,
+    queryKey: ["upazilas", districtId],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_bd_url}/upazilla/${districtId}`
+      );
+      return data?.data;
+    },
+  });
 
   const handleDivision = (e) => {
-    setDivisionName(e.target.value);
-    setCityName("default");
-    setAreaName("default");
+    if (e.target.value) {
+      const divisionId = divisions.find(
+        (division) => division?.name === e.target.value
+      )?.id;
+
+      setDivisionId(divisionId);
+      setDivisionName(e.target.value);
+      setDistrictName("default");
+      setAreaName("default");
+    }
   };
 
   const handleAddCity = (e) => {
-    setCityName(e.target.value);
-    setAreaName("default");
+    if (e.target.value) {
+      const districtId = cities?.find(
+        (city) => city.name === e.target.value
+      )?.id;
+
+      setDistrictId(districtId);
+      setDistrictName(e.target.value);
+      setAreaName("default");
+    }
   };
   const handleAddArea = (e) => {
     setAreaName(e.target.value);
@@ -83,6 +109,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
         city: data.city,
         area: data.area,
       };
+
       const { data: details } = await axiosSecure.post("/address", address);
       if (details.insertedId) {
         toast.success("Address added successfully", {
@@ -92,8 +119,8 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
         refetch();
         navigate(state && state, { replace: true });
       }
-      setDivisionName("default");
-      setCityName("default");
+      setDivisionId("default");
+      setDistrictId("default");
       setAreaName("default");
 
       reset();
@@ -144,7 +171,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                       <div className="relative flex-1">
                         <label className="block mb-1 text-xs">Full Name</label>
                         <input
-                          placeholder="Input full Name"
+                          placeholder="Input Full Name"
                           {...register("fullName", { required: true })}
                           className="input"
                           name="fullName"
@@ -218,11 +245,8 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                             Please choose your province
                           </option>
                           {divisions?.map((division) => (
-                            <option
-                              key={division._id}
-                              value={division.division}
-                            >
-                              {division.division}
+                            <option key={division.id} value={division.name}>
+                              {division.name}
                             </option>
                           ))}
                         </select>
@@ -249,15 +273,15 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           disabled={!divisionName || divisionName === "default"}
                           {...register("city", { required: true })}
                           className="bg-gray-200 input disabled:cursor-not-allowed"
-                          value={cityName || "default"}
+                          value={districtName || "default"}
                           onChange={handleAddCity}
                         >
                           <option disabled className="hidden" value="default">
                             Please choose your city
                           </option>
-                          {city?.map((item) => (
-                            <option key={item._id} value={item.district}>
-                              {item.district}
+                          {cities?.map((item) => (
+                            <option key={item.id} value={item.name}>
+                              {item.name}
                             </option>
                           ))}
                         </select>
@@ -265,7 +289,7 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                       <div className="relative flex-1">
                         <label className="block mb-1 text-xs">Area</label>
                         <select
-                          disabled={!cityName || cityName === "default"}
+                          disabled={!districtName || districtName === "default"}
                           {...register("area", { required: true })}
                           className="bg-gray-200 input disabled:cursor-not-allowed"
                           value={areaName || "default"}
@@ -274,9 +298,9 @@ const AddressModal = ({ isOpen, closeModal, refetch }) => {
                           <option disabled className="hidden" value="default">
                             Please choose your area
                           </option>
-                          {area?.map((data) => (
-                            <option key={data} value={data}>
-                              {data}
+                          {upazilas?.map((upazila) => (
+                            <option key={upazila.id} value={upazila.name}>
+                              {upazila.name}
                             </option>
                           ))}
                         </select>
