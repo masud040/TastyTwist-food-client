@@ -65,7 +65,6 @@ const EditAddressModal = ({ isOpen, closeEditModal, closeModal }) => {
       return data?.data;
     },
   });
-
   const selectedPlace = place === "Home" ? false : true;
 
   // fill the form by exiting data
