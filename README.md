@@ -74,4 +74,4 @@ All data (users, products, orders, etc.) are stored in <strong>MongoDB</strong>.
 - Email: <code>rifat@gmail.com</code> / Password: <code>asdfgh</code>  
 
 ### 👨‍💼 Admin Account
-- Email: <code>abir@gmai.com</code> / Password: <code>asdfgh</code>
+- Email: <code>abir@gmail.com</code> / Password: <code>asdfgh</code>
